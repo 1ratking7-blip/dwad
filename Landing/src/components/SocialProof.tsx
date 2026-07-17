@@ -11,6 +11,7 @@ const wins = [
 
 export default function SocialProof() {
   const [currentWin, setCurrentWin] = useState(0);
+  const [shouldHide, setShouldHide] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -19,8 +20,30 @@ export default function SocialProof() {
     return () => clearInterval(timer);
   }, []);
 
+  // Скрываем плавающий тост рядом с Hero и футером — в этих зонах он перекрывает
+  // основной CTA и копирайт/ссылки (см. id="hero" в Hero.tsx, id="site-footer" в Footer.tsx).
+  useEffect(() => {
+    const targets = ['hero', 'site-footer']
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+    if (targets.length === 0) return;
+
+    const states = new Map<Element, boolean>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => states.set(entry.target, entry.isIntersecting));
+        setShouldHide([...states.values()].some(Boolean));
+      },
+      { rootMargin: '0px 0px -10% 0px' }
+    );
+    targets.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  if (shouldHide) return null;
+
   return (
-    <div className="fixed bottom-6 left-6 z-40 hidden md:block">
+    <div className="fixed bottom-6 left-6 z-40 hidden md:block" aria-hidden="true">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentWin}
@@ -33,7 +56,7 @@ export default function SocialProof() {
             {wins[currentWin].user[0]}
           </div>
           <div>
-            <div className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-0.5">Live Win • {wins[currentWin].game}</div>
+            <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-0.5">Live Win • {wins[currentWin].game}</div>
             <div className="text-sm font-bold text-white mb-0.5">
               {wins[currentWin].user} <span className="text-[var(--color-accent)]">выиграл {wins[currentWin].amount}</span>
             </div>

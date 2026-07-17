@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, Gift } from 'lucide-react';
 import { trackEvent } from '../lib/analytics';
+import { refLinkWithSubId } from '../lib/links';
 
-const refLink = "https://bcall-loop.bcgame-bet.com/dispatch-v6?i=zhelezo&p=/login/regist&subId3=lucky_wheel";
+const refLink = refLinkWithSubId('lucky_wheel');
 
 const segments = [
   { label: '50 FS', highlight: false, weight: 10 },
@@ -123,7 +124,7 @@ export default function LuckyWheel() {
               </motion.div>
 
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-[var(--color-bg)] border-4 border-[var(--color-accent)] flex items-center justify-center z-10 shadow-[0_0_20px_color-mix(in_srgb,var(--color-accent)_40%,transparent)]">
-                <span className="text-xl">⚡</span>
+                <span className="text-xl" aria-hidden="true">⚡</span>
               </div>
             </div>
 
@@ -137,7 +138,7 @@ export default function LuckyWheel() {
                   {isSpinning ? 'КРУТИТСЯ...' : 'ВРАЩАТЬ КОЛЕСО'}
                 </button>
               ) : (
-                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center">
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center" role="status" aria-live="polite">
                   <div className="text-gray-400 text-xs uppercase tracking-widest font-bold mb-2">Твой приз</div>
                   <div className="text-2xl font-black text-[var(--color-accent)] mb-6">{result}</div>
                   <a

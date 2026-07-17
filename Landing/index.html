@@ -2,13 +2,23 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#00E676" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://www.zhelezo.space/" />
 
     <!--
       Гипотеза 2 (Analytics/HYPOTHESES.md): выбор цветовой темы (cyberpunk / web3)
       до первой отрисовки, чтобы избежать мигания. Тема фиксируется через ?theme=
       в URL (для сплита трафика по ссылкам-креативам) и сохраняется в localStorage.
+
+      ВНИМАНИЕ: CSP в public/_headers разрешает инлайновые скрипт-блоки этого файла
+      по sha256-хэшу их точного содержимого. Если меняете текст этого или любого
+      другого инлайнового скрипт-блока ниже — пересчитайте хэш в public/_headers,
+      иначе браузер молча заблокирует скрипт.
     -->
     <script>
       (function () {
@@ -29,31 +39,57 @@
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ZHELEZO Crypto Gaming" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:url" content="https://www.zhelezo.space/" />
     <meta property="og:title" content="ZHELEZO Crypto Gaming | Эксклюзивные Бонусы BC.Game" />
     <meta property="og:description" content="Зарегистрируйся сегодня через ZHELEZO, получи приветственный бонус до 360% и ежедневно крути Lucky Spin бесплатно с выигрышем до 5 BTC!" />
-    <meta property="og:image" content="https://bcall-loop.bcgame-bet.com/dispatch-v6?i=zhelezo" />
+    <meta property="og:image" content="https://www.zhelezo.space/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="ZHELEZO Crypto Gaming" />
     
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:title" content="ZHELEZO Crypto Gaming | Эксклюзивные Бонусы BC.Game" />
-    <meta property="twitter:description" content="Приветственный бонус до 360% + ежедневный Lucky Spin без депозита. Начни играть на лучшей Web3-платформе." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ZHELEZO Crypto Gaming | Эксклюзивные Бонусы BC.Game" />
+    <meta name="twitter:description" content="Приветственный бонус до 360% + ежедневный Lucky Spin без депозита. Начни играть на лучшей Web3-платформе." />
+    <meta name="twitter:image" content="https://www.zhelezo.space/og-image.png" />
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- dns-prefetch (not preconnect) for async analytics — they don't block first paint, so a full
+         preconnect here would just steal early connection budget from the font/CSS fetch. -->
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://mc.yandex.ru">
 
-    <!-- Schema.org: Organization (SEO rich snippets). FAQPage-разметка генерируется из FAQ.tsx, см. lib/faqSchema.ts -->
+    <!-- Schema.org: Organization + WebSite (SEO rich snippets). FAQPage-разметка генерируется из FAQ.tsx -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "ZHELEZO Crypto Gaming",
-        "url": "https://zhelezo.pages.dev",
+        "url": "https://www.zhelezo.space/",
+        "logo": "https://www.zhelezo.space/icon-512.png",
         "description": "Портал о крипто-гейминге и Web3 развлечениях: эксклюзивные бонусы, честные игры Provably Fair и ежедневное колесо фортуны на BC.Game."
       }
     </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "ZHELEZO Crypto Gaming",
+        "url": "https://www.zhelezo.space/"
+      }
+    </script>
 
-    <!-- dataLayer доступен всегда — события пишутся сюда независимо от того, подключены ли GA4/Metrica -->
+    <!--
+      Google Search Console: подтверждение владения доменом.
+      Вставить свой verification-код в content и раскомментировать:
+      <meta name="google-site-verification" content="ЗАМЕНИТЬ_НА_КОД" />
+    -->
+
+    <!-- dataLayer доступен всегда — события пишутся сюда независимо от того, какие системы аналитики подключены -->
     <script>
       window.dataLayer = window.dataLayer || [];
     </script>
@@ -66,6 +102,41 @@
       gtag('config', 'G-0RLZ7LGT08');
       window.gtag = gtag;
     </script>
+
+    <!--
+      Meta (Facebook/Instagram) Pixel — вставить свой Pixel ID вместо PIXEL_ID и раскомментировать:
+      <script>
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+        n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+        document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', 'PIXEL_ID');
+        fbq('track', 'PageView');
+      </script>
+    -->
+
+    <!--
+      TikTok Pixel — вставить свой Pixel ID вместо PIXEL_ID и раскомментировать:
+      <script>
+        !function (w, d, t) {
+          w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<e.length;n++)ttq.setAndDefer(e,e[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var p=document.createElement("script");p.type="text/javascript",p.async=!0,p.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(p,a)};
+          ttq.load('PIXEL_ID');
+          ttq.page();
+        }(window, document, 'ttq');
+      </script>
+    -->
+
+    <!--
+      Microsoft Clarity — вставить свой Project ID вместо CLARITY_ID и раскомментировать:
+      <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)
+        })(window, document, "clarity", "script", "CLARITY_ID");
+      </script>
+    -->
 
     <!-- Yandex.Metrika counter -->
     <script>window.YM_COUNTER_ID = 110820422;</script>

@@ -2,12 +2,13 @@
 import { Rocket, Zap, ShieldCheck, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { trackEvent } from '../lib/analytics';
+import { REF_LINK } from '../lib/links';
 
 export default function Hero() {
-  const refLink = "https://bcall-loop.bcgame-bet.com/dispatch-v6?i=zhelezo&p=/login/regist";
+  const refLink = REF_LINK;
 
   return (
-    <section className="relative pt-32 pb-20 overflow-hidden">
+    <section id="hero" className="relative pt-32 pb-20 overflow-hidden">
       {/* Background Glows */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[color-mix(in_srgb,var(--color-accent)_10%,transparent)] blur-[120px] rounded-full"></div>
@@ -49,14 +50,14 @@ export default function Hero() {
                 <ArrowRight className="w-5 h-5" />
               </a>
               
-              <div className="flex items-center space-x-4 text-gray-500 font-medium text-sm">
+              <div className="flex items-center space-x-4 text-gray-400 font-medium text-sm">
                 <div className="flex items-center space-x-1.5">
-                  <ShieldCheck className="w-5 h-5 text-gray-600" />
+                  <ShieldCheck className="w-5 h-5 text-gray-400" />
                   <span>No KYC Needed</span>
                 </div>
                 <div className="w-1 h-1 bg-gray-700 rounded-full"></div>
                 <div className="flex items-center space-x-1.5">
-                  <Rocket className="w-5 h-5 text-gray-600" />
+                  <Rocket className="w-5 h-5 text-gray-400" />
                   <span>Instant Payouts</span>
                 </div>
               </div>
@@ -77,9 +78,9 @@ export default function Hero() {
             { label: 'Рейкбек Системы', value: 'До 20%', sub: 'С каждой ставки' },
           ].map((stat, i) => (
             <div key={i} className="bg-[var(--color-card)] border border-[var(--color-border)] p-8 rounded-3xl text-center hover:border-[color-mix(in_srgb,var(--color-accent)_30%,transparent)] transition-colors group">
-              <div className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-2 group-hover:text-[var(--color-accent)] transition-colors">{stat.label}</div>
+              <div className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-2 group-hover:text-[var(--color-accent)] transition-colors">{stat.label}</div>
               <div className="text-3xl font-black text-white mb-1">{stat.value}</div>
-              <div className="text-gray-600 text-sm">{stat.sub}</div>
+              <div className="text-gray-400 text-sm">{stat.sub}</div>
             </div>
           ))}
         </motion.div>

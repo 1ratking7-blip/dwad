@@ -1,6 +1,7 @@
 
-import { ExternalLink, Terminal, BarChart3, Binary } from 'lucide-react';
+import { ExternalLink, Terminal, BarChart3, Binary, Rocket } from 'lucide-react';
 import { trackEvent } from '../lib/analytics';
+import { REF_LINK } from '../lib/links';
 
 const games = [
   {
@@ -33,10 +34,8 @@ const games = [
   }
 ];
 
-import { Rocket } from 'lucide-react';
-
 export default function Games() {
-  const refLink = "https://bcall-loop.bcgame-bet.com/dispatch-v6?i=zhelezo&p=/login/regist";
+  const refLink = REF_LINK;
 
   return (
     <section id="games" className="py-24 bg-[var(--color-bg-darker)]">
@@ -74,7 +73,7 @@ export default function Games() {
                     RTP {game.rtp}
                   </span>
                 </div>
-                <p className="text-gray-500 text-sm leading-relaxed mb-8">
+                <p className="text-gray-400 text-sm leading-relaxed mb-8">
                   {game.desc}
                 </p>
               </div>

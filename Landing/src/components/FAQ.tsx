@@ -76,17 +76,24 @@ export default function FAQ() {
             >
               <button
                 onClick={() => toggleFaq(i)}
-                className="w-full px-6 py-5 text-left flex items-center justify-between font-bold text-white group"
+                aria-expanded={openIndex === i}
+                aria-controls={`faq-answer-${i}`}
+                id={`faq-question-${i}`}
+                className="w-full px-6 py-5 text-left flex items-center justify-between font-bold text-white group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
               >
                 <span className="pr-8 group-hover:text-[var(--color-accent)] transition-colors">{faq.q}</span>
                 {openIndex === i ? (
-                  <ChevronUp className="w-5 h-5 text-[var(--color-accent)] shrink-0" />
+                  <ChevronUp className="w-5 h-5 text-[var(--color-accent)] shrink-0" aria-hidden="true" />
                 ) : (
-                  <ChevronDown className="w-5 h-5 text-gray-500 shrink-0" />
+                  <ChevronDown className="w-5 h-5 text-gray-400 shrink-0" aria-hidden="true" />
                 )}
               </button>
-              
-              <div 
+
+              <div
+                id={`faq-answer-${i}`}
+                role="region"
+                aria-labelledby={`faq-question-${i}`}
+                aria-hidden={openIndex !== i}
                 className={`px-6 transition-all duration-300 ease-in-out ${
                   openIndex === i ? 'max-h-96 pb-6 opacity-100' : 'max-h-0 opacity-0'
                 }`}

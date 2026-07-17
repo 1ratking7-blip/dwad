@@ -1,6 +1,7 @@
 
 import { UserPlus, CreditCard, PlayCircle, Trophy } from 'lucide-react';
 import { trackEvent } from '../lib/analytics';
+import { REF_LINK } from '../lib/links';
 
 const steps = [
   {
@@ -30,7 +31,7 @@ const steps = [
 ];
 
 export default function HowItWorks() {
-  const refLink = "https://bcall-loop.bcgame-bet.com/dispatch-v6?i=zhelezo&p=/login/regist";
+  const refLink = REF_LINK;
 
   return (
     <section id="how-it-works" className="py-24 bg-[var(--color-bg)] relative overflow-hidden">
@@ -52,7 +53,7 @@ export default function HowItWorks() {
                   {step.icon}
                 </div>
                 <h3 className="text-xl font-bold text-white mb-4 uppercase tracking-wider">{step.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed px-4">
+                <p className="text-gray-400 text-sm leading-relaxed px-4">
                   {step.desc}
                 </p>
               </div>
