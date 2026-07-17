@@ -2,7 +2,7 @@
 
 Этот проект представляет собой современный, высококонверсионный лендинг для продвижения партнерской программы BC.Game под брендом **ZHELEZO**.
 
-**Живой сайт:** https://zhelezo.pages.dev (Cloudflare Pages)
+**Живой сайт:** https://www.zhelezo.space (apex `zhelezo.space` редиректит на www; также доступен на https://zhelezo.pages.dev)
 **Репозиторий:** https://github.com/1ratking7-blip/dwad
 
 ## Стек технологий
@@ -37,6 +37,14 @@ npm run deploy
 ```
 Требует авторизации `wrangler` (`npx wrangler login`), уже выполнена на этой машине —
 токен хранится в `~/.wrangler/config/default.toml`.
+
+### Домен
+`www.zhelezo.space` подключён как custom domain в Cloudflare Pages (CNAME → `zhelezo.pages.dev`,
+настроен через Namecheap API). Apex `zhelezo.space` не может напрямую использовать custom domain
+Cloudflare Pages, так как DNS-зона домена не на Cloudflare (apex требует либо Cloudflare-зону,
+либо буквальную CNAME-запись, которую большинство регистраторов, включая Namecheap, не позволяют
+поставить на `@`). Поэтому apex настроен как 301-редирект (Namecheap URL Record) на
+`https://www.zhelezo.space`.
 
 ## Настройка аналитики
 GA4 (`G-0RLZ7LGT08`) и Yandex Metrica (`110820422`) подключены реальными ID в `index.html` — события уходят в обе системы.

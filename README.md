@@ -2,7 +2,7 @@
 
 Партнёрский маркетинг-проект по продвижению BC.Game под брендом **ZHELEZO**: лендинг, контент-стратегия и аналитика.
 
-**Сайт запущен:** https://zhelezo.pages.dev (Cloudflare Pages)
+**Сайт запущен:** https://www.zhelezo.space (`zhelezo.space` редиректит на www; также доступен на https://zhelezo.pages.dev)
 **Репозиторий:** https://github.com/1ratking7-blip/dwad
 
 ## Структура репозитория
@@ -21,21 +21,20 @@
 
 ## Текущий статус
 
-Лендинг задеплоен и доступен по адресу **https://zhelezo.pages.dev** (Cloudflare Pages,
-аккаунт `1ratking7@gmail.com`, проект `zhelezo`). Все 4 A/B-гипотезы из
-`Analytics/HYPOTHESES.md` реализованы в коде, аналитика (GA4 + Yandex Metrica) собирает
-данные с реальными ID. 30-дневный контент-план для Telegram/Twitter сгенерирован в
-`Texts/Generated/`.
+Лендинг задеплоен и доступен по адресу **https://www.zhelezo.space** (кастомный домен на
+Cloudflare Pages, аккаунт `1ratking7@gmail.com`, проект `zhelezo`). DNS домена управляется
+через Namecheap API (не через Cloudflare-зону — apex не поддерживает нативный CNAME у
+внешнего DNS, поэтому основной сайт живёт на `www`, а apex `zhelezo.space` настроен как
+301-редирект на `www.zhelezo.space`). Все 4 A/B-гипотезы из `Analytics/HYPOTHESES.md`
+реализованы в коде, аналитика (GA4 + Yandex Metrica) собирает данные с реальными ID.
+30-дневный контент-план для Telegram/Twitter сгенерирован в `Texts/Generated/`.
 
 Передеплой после изменений: `cd Landing && npm run deploy`.
 
 ## Что осталось (вне скоупа кода)
 
-1. **Домен** — `zhelezo.space` зарегистрирован и подключён как custom domain к Cloudflare
-   Pages, но ждёт DNS-записи у регистратора (Namecheap): нужна ALIAS/CNAME-запись
-   `@ → zhelezo.pages.dev`. До этого шага сайт доступен только по `zhelezo.pages.dev`.
-2. **Медиа-креативы** — баннеры/видео по ТЗ из `Banners/CREATIVE_BRIEFS.md`.
-3. **CI** — `.github/workflows/build.yml` уже активен на GitHub, проверяет сборку при каждом пуше в `Landing/**`.
+1. **Медиа-креативы** — баннеры/видео по ТЗ из `Banners/CREATIVE_BRIEFS.md`.
+2. **CI** — `.github/workflows/build.yml` уже активен на GitHub, проверяет сборку при каждом пуше в `Landing/**`.
 
 ## Разработка лендинга
 
