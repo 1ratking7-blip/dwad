@@ -57,7 +57,17 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font CSS loaded non-render-blocking: a <link rel=stylesheet> here would force the
+         browser to wait for a fonts.googleapis.com round trip before the first paint, even
+         with display=swap (swap only affects the font FACE, not the blocking stylesheet
+         fetch itself). Preload it instead and flip rel to stylesheet once it arrives; the
+         noscript tag covers JS-disabled clients. This inline script's hash lives in
+         public/_headers same as the others below — recompute after editing (see comment above). -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" id="font-css">
+    <script>
+      document.getElementById('font-css').addEventListener('load', function () { this.rel = 'stylesheet'; });
+    </script>
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"></noscript>
     <!-- dns-prefetch (not preconnect) for async analytics — they don't block first paint, so a full
          preconnect here would just steal early connection budget from the font/CSS fetch. -->
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
