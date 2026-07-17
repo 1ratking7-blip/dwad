@@ -3,6 +3,7 @@
 Партнёрский маркетинг-проект по продвижению BC.Game под брендом **ZHELEZO**: лендинг, контент-стратегия и аналитика.
 
 **Сайт запущен:** https://zhelezo.pages.dev (Cloudflare Pages)
+**Репозиторий:** https://github.com/1ratking7-blip/dwad
 
 ## Структура репозитория
 
@@ -34,8 +35,7 @@
    Pages, но ждёт DNS-записи у регистратора (Namecheap): нужна ALIAS/CNAME-запись
    `@ → zhelezo.pages.dev`. До этого шага сайт доступен только по `zhelezo.pages.dev`.
 2. **Медиа-креативы** — баннеры/видео по ТЗ из `Banners/CREATIVE_BRIEFS.md`.
-3. **CI** — `.github/workflows/build.yml` готов, но требует пуша в GitHub-репозиторий,
-   чтобы реально запускаться (авторизация `gh` в процессе).
+3. **CI** — `.github/workflows/build.yml` уже активен на GitHub, проверяет сборку при каждом пуше в `Landing/**`.
 
 ## Разработка лендинга
 
