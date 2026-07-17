@@ -3,6 +3,7 @@
 Этот проект представляет собой современный, высококонверсионный лендинг для продвижения партнерской программы BC.Game под брендом **ZHELEZO**.
 
 **Живой сайт:** https://zhelezo.pages.dev (Cloudflare Pages)
+**Репозиторий:** https://github.com/1ratking7-blip/dwad
 
 ## Стек технологий
 - **React 18** + **TypeScript**
