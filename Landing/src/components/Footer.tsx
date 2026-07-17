@@ -24,30 +24,39 @@ export default function Footer() {
               Ведущий портал о крипто-гейминге и Web3 развлечениях. Мы помогаем игрокам находить лучшие бонусы и честные игровые платформы.
             </p>
             <div className="flex space-x-4">
-              <a
-                href="#"
-                aria-label="Twitter (скоро)"
-                onClick={(e) => e.preventDefault()}
-                className="p-2 bg-[var(--color-card)] border border-[var(--color-border)] rounded-lg text-gray-400 hover:text-[var(--color-accent)] hover:border-[color-mix(in_srgb,var(--color-accent)_30%,transparent)] transition-all"
+              {/* Соцсети ещё не запущены — раньше это были href="#" с preventDefault,
+                  что для зрячих пользователей выглядело как рабочая кнопка, которая
+                  без объяснений ничего не делает по клику (aria-label "(скоро)" читали
+                  только скринридеры). disabled <button> — стандартный паттерн для
+                  "элемент существует, но пока не активен": видимое приглушение для
+                  зрячих + корректная семантика для ассистивных технологий. */}
+              <button
+                type="button"
+                disabled
+                aria-label="Twitter — скоро"
+                title="Скоро"
+                className="p-2 bg-[var(--color-card)] border border-[var(--color-border)] rounded-lg text-gray-600 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 <Twitter className="w-5 h-5" aria-hidden="true" />
-              </a>
-              <a
-                href="#"
-                aria-label="Telegram (скоро)"
-                onClick={(e) => e.preventDefault()}
-                className="p-2 bg-[var(--color-card)] border border-[var(--color-border)] rounded-lg text-gray-400 hover:text-[var(--color-accent)] hover:border-[color-mix(in_srgb,var(--color-accent)_30%,transparent)] transition-all"
+              </button>
+              <button
+                type="button"
+                disabled
+                aria-label="Telegram — скоро"
+                title="Скоро"
+                className="p-2 bg-[var(--color-card)] border border-[var(--color-border)] rounded-lg text-gray-600 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 <Send className="w-5 h-5" aria-hidden="true" />
-              </a>
-              <a
-                href="#"
-                aria-label="GitHub (скоро)"
-                onClick={(e) => e.preventDefault()}
-                className="p-2 bg-[var(--color-card)] border border-[var(--color-border)] rounded-lg text-gray-400 hover:text-[var(--color-accent)] hover:border-[color-mix(in_srgb,var(--color-accent)_30%,transparent)] transition-all"
+              </button>
+              <button
+                type="button"
+                disabled
+                aria-label="GitHub — скоро"
+                title="Скоро"
+                className="p-2 bg-[var(--color-card)] border border-[var(--color-border)] rounded-lg text-gray-600 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 <Github className="w-5 h-5" aria-hidden="true" />
-              </a>
+              </button>
             </div>
           </div>
 
