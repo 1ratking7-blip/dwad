@@ -47,18 +47,17 @@
       window.dataLayer = window.dataLayer || [];
     </script>
 
-    <!--
-      Аналитика (см. Analytics/HYPOTHESES.md, раздел 3.1).
-      Перед запуском кампании раскомментируйте, подставьте реальные ID
-      и удалите комментарий.
+    <!-- Google Analytics 4 (см. Analytics/HYPOTHESES.md, раздел 3.1) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0RLZ7LGT08"></script>
+    <script>
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-0RLZ7LGT08');
+      window.gtag = gtag;
+    </script>
 
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-      <script>
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX');
-        window.gtag = gtag;
-      </script>
+    <!--
+      Yandex Metrica — подставьте реальный номер счётчика и раскомментируйте.
 
       <script>
         window.YM_COUNTER_ID = 00000000;
