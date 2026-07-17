@@ -26,10 +26,12 @@
 
 1. **Хостинг** — `Landing/vercel.json` и `Landing/netlify.toml` готовы для zero-config деплоя
    через Vercel или Netlify (нужен аккаунт/токен пользователя).
-2. **Аналитика** — вставить реальные ID GA4/Yandex Metrica в `Landing/index.html`
-   (сейчас закомментированы плейсхолдерами).
+2. **Аналитика** — GA4 подключён (`G-0RLZ7LGT08`). Yandex Metrica опциональна — счётчик
+   пока не заведён, блок закомментирован в `Landing/index.html`.
 3. **CI** — `.github/workflows/build.yml` проверяет сборку лендинга при пуше (нужен GitHub-репозиторий).
 4. **Медиа-креативы** — баннеры/видео по ТЗ из `Banners/CREATIVE_BRIEFS.md` (вне скоупа кода).
+5. **Домен** — `zhelezo.io` проверен через RDAP и свободен на момент проверки (регистрация требует
+   аккаунта у регистратора — Namecheap/Cloudflare Registrar/и т.п.).
 
 ## Разработка лендинга
 
