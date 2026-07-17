@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--
+      Гипотеза 2 (Analytics/HYPOTHESES.md): выбор цветовой темы (cyberpunk / web3)
+      до первой отрисовки, чтобы избежать мигания. Тема фиксируется через ?theme=
+      в URL (для сплита трафика по ссылкам-креативам) и сохраняется в localStorage.
+    -->
+    <script>
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        var requested = params.get('theme');
+        var theme = requested === 'web3' || requested === 'cyberpunk'
+          ? requested
+          : window.localStorage.getItem('zhelezo_theme') || 'cyberpunk';
+        window.localStorage.setItem('zhelezo_theme', theme);
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+    
+    <!-- SEO Meta Tags -->
+    <title>ZHELEZO Crypto Gaming | BC.Game Эксклюзивные Бонусы 360% и Daily Lucky Spin</title>
+    <meta name="description" content="Твой надежный портал в мир честного крипто-гейминга на BC.Game. Получи эксклюзивный приветственный бонус до 360% на депозиты и крути бесплатное колесо фортуны ежедневно. Оригинальные игры Provably Fair: Crash, Plinko, Hash Dice." />
+    <meta name="keywords" content="BC Game, BC.Game, крипто казино, crypto casino, Lucky Spin, бонус 360%, честные игры, Provably Fair, Crash, Plinko, промокод BC Game" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="ZHELEZO Crypto Gaming | Эксклюзивные Бонусы BC.Game" />
+    <meta property="og:description" content="Зарегистрируйся сегодня через ZHELEZO, получи приветственный бонус до 360% и ежедневно крути Lucky Spin бесплатно с выигрышем до 5 BTC!" />
+    <meta property="og:image" content="https://bcall-loop.bcgame-bet.com/dispatch-v6?i=zhelezo" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="ZHELEZO Crypto Gaming | Эксклюзивные Бонусы BC.Game" />
+    <meta property="twitter:description" content="Приветственный бонус до 360% + ежедневный Lucky Spin без депозита. Начни играть на лучшей Web3-платформе." />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- dataLayer доступен всегда — события пишутся сюда независимо от того, подключены ли GA4/Metrica -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+    </script>
+
+    <!--
+      Аналитика (см. Analytics/HYPOTHESES.md, раздел 3.1).
+      Перед запуском кампании раскомментируйте, подставьте реальные ID
+      и удалите комментарий.
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+      <script>
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+        window.gtag = gtag;
+      </script>
+
+      <script>
+        window.YM_COUNTER_ID = 00000000;
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+        ym(window.YM_COUNTER_ID, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true });
+      </script>
+    -->
+  </head>
+  <body class="bg-[var(--color-bg)] text-gray-100 antialiased font-sans selection:bg-[var(--color-accent)] selection:text-black">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

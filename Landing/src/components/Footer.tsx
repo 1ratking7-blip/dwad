@@ -1,0 +1,86 @@
+
+import { Twitter, Send, Github, ShieldAlert } from 'lucide-react';
+import { trackEvent } from '../lib/analytics';
+
+export default function Footer() {
+  const currentYear = new Date().getFullYear();
+  const refLink = "https://bcall-loop.bcgame-bet.com/dispatch-v6?i=zhelezo&p=/login/regist";
+
+  return (
+    <footer className="bg-[var(--color-bg-darker)] border-t border-[var(--color-border)] pt-20 pb-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+          <div className="col-span-1 md:col-span-1">
+            <div className="flex items-center space-x-3 mb-6">
+              <div className="bg-[var(--color-accent)] p-2 rounded-lg text-black font-extrabold flex items-center justify-center">
+                <span className="text-xl">⚡</span>
+              </div>
+              <span className="text-2xl font-black tracking-widest bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-2)] bg-clip-text text-transparent">
+                ZHELEZO
+              </span>
+            </div>
+            <p className="text-gray-500 text-sm leading-relaxed mb-6">
+              Ведущий портал о крипто-гейминге и Web3 развлечениях. Мы помогаем игрокам находить лучшие бонусы и честные игровые платформы.
+            </p>
+            <div className="flex space-x-4">
+              <a href="#" className="p-2 bg-[var(--color-card)] border border-[var(--color-border)] rounded-lg text-gray-400 hover:text-[var(--color-accent)] hover:border-[color-mix(in_srgb,var(--color-accent)_30%,transparent)] transition-all">
+                <Twitter className="w-5 h-5" />
+              </a>
+              <a href="#" className="p-2 bg-[var(--color-card)] border border-[var(--color-border)] rounded-lg text-gray-400 hover:text-[var(--color-accent)] hover:border-[color-mix(in_srgb,var(--color-accent)_30%,transparent)] transition-all">
+                <Send className="w-5 h-5" />
+              </a>
+              <a href="#" className="p-2 bg-[var(--color-card)] border border-[var(--color-border)] rounded-lg text-gray-400 hover:text-[var(--color-accent)] hover:border-[color-mix(in_srgb,var(--color-accent)_30%,transparent)] transition-all">
+                <Github className="w-5 h-5" />
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="text-white font-bold mb-6 tracking-wide">ПЛАТФОРМА</h4>
+            <ul className="space-y-4 text-sm text-gray-500">
+              <li><a href="#games" className="hover:text-[var(--color-accent)] transition-colors">Игры Originals</a></li>
+              <li><a href={refLink} target="_blank" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'slots' })} className="hover:text-[var(--color-accent)] transition-colors">Слоты</a></li>
+              <li><a href={refLink} target="_blank" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'sportsbook' })} className="hover:text-[var(--color-accent)] transition-colors">Ставки на спорт</a></li>
+              <li><a href={refLink} target="_blank" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'esports' })} className="hover:text-[var(--color-accent)] transition-colors">Киберспорт</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-white font-bold mb-6 tracking-wide">ПОДДЕРЖКА</h4>
+            <ul className="space-y-4 text-sm text-gray-500">
+              <li><a href="#faq" className="hover:text-[var(--color-accent)] transition-colors">FAQ</a></li>
+              <li><a href="#how-it-works" className="hover:text-[var(--color-accent)] transition-colors">Как начать</a></li>
+              <li><a href={refLink} target="_blank" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'vip_club' })} className="hover:text-[var(--color-accent)] transition-colors">VIP-клуб</a></li>
+              <li><a href="#" className="hover:text-[var(--color-accent)] transition-colors">Контакты</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-white font-bold mb-6 tracking-wide">БОНУСЫ</h4>
+            <ul className="space-y-4 text-sm text-gray-500">
+              <li><a href={refLink} target="_blank" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'welcome_360' })} className="hover:text-[var(--color-accent)] transition-colors">Приветственный 360%</a></li>
+              <li><a href={refLink} target="_blank" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'daily_lucky_spin' })} className="hover:text-[var(--color-accent)] transition-colors">Daily Lucky Spin</a></li>
+              <li><a href={refLink} target="_blank" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'weekly_cashback' })} className="hover:text-[var(--color-accent)] transition-colors">Еженедельный кэшбэк</a></li>
+              <li><a href={refLink} target="_blank" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'rakeback_20' })} className="hover:text-[var(--color-accent)] transition-colors">Рейкбек 20%</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="pt-10 border-t border-[var(--color-border)] flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+          <div className="flex items-center space-x-6 text-xs font-medium text-gray-600">
+            <span>&copy; {currentYear} ZHELEZO. All Rights Reserved.</span>
+            <a href="#" className="hover:text-gray-400 transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-gray-400 transition-colors">Terms of Use</a>
+          </div>
+          
+          <div className="flex items-center space-x-4 bg-[var(--color-card)] px-4 py-2 rounded-xl border border-[var(--color-border)]">
+            <ShieldAlert className="w-4 h-4 text-orange-500" />
+            <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+              18+ | Играйте ответственно
+            </span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}

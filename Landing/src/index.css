@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Гипотеза 2 (Analytics/HYPOTHESES.md): два цветовых варианта лендинга
+  переключаются атрибутом data-theme на <html> (см. index.html — определяется
+  по ?theme= в URL или сохранённому выбору в localStorage). Все "брендовые"
+  цвета во всех компонентах ссылаются на эти переменные через Tailwind
+  arbitrary values (напр. bg-[var(--color-accent)]), а не на хардкод хекс.
+*/
+:root,
+[data-theme='cyberpunk'] {
+  --color-bg: #0B0E14;
+  --color-bg-darker: #06080C;
+  --color-accent: #00E676;
+  --color-accent-dark: #00B359;
+  --color-accent-2: #D500F9;
+  --color-card: #121824;
+  --color-border: #1F293D;
+  --color-border-soft: #2D3748;
+}
+
+[data-theme='web3'] {
+  --color-bg: #0B0716;
+  --color-bg-darker: #050311;
+  --color-accent: #F5B942;
+  --color-accent-dark: #C9922B;
+  --color-accent-2: #6C4CF1;
+  --color-card: #1A1330;
+  --color-border: #2D2350;
+  --color-border-soft: #3D2F66;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-bg);
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+.neon-glow-green {
+  box-shadow: 0 0 20px color-mix(in srgb, var(--color-accent) 15%, transparent);
+}
+
+.neon-glow-purple {
+  box-shadow: 0 0 20px color-mix(in srgb, var(--color-accent-2) 15%, transparent);
+}
+
+.neon-text-green {
+  text-shadow: 0 0 10px color-mix(in srgb, var(--color-accent) 30%, transparent);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
