@@ -1,4 +1,7 @@
 import os
+import sys
+
+sys.stdout.reconfigure(encoding="utf-8")
 
 LINK = "https://bcall-loop.bcgame-bet.com/dispatch-v6?i=zhelezo&p=/login/regist"
 
@@ -190,7 +193,7 @@ def generate_content():
         for i, tpl in enumerate(tpls):
             content = tpl.format(**DATA)
             file_name = os.path.join(output_dir, f"{platform}_var_{i + 1}.txt")
-            with open(file_name, "w", encoding="utf-8") as f:
+            with open(file_name, "w", encoding="utf-8", newline="") as f:
                 f.write(content)
             total += 1
 
@@ -198,9 +201,9 @@ def generate_content():
     telegram_calendar = divider.join(f"День {d['day']} — {d['topic']}\n\n{d['telegram']}" for d in CALENDAR)
     twitter_calendar = divider.join(f"Day {d['day']} — {d['topic']}\n\n{d['twitter']}" for d in CALENDAR)
 
-    with open(os.path.join(output_dir, "telegram_30day_calendar.txt"), "w", encoding="utf-8") as f:
+    with open(os.path.join(output_dir, "telegram_30day_calendar.txt"), "w", encoding="utf-8", newline="") as f:
         f.write(telegram_calendar)
-    with open(os.path.join(output_dir, "twitter_30day_calendar.txt"), "w", encoding="utf-8") as f:
+    with open(os.path.join(output_dir, "twitter_30day_calendar.txt"), "w", encoding="utf-8", newline="") as f:
         f.write(twitter_calendar)
     total += 2
 
