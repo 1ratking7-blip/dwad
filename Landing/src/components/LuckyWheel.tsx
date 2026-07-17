@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, Gift } from 'lucide-react';
 import { trackEvent } from '../lib/analytics';
@@ -42,6 +42,14 @@ export default function LuckyWheel() {
   const [rotation, setRotation] = useState(0);
   const [isSpinning, setIsSpinning] = useState(false);
   const [result, setResult] = useState<string | null>(null);
+  const spinTimeoutRef = useRef<number | undefined>(undefined);
+
+  // Компонент не размонтируется в текущем приложении (нет роутинга), но таймер
+  // на 4.2с без очистки — классический источник "setState после unmount" при
+  // будущих изменениях (например, если секцию сделают условно скрываемой).
+  useEffect(() => {
+    return () => window.clearTimeout(spinTimeoutRef.current);
+  }, []);
 
   const handleSpin = () => {
     if (isSpinning || result) return;
@@ -55,7 +63,7 @@ export default function LuckyWheel() {
     setRotation(targetRotation);
     trackEvent('wheel_spin', { result: segments[winningIndex].label });
 
-    window.setTimeout(() => {
+    spinTimeoutRef.current = window.setTimeout(() => {
       setIsSpinning(false);
       setResult(segments[winningIndex].label);
     }, 4200);
