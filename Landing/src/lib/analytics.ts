@@ -7,7 +7,7 @@ declare global {
   }
 }
 
-export type AnalyticsEventName = 'page_view' | 'wheel_spin' | 'cta_click' | 'faq_expand';
+export type AnalyticsEventName = 'page_view' | 'wheel_spin' | 'cta_click' | 'faq_expand' | 'client_error';
 
 /**
  * Единая точка отправки событий во все подключённые системы аналитики
