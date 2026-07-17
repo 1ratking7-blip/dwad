@@ -85,8 +85,8 @@ export default function Footer() {
         <div className="pt-10 border-t border-[var(--color-border)] flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
           <div className="flex items-center space-x-6 text-xs font-medium text-gray-400">
             <span>&copy; {currentYear} ZHELEZO. All Rights Reserved.</span>
-            <a href="/privacy-policy.html" className="hover:text-gray-300 transition-colors">Privacy Policy</a>
-            <a href="/terms.html" className="hover:text-gray-300 transition-colors">Terms of Use</a>
+            <a href="/privacy-policy" className="hover:text-gray-300 transition-colors">Privacy Policy</a>
+            <a href="/terms" className="hover:text-gray-300 transition-colors">Terms of Use</a>
           </div>
           
           <div className="flex items-center space-x-4 bg-[var(--color-card)] px-4 py-2 rounded-xl border border-[var(--color-border)]">
