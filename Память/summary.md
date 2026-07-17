@@ -8,30 +8,47 @@ ZHELEZO Crypto Gaming — партнёрский лендинг под BC.Game.
 Репозиторий: https://github.com/1ratking7-blip/dwad
 Стек: React + TypeScript + Vite + Tailwind, деплой `cd Landing && npm run deploy`.
 
-## Текущее состояние (после аудита 2026-07-18)
-Полный аудит и рефакторинг лендинга выполнен и задеплоен на прод:
+## Текущее состояние (после двух проходов аудита, последний — 2026-07-18)
 
-- **SEO**: 91 → 100 (Lighthouse). robots.txt, sitemap.xml, manifest, реальные favicon/OG-картинка, canonical, Schema.org (Organization + WebSite), fix домена в схеме.
-- **Accessibility**: 71 → 100. ARIA на меню/FAQ, контраст текста, порядок заголовков, prefers-reduced-motion, живые Privacy/Terms страницы.
-- **Performance**: 56 → 73. Исправлен шрифт (font-black=900 не грузился), dns-prefetch вместо лишних preconnect.
-- **Security**: полноценный CSP через `public/_headers` (sha256-хэши инлайн-скриптов, не unsafe-inline), rel=noopener на всех target=_blank, X-Frame-Options/Referrer-Policy/Permissions-Policy.
-- **UI/UX**: убран баг с перекрытием CTA/футера плавающим тостом, исправлена поломка шапки на 768px, убраны мёртвые hover-эффекты и вечная анимация логотипа.
-- Удалены неиспользуемые netlify.toml/vercel.json (деплой только Cloudflare Pages), мёртвый Tailwind-конфиг.
-- Ссылки на Privacy/Terms переведены на чистые URL без .html (без лишнего редиректа).
+**Первый проход (`39e386b`)**: SEO 91→100, Accessibility 71→100, Performance 56→73, полноценный CSP
+(`public/_headers`, sha256-хэши инлайн-скриптов), убраны UI-баги (перекрытие CTA/футера тостом,
+поломка шапки на 768px, мёртвые hover/анимации), убраны netlify.toml/vercel.json/мёртвый Tailwind-конфиг,
+чистые URL для /privacy-policy и /terms.
 
-**Best Practices остался 77/100** — не баг, это собственные cookie Яндекс.Метрики (было так и до аудита).
+**Второй проход (`377c754`..`ecaeb2b`, см. `Landing/REPORT.md` за деталями)**:
+- HSTS добавлен (`max-age=63072000; includeSubDomains; preload`)
+- CVE в vite/esbuild (dev-server-only path traversal) закрыты апгрейдом vite 5→8
+- Код-сплиттинг ниже первого экрана (LuckyWheel/Games/HowItWorks/FAQ/Footer через React.lazy) — главный чанк 298КБ→272КБ
+- Google Fonts CSS переведён с блокирующего `<link rel=stylesheet>` на preload+swap
+- Добавлен настоящий `public/404.html` (Cloudflare Pages раньше отдавал 200+index.html на любой несуществующий путь)
+- Проверено и признано чистым: XSS/секреты/дубли-код/битые ссылки/CORS — см. REPORT.md
+- **Честная оговорка от прошлой сессии**: локальный Lighthouse в этой песочнице даёт Performance ~70,
+  но 85% "Script Evaluation" времени помечено Unattributable — не наш JS, а особенности headless-среды.
+  Рекомендовали перепроверить на pagespeed.web.dev вместо доверия локальным цифрам.
+
+**Не исправлено (нужен доступ, которого нет в проекте)**: голый домен `zhelezo.space` (без www) не
+открывается по HTTPS — таймаут; по HTTP редиректит на www нормально. Нужен доступ к Namecheap/Cloudflare
+DNS API, которого нет ни в `.env`, ни в `Память/context.md`.
 
 ## Последние коммиты
 - `39e386b` — основной аудит (28 файлов)
 - `5198681` — чистые URL для /privacy-policy и /terms
+- `83641ae` — система памяти (Память/)
+- `377c754` `a564bcc` `7ccecff` `b76da24` `abcef4b` — второй проход (HSTS/CVE/perf/404), см. выше
+- `ecaeb2b` — `Landing/REPORT.md` документирующий второй проход
 
-Оба запушены в `origin/main` и задеплоены на прод. Всё проверено напрямую на живом домене через curl (заголовки, CSP, новые файлы).
+Все запушены в `origin/main` и задеплоены на прод.
 
 ## Что дальше (см. todo.md)
-- Реальный прогон PageSpeed Insights на проде (я тестировал локально — числа FCP/LCP шумные)
+Активная сессия 2026-07-18 (после этой записи) — расширенный мандат "Autonomous CTO + Security +
+Growth": живой PageSpeed Insights через публичный API, свежий security/deps sweep, UX/UI, добавление
+мониторинга/error-reporting, growth/маркетинг-план, финальные отчёты в `REPORT/`. См. todo.md.
+
+Отложено (не в скоупе кода):
 - Медиа-креативы (баннеры/видео) — вне скоупа кода, см. Banners/CREATIVE_BRIEFS.md
 - ID для Meta Pixel / TikTok Pixel / Microsoft Clarity — заготовки в index.html есть, ждут реальных ID
 - GSC verification meta-тег — заготовка есть, ждёт кода из Google Search Console
+- Apex-домен HTTPS — ждёт доступа к DNS (Namecheap API-токен или перенос зоны на Cloudflare)
 
 ## Как продолжить работу с этой памятью
 1. Прочитать этот файл (summary.md)
