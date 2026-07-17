@@ -1,0 +1,25 @@
+name: Build Landing
+
+on:
+  push:
+    paths:
+      - 'Landing/**'
+  pull_request:
+    paths:
+      - 'Landing/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Landing
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: Landing/package-lock.json
+      - run: npm ci
+      - run: npm run build
