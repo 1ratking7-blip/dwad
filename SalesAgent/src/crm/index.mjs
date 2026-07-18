@@ -176,6 +176,13 @@ export function getInteractions(leadId) {
 
 export function addMessageDraft(leadId, draft) {
   const db = getDb();
+  // Regenerating a draft (e.g. after a template fix) must not leave the old, superseded
+  // version sitting in the CRM as if it were still a live option to send — someone reviewing
+  // pending drafts could pick the stale one. Reject any earlier un-actioned draft of the same
+  // type for this lead before inserting the new one.
+  db.prepare(
+    "UPDATE message_drafts SET status = 'rejected' WHERE lead_id = ? AND type = ? AND status = 'draft'"
+  ).run(leadId, draft.type);
   const result = db
     .prepare(
       'INSERT INTO message_drafts (lead_id, type, subject, body) VALUES (?, ?, ?, ?)'
