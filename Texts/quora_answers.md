@@ -68,6 +68,82 @@ variance rather than beat the math:
   actual evidence behind it is bankroll/session management, not multiplier timing.
 ```
 
+## Дополнительные шаблоны (сессия 8) — под реальные формулировки вопросов
+
+Как и три выше: искать РЕАЛЬНЫЕ существующие вопросы с похожей формулировкой через поиск по
+Quora, не создавать вопросы самому. Ниже — паттерны формулировок, которые стоит искать, и
+готовый ответ под каждый.
+
+### "Is BC.Game legit / safe?"
+```text
+BC.Game holds a Curaçao gambling license (CIL) — worth checking the license is current
+directly with the regulator rather than taking a site's word for it, same as with any
+licensed operator. Beyond licensing: their Originals games (Crash, Plinko, Hash Dice, Limbo)
+use Provably Fair verification, meaning you can independently confirm a round wasn't altered
+after your bet (mechanics explained in a linked answer above). That's a checkable signal of
+integrity, not a marketing claim you have to trust blindly. Slots from third-party providers
+rely on the provider's own licensing instead, not BC.Game's Provably Fair system.
+```
+
+### "What's the best cryptocurrency for online gambling / crypto casinos?"
+```text
+Depends what you're optimizing for:
+- Speed/fees: SOL, TRX generally clear faster and cheaper than BTC on-chain.
+- Price stability while playing: stablecoins (USDT) avoid the swing risk of playing with a
+  volatile asset mid-session.
+- Broadest acceptance: BTC/ETH are supported virtually everywhere, useful if you're not
+  committed to one platform yet.
+There's no universally "best" one — it's a tradeoff between fees, volatility exposure, and
+which platforms actually support the token you already hold.
+```
+
+### "How does the house edge actually work in online casino games?"
+```text
+House edge is the statistical advantage baked into a game's payout structure, expressed as
+the % of each bet the operator expects to keep over a large number of rounds — it's not
+about individual rounds being "rigged," it's about the payout table/probability distribution
+being shaped so the math favors the house slightly. Provably Fair verification (see linked
+answer) proves a specific round wasn't tampered with after your bet — it does NOT mean the
+house edge is zero or even disclosed. Those are two separate questions worth not conflating.
+```
+
+### "Are crypto casino bonuses actually worth it / how do wagering requirements work?"
+```text
+A welcome bonus % is only half the picture — the wagering requirement (how many times you
+must bet the bonus amount before withdrawing) determines whether it's realistically claimable.
+A 360% bonus with a low wagering multiplier is worth more in practice than a 500% bonus with
+an extreme one. Always check the current wagering terms in the platform's own rules page
+before depositing — they change over time and vary by platform.
+```
+
+### "Can I play at crypto casinos with a VPN if my country restricts gambling?"
+```text
+Using a VPN to bypass a platform's geo-restrictions typically violates that platform's terms
+of service, and separately, your local law on online gambling still applies regardless of
+what a VPN lets you technically access — those are two independent risks (ToS violation vs.
+legal risk in your jurisdiction), and a VPN doesn't remove either one. Worth checking your
+own country's actual legal stance before assuming a VPN "solves" the restriction.
+```
+
+### "What's the difference between 'Originals' games and slots on crypto casino platforms?"
+```text
+"Originals" (Crash, Plinko, Hash Dice, Limbo-style games) are typically built in-house by the
+platform and use Provably Fair verification — you can independently check a round wasn't
+altered. Slots are usually licensed from third-party providers (Pragmatic Play, Hacksaw, etc.)
+and their fairness is certified by the provider's own licensing/testing labs instead — a
+different fairness mechanism, not worse, just not the same one, and not verifiable the same
+way a Provably Fair round is.
+```
+
+### "Do online casino wheel/spin bonuses (like a daily free spin) actually pay out real money?"
+```text
+Depends entirely on the platform and its specific terms — a "free daily spin" can range from
+a token amount to a meaningful prize pool, and some have wagering requirements attached to
+what you win even though the spin itself was free. Always check whether winnings from a free
+spin are withdrawable directly or require further wagering — that detail is usually in the
+platform's promotions terms page, not in the marketing copy for the spin itself.
+```
+
 ## Что не делать
 - Не отвечать на вопросы, где ссылка не в тему — Quora удаляет и банит за "little value,
   mainly directing traffic" даже без формального запрета self-promotion.

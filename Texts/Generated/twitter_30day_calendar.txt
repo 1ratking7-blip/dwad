@@ -35,13 +35,14 @@ Play: https://bcall-loop.bcgame-bet.com/dispatch-v6?i=zhelezo&p=/login/regist
 
 ────────────────────────────────────────
 
-Day 4 — Крупный выигрыш дня (Big Win Showcase)
+Day 4 — Механика мультипликаторов Crash (без выдуманных "чужих выигрышей")
 
-Big win alert 💰 Someone just hit 87.3x on Crash. Your turn next?
+Crash multipliers can climb well past 80x before busting — Provably Fair means every round is
+verifiable, not that any specific outcome is likely. Know the math before you play.
 
-Play fair, play BC.Game: https://bcall-loop.bcgame-bet.com/dispatch-v6?i=zhelezo&p=/login/regist
+Verify it yourself: https://bcall-loop.bcgame-bet.com/dispatch-v6?i=zhelezo&p=/login/regist
 
-#BigWin #Crash
+#Crash #ProvablyFair
 
 ────────────────────────────────────────
 

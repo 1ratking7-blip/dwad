@@ -1,73 +1,75 @@
-# Каталоги казино-обзорников — контент-пакет
+# Каталоги казино-обзорников — исправленная версия
 
-Дополняет `CONTENT_STRATEGY.md` и `REPORT/GROWTH_PLAN.md`. Единственный канал из "каталогов"
-раздела мега-брифа, реально релевантный этой нише (в отличие от Product Hunt/каталогов
-стартапов — те для SaaS, не для гемблинг-аффилиата).
+**Обновлено (сессия 8): исходная версия этого файла была основана на неверной предпосылке.**
+Проверил через реальный поиск — AskGamblers, Casino.Guru, Casinomeister, LCB, ThePOGG — это
+consumer-facing обзорные площадки, которые ревьюят и рейтингуют **лицензированных операторов**
+(казино), а не сторонние партнёрские порталы вида ZHELEZO. Формы "добавить листинг" на этих
+площадках — это форма подачи для самого казино (BC.Game), не для аффилиата, который его
+продвигает. Разместить ZHELEZO там "как обзор" в большинстве случаев физически невозможно —
+это не тот тип площадки. Ниже — честная замена.
 
-## Целевые площадки (крупные casino-affiliate агрегаторы/review-сайты)
+## Единственный реально рабочий directory-канал: GPWA
 
-Разместить листинг на 5-10 из следующих (проверить актуальные условия регистрации листинга
-перед подачей — у каждого свой процесс, часть бесплатна, часть требует partner application):
+**Gambling Portal Webmasters Association** (gpwa.org) — это не обзорник казино, а сообщество
+именно аффилиатов/владельцев партнёрских порталов (35,000+ участников). Здесь можно:
+1. Зарегистрироваться как member (бесплатно, `gpwa.org/become-a-member/`).
+2. Со временем (после активности, аналогично bitcointalk) получить доступ к
+   "Member Portal Sites" — публичному каталогу именно таких сайтов, как ZHELEZO.
+3. Участвовать в форумах — та же модель, что и bitcointalk: сначала польза для комьюнити,
+   потом ссылка/портфолио, не в лоб.
 
-- AskGamblers
-- Casino.Guru
-- Casinomeister
-- ThePOGG
-- LCB (LatestCasinoBonuses)
-- BitcoinChaser (крипто-специфичный)
-- Cryptwerk / крипто-казино агрегаторы
-- Bestbitcoincasino-типа сайтов (общая категория — проверить актуальные топ-агрегаторы на
-  момент подачи, список площадок в нише меняется)
+**Важно:** на момент проверки часть gpwa.org была недоступна из-за атаки ransomware на их
+инфраструктуру — уточните перед регистрацией, восстановлен ли сайт полностью.
 
-**Важно**: каждая площадка модерирует листинги вручную и может требовать доказательство
-легальности оператора (лицензия BC.Game) — это не мгновенная публикация, закладывать недели
-на рассмотрение.
+## Второй реальный канал: guest posting / outreach (не "листинг", а питчинг)
 
-## Шаблон листинга — короткий (для карточки в каталоге)
+Разместиться как гостевая статья на крипто/гемблинг-смежных блогах — рабочий канал, но это
+**не форма для заполнения**, а питч-письмо редактору с предложением конкретной темы (например,
+"как проверить Provably Fair самому" — материал уже есть, см. `forum_bitcointalk.md`). Нет
+гарантии публикации, эффективность зависит от качества питча и релевантности площадки.
+
+**Не делаю и не рекомендую**: покупные backlink-сервисы ("buy casino backlinks") — это
+классический grey-hat SEO, Google отдельно помечает гемблинг как YMYL-нишу с повышенным
+вниманием к качеству ссылочного профиля, недобросовестные ссылки создают риск ручного/
+алгоритмического пессимизации домена, а не только "не сработают".
+
+## Шаблон для GPWA-профиля / guest-post питча
 
 ```text
 ZHELEZO — BC.Game Partner Portal
-Provably Fair crypto casino with instant payouts across 100+ tokens (BTC, ETH, SOL, TRX,
+Provably Fair crypto casino portal with instant payouts across 100+ tokens (BTC, ETH, SOL, TRX,
 USDT). Daily free Lucky Spin, up to 360% welcome bonus across first 4 deposits. No KYC
-required for standard withdrawal limits.
-👉 https://bcall-loop.bcgame-bet.com/dispatch-v6?i=zhelezo&p=/login/regist
+required below standard withdrawal limits.
+👉 https://bcall-loop.bcgame-bet.com/dispatch-v6?i=zhelezo&p=/login/regist&subId1=gpwa
 18+. Play responsibly.
 ```
 
-## Шаблон листинга — развёрнутый (для страницы-обзора)
+## Шаблон питч-письма для guest post
 
 ```text
-## BC.Game via ZHELEZO — Provably Fair Crypto Casino Review
+Тема: Гостевая статья про Provably Fair verification для [название блога]
 
-BC.Game is a crypto-native casino built around Provably Fair verification — every Crash,
-Plinko, Limbo, and Dice round can be independently verified on-chain, so players aren't
-relying on the operator's word alone.
+Здравствуйте,
 
-**Key features:**
-- Provably Fair verification on all core games (Crash, Plinko, Limbo, Hash Dice)
-- 100+ supported cryptocurrencies including BTC, ETH, SOL, TRX, USDT, DOGE
-- Daily free Lucky Spin wheel (no deposit required)
-- Welcome bonus up to 360% across the first 4 deposits
-- Instant crypto withdrawals, no KYC required below standard limits
+Я веду ZHELEZO — партнёрский портал о крипто-гейминге. У меня готова статья "Как проверить
+честность игры в крипто-казино самому" — разбор механики Provably Fair (хэш-коммит серверного
+сида, верификация после раунда) без промо-тона, с акцентом на то, что можно и что нельзя
+проверить этим методом.
 
-**How to claim the bonus:**
-1. Register via the link below (Google/Telegram/Metamask login supported)
-2. Make your first deposit to unlock the welcome bonus tier
-3. Claim your first free Lucky Spin
+Материал: [ссылка на https://www.zhelezo.space/blog/provably-fair-explained/ как референс
+уровня/стиля]
 
-👉 Register: https://bcall-loop.bcgame-bet.com/dispatch-v6?i=zhelezo&p=/login/regist
+Готов адаптировать под ваш формат/объём. Интересно?
 
-18+. Gambling can be addictive — play responsibly. This is an independent affiliate review,
-not operated by BC.Game.
+С уважением,
+[имя]
 ```
 
 ## Трекинг
-Каждая площадка — свой `subId1` (например `subId1=askgamblers`, `subId1=casinoguru`) по уже
-существующей схеме в `Analytics/HYPOTHESES.md`, чтобы видеть, какой каталог реально даёт
-депозиторов, а не только клики.
+`subId1=gpwa` для GPWA-профиля, `subId1=guestpost&subId2=<имя_блога>` для каждой гостевой
+статьи — по схеме `Analytics/HYPOTHESES.md`.
 
 ## Что нужно от вас
-Ничего технического — это ручная подача листингов через формы каждой площадки (часть требует
-партнёрский email для связи, часть — ссылку на лицензию оператора, которая есть у BC.Game
-напрямую, не у аффилиата). Могу подготовить дополнительные варианты копирайта под конкретную
-площадку, если пришлёте её форму/требования.
+Регистрация на GPWA (аккаунт, активность в форумах) и рассылка питчей — оба требуют вашего
+живого участия, не форма для копипаста за один заход. Могу подготовить больше вариантов питчей
+под конкретные блоги, если укажете, какие площадки рассматриваете.
