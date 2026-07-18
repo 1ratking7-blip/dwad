@@ -24,6 +24,28 @@ const TECH_SIGNATURES = [
   { name: 'Cloudflare', test: (html, headers) => headers?.get('server') === 'cloudflare' },
 ];
 
+const BOT_CHALLENGE_TITLE_PATTERNS = [
+  /^just a moment/i,
+  /^one moment,? please/i,
+  /^checking your browser/i,
+  /^attention required/i, // classic Cloudflare title
+];
+
+// The auto-reload-and-retry script is close to a unique fingerprint of an interstitial
+// challenge page — real pages essentially never self-reload on a timer like this.
+const AUTO_RELOAD_SIGNATURE = /setTimeout\s*\(\s*function\s*\(\s*\)\s*\{\s*window\.location\.reload/i;
+
+function isBotChallengePage(html) {
+  // First attempt (awisee.com) used a raw HTML-length threshold and missed this exact page —
+  // a challenge page's CSS/animation payload can be 10KB+, so length alone is not a reliable
+  // signal. Titles for challenge pages are short and specific; combine that with the
+  // auto-reload script, which real content pages essentially never contain.
+  const titleMatch = /<title>([^<]*)<\/title>/i.exec(html);
+  const title = titleMatch?.[1]?.trim() ?? '';
+  const titleLooksLikeChallenge = BOT_CHALLENGE_TITLE_PATTERNS.some((p) => p.test(title));
+  return titleLooksLikeChallenge && AUTO_RELOAD_SIGNATURE.test(html);
+}
+
 /**
  * @param {string} url - the company's homepage (or any page — will be treated as the source of truth)
  * @returns {Promise<object>} data shaped for crm.upsertCompany, plus a `contactCandidates`
@@ -46,6 +68,15 @@ export async function analyzeCompany(url) {
   }
 
   const html = await res.text();
+
+  // Bot-challenge pages (Cloudflare "Just a moment...", etc.) return 200 with almost no real
+  // content — without this check the analyzer would silently store the challenge page's own
+  // title as the "company name" and report high confidence in empty data. Caught during real
+  // testing (awisee.com), not a hypothetical.
+  if (isBotChallengePage(html)) {
+    return { error: 'blocked_by_bot_protection', url };
+  }
+
   const $ = cheerio.load(html);
   const origin = new URL(res.url).origin;
 
