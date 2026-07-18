@@ -73,6 +73,7 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-bold mb-6 tracking-wide">ПОДДЕРЖКА</h3>
             <ul className="space-y-4 text-sm text-gray-400">
+              <li><a href="/blog/" className="hover:text-[var(--color-accent)] transition-colors">Блог</a></li>
               <li><a href="#faq" className="hover:text-[var(--color-accent)] transition-colors">FAQ</a></li>
               <li><a href="#how-it-works" className="hover:text-[var(--color-accent)] transition-colors">Как начать</a></li>
               <li><a href={refLink} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'vip_club' })} className="hover:text-[var(--color-accent)] transition-colors">VIP-клуб</a></li>

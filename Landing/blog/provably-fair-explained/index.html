@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://www.zhelezo.space/blog/provably-fair-explained/" />
+
+    <title>Provably Fair — как проверить честность игры самому | ZHELEZO</title>
+    <meta name="description" content="Пошаговый разбор механики Provably Fair: как устроена проверка честности раундов в Crash, Plinko и Hash Dice на BC.Game, и что эта проверка на самом деле доказывает, а что — нет." />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="ZHELEZO Crypto Gaming" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:url" content="https://www.zhelezo.space/blog/provably-fair-explained/" />
+    <meta property="og:title" content="Provably Fair — как проверить честность игры самому" />
+    <meta property="og:description" content="Пошаговый разбор механики проверки честности Provably Fair." />
+    <meta property="og:image" content="https://www.zhelezo.space/og-image.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Provably Fair — как проверить честность игры самому" />
+    <meta name="twitter:description" content="Пошаговый разбор механики Provably Fair." />
+    <meta name="twitter:image" content="https://www.zhelezo.space/og-image.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Provably Fair — как проверить честность игры самому",
+        "description": "Пошаговый разбор механики проверки честности Provably Fair в Crash, Plinko и Hash Dice.",
+        "datePublished": "2026-07-18",
+        "author": { "@type": "Organization", "name": "ZHELEZO Crypto Gaming" },
+        "publisher": { "@type": "Organization", "name": "ZHELEZO Crypto Gaming", "logo": { "@type": "ImageObject", "url": "https://www.zhelezo.space/icon-512.png" } }
+      }
+    </script>
+
+    <script type="module" src="../blog-entry.ts"></script>
+  </head>
+  <body class="bg-[var(--color-bg)] text-gray-100 antialiased font-sans">
+    <header class="pt-10 pb-6 border-b border-[var(--color-border)]">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 flex items-center space-x-3">
+        <a href="/" class="flex items-center space-x-3">
+          <div class="bg-[var(--color-accent)] p-2 rounded-lg text-black font-extrabold flex items-center justify-center">
+            <span class="text-xl" aria-hidden="true">⚡</span>
+          </div>
+          <span class="text-xl font-black tracking-widest bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-2)] bg-clip-text text-transparent">
+            ZHELEZO
+          </span>
+        </a>
+      </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 py-16">
+      <nav class="text-sm text-gray-500 mb-8">
+        <a href="/blog/" class="hover:text-[var(--color-accent)]">Блог</a> / Provably Fair
+      </nav>
+
+      <h1 class="text-4xl font-black tracking-tight mb-6 leading-tight">Provably Fair — как проверить честность игры самому</h1>
+
+      <div class="prose-content text-gray-300 leading-relaxed space-y-6">
+        <p>
+          "Provably Fair" — это не маркетинговый слоган, а конкретная криптографическая схема,
+          которая позволяет игроку математически проверить, что раунд не подделали задним
+          числом, не полагаясь на честное слово оператора. Разберём, как это работает шаг за
+          шагом, и что именно эта проверка доказывает — а что нет.
+        </p>
+
+        <h2 class="text-2xl font-bold text-white pt-4">Механика в 4 шага</h2>
+        <ol class="list-decimal list-inside space-y-3 pl-2">
+          <li>
+            <strong class="text-white">До раунда</strong> платформа показывает хэш (SHA-256)
+            своего серверного сида (server seed). Хэш — односторонняя функция: из него нельзя
+            восстановить исходный сид, но когда сид позже раскроют, можно проверить, что хэш
+            совпадает.
+          </li>
+          <li>
+            <strong class="text-white">Игрок предоставляет клиентский сид</strong> (свой или
+            сгенерированный автоматически), обычно вместе с nonce — числом, увеличивающимся с
+            каждой ставкой.
+          </li>
+          <li>
+            <strong class="text-white">Результат раунда</strong> вычисляется детерминированной
+            функцией из обоих сидов и nonce — то есть заранее зафиксирован в момент коммита
+            хэша, до того как платформа увидела вашу ставку.
+          </li>
+          <li>
+            <strong class="text-white">После раунда</strong> платформа раскрывает исходный
+            серверный сид. Игрок (или независимый инструмент проверки) пересчитывает хэш из
+            шага 1 и сверяет совпадение — если хэши совпали, сервер не мог изменить сид после
+            того, как увидел вашу ставку.
+          </li>
+        </ol>
+
+        <h2 class="text-2xl font-bold text-white pt-4">Что это доказывает — а что нет</h2>
+        <p>
+          Provably Fair доказывает, что <em>конкретный результат не был подменён постфактум</em>.
+          Это не то же самое, что "у игры хороший house edge" — распределение мультипликатора в
+          Crash или вероятности в Plinko могут быть математически честными в смысле проверки
+          сида и при этом иметь встроенное преимущество казино (что нормально и ожидаемо для
+          любой азартной игры — вопрос в том, раскрыт ли этот edge открыто). Это две разные
+          вещи, и Provably Fair отвечает только на первую.
+        </p>
+
+        <h2 class="text-2xl font-bold text-white pt-4">Где проверить самому</h2>
+        <p>
+          На BC.Game каждая игра (Crash, Plinko, Hash Dice, Limbo) имеет отдельный раздел
+          "Fairness"/"Provably Fair" в интерфейсе игры, где можно ввести раскрытый серверный
+          сид и получить пересчитанный хэш — без сторонних инструментов. Если платформа
+          заявляет "Provably Fair", но не даёт такого инструмента проверки в самом интерфейсе —
+          это повод отнестись к заявлению скептически.
+        </p>
+
+        <h2 class="text-2xl font-bold text-white pt-4">Что дальше</h2>
+        <p>
+          Приветственный бонус и ежедневный Lucky Spin на BC.Game — на
+          <a href="/#games" class="text-[var(--color-accent)] hover:underline">главной странице ZHELEZO</a>.
+          Если интересовал вопрос про промокоды — есть
+          <a href="/blog/bc-game-promo-code-2026/" class="text-[var(--color-accent)] hover:underline">отдельный разбор</a>.
+        </p>
+
+        <div class="pt-6">
+          <a
+            href="https://bcall-loop.bcgame-bet.com/dispatch-v6?i=zhelezo&p=/login/regist&subId1=seo&subId2=provably-fair-explained"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center bg-[var(--color-accent)] text-black px-8 py-4 rounded-2xl font-black tracking-wide hover:shadow-[0_0_30px_color-mix(in_srgb,var(--color-accent)_50%,transparent)] hover:-translate-y-1 transition-all"
+          >
+            Попробовать Provably Fair игры на BC.Game
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-16 pt-8 border-t border-[var(--color-border)] text-xs text-gray-500">
+        18+. Играйте ответственно. Гемблинг может вызывать зависимость.
+      </div>
+    </main>
+  </body>
+</html>
