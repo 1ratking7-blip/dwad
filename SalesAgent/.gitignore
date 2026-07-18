@@ -1,0 +1,4 @@
+data/
+dashboard/index.html
+reports/*.md
+node_modules/

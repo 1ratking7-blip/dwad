@@ -12,6 +12,7 @@
 │   └── blog/     # Статический блог (5 статей, отдельный от React-приложения) — см. Landing/blog/README.md
 ├── Scripts/      # Генератор контента для соцсетей (JS/Python) + Discord-бот
 │   └── discord-bot/  # !spin/!bonus/!faq/!leaderboard — см. Scripts/discord-bot/README.md
+├── SalesAgent/   # Внутренняя CRM для B2B-лидогенерации (продажа growth/SEO-консалтинга другим сайтам) — см. SalesAgent/docs/ARCHITECTURE.md
 ├── Texts/        # Контент-стратегия и готовые тексты под все каналы продвижения (Telegram, Twitter, bitcointalk, Quora, каталоги)
 ├── Banners/      # ТЗ на баннеры и креативы для дизайнера
 ├── Analytics/    # Маркетинговый анализ, A/B-гипотезы, реальный конкурентный анализ

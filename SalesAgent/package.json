@@ -1,0 +1,22 @@
+{
+  "name": "zhelezo-sales-agent",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Internal B2B lead-gen CRM for selling affiliate-marketing/growth consulting services (see docs/ARCHITECTURE.md)",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "init-db": "node bin/init-db.mjs",
+    "analyze": "node bin/analyze.mjs",
+    "score": "node bin/score.mjs",
+    "draft": "node bin/draft.mjs",
+    "report": "node bin/report.mjs",
+    "dashboard": "node bin/dashboard.mjs",
+    "import-seed": "node bin/import-seed.mjs"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0"
+  }
+}
