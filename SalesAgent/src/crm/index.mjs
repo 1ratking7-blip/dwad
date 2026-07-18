@@ -200,14 +200,15 @@ export function listDraftsForLead(leadId) {
 }
 
 /**
- * The ONLY place a draft's status can become 'sent' — always a human recording that THEY
- * sent it. Nothing in this codebase calls an email/SMTP API on its own.
+ * The ONLY place a draft's status can become 'sent'. Called either by a human recording
+ * that THEY sent it manually, or by bin/send.mjs after a real SMTP send succeeds — that
+ * script only runs with an explicit --confirm flag and real credentials the user supplied.
  */
-export function markDraftSent(draftId) {
+export function markDraftSent(draftId, note) {
   const db = getDb();
   const draft = db.prepare('SELECT * FROM message_drafts WHERE id = ?').get(draftId);
   if (!draft) throw new Error(`Draft ${draftId} not found`);
   db.prepare("UPDATE message_drafts SET status = 'sent' WHERE id = ?").run(draftId);
-  addInteraction(draft.lead_id, 'manual_contact_logged', `${draft.type} marked as sent by user`);
+  addInteraction(draft.lead_id, 'manual_contact_logged', note || `${draft.type} marked as sent by user`);
   return db.prepare('SELECT * FROM message_drafts WHERE id = ?').get(draftId);
 }
