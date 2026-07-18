@@ -26,7 +26,10 @@ export function generateInsight(company) {
   }
 
   if (observations.length === 0) {
-    return `посмотрел ${company.website} — сайт в целом собран аккуратно, но у меня есть пара конкретных идей по росту трафика/конверсии, которые обычно не видны без внешнего аудита`;
+    // Fallback only — no template-level "смотрел {website}" prefix here, unlike the specific
+    // observations above: templates.mjs already opens every draft with "Смотрел {website} —",
+    // so repeating it here produced a real, shipped bug ("Смотрел X — посмотрел X — ...").
+    return `сайт в целом собран аккуратно, но у меня есть пара конкретных идей по росту трафика/конверсии, которые обычно не видны без внешнего аудита`;
   }
 
   return observations[0];
