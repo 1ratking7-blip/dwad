@@ -14,7 +14,8 @@
     "draft": "node bin/draft.mjs",
     "report": "node bin/report.mjs",
     "dashboard": "node bin/dashboard.mjs",
-    "import-seed": "node bin/import-seed.mjs"
+    "import-seed": "node bin/import-seed.mjs",
+    "lead": "node bin/lead.mjs"
   },
   "dependencies": {
     "cheerio": "^1.0.0"
