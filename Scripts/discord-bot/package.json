@@ -1,0 +1,14 @@
+{
+  "name": "zhelezo-discord-bot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ZHELEZO Discord server bot: !spin / !bonus / !faq / !leaderboard (see Texts/discord_server_structure.md)",
+  "type": "commonjs",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.16.3"
+  }
+}
