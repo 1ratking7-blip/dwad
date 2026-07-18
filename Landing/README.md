@@ -19,9 +19,21 @@
 - `Games.tsx` — Витрина оригинальных игр (Crash, Plinko и др.).
 - `HowItWorks.tsx` — Пошаговая воронка регистрации.
 - `FAQ.tsx` — Ответы на популярные вопросы с SEO-оптимизацией.
-- `SocialProof.tsx` — Виджет «живых выигрышей» (A/B-гипотеза 3).
-- `Footer.tsx` — Подвал с контактами и дисклеймерами.
+- `UrgencyTimer.tsx` — Таймер обратного отсчёта, синхронизированный с 24-часовым окном Daily Lucky Spin.
+- `SocialProof.tsx` — Виджет с иллюстративными примерами выигрышей (подписан как "Пример
+  выигрыша", не как реальные live-данные — см. `REPORT/BUG_REPORT.md`, GEMINI.md п.8).
+- `ErrorBoundary.tsx` — React error boundary, репортит ошибки в GA4/Metrica как `client_error`
+  через `lib/monitoring.ts` (без него любое исключение рендера показывало бы посетителю пустой
+  экран без пути к реф-ссылке).
+- `Footer.tsx` — Подвал с контактами, дисклеймерами и ссылкой на блог.
 - `lib/analytics.ts` — Единая точка отправки событий (`page_view`, `wheel_spin`, `cta_click`, `faq_expand`) в GA4 / Yandex Metrica / dataLayer.
+- `lib/links.ts` — Единая реферальная ссылка (`REF_LINK`) и хелпер `refLinkWithSubId` для меток атрибуции.
+- `lib/monitoring.ts` — Глобальные обработчики `window.onerror`/`unhandledrejection` + репортинг из `ErrorBoundary`.
+
+## Блог
+`blog/` — статический многостраничный раздел (5 статей), отдельный от React-приложения:
+чистый HTML/Tailwind без гидратации, для надёжной индексации Bing/Yandex. См. `blog/README.md`
+за структурой и инструкцией по добавлению новой статьи.
 
 ## Инструкция по запуску
 1. Перейдите в папку проекта: `cd Landing`
