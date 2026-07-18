@@ -23,3 +23,4 @@ jobs:
           cache-dependency-path: Landing/package-lock.json
       - run: npm ci
       - run: npm run build
+      - run: node scripts/verify-csp-hashes.mjs

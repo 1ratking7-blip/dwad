@@ -11,6 +11,9 @@
 # spec, so a naive hash of the raw file bytes won't match — that script handles it.)
 # Adding a new analytics pixel (Meta/TikTok/Clarity) from the commented templates in
 # index.html requires adding both its hash here AND its script/connect domains below.
+# CI enforces this automatically (scripts/verify-csp-hashes.mjs, run in .github/workflows/
+# build.yml after the build step) — a forgotten hash now fails the build instead of shipping
+# a silently-broken script to production.
 
 /*
   X-Content-Type-Options: nosniff

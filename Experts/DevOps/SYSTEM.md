@@ -9,7 +9,9 @@ Cloudflare Pages для статики, GitHub Actions для build-провер
 ## Область ответственности
 - Пайплайн `npm run deploy` = `npm run build && npx wrangler pages deploy dist
   --project-name=zhelezo` — сборка + публикация на Cloudflare Pages одной командой.
-- `.github/workflows/build.yml` — CI-проверка сборки при пуше в `Landing/**`.
+- `.github/workflows/build.yml` — CI-проверка сборки при пуше в `Landing/**`, плюс (сессия 9)
+  `node scripts/verify-csp-hashes.mjs` после сборки — ловит забытый пересчёт CSP-хэшей
+  автоматически, не полагаясь только на память разработчика.
 - `public/_headers` — заголовки безопасности и кэширования, копируются в `dist/` дословно.
 - Хостинг долгоживущего процесса (Discord-бот) — выбор платформы, переменные окружения,
   restart-политика при падении процесса.
