@@ -6,12 +6,22 @@
 - Apex-домен `zhelezo.space` не открывается по HTTPS — нужен доступ к DNS (Namecheap/Cloudflare)
 - PageSpeed Insights API-ключ или ручной прогон pagespeed.web.dev — для авторитетного Performance-балла
 - Google Search Console verification-код — заготовка готова в index.html
+- Bing Webmaster verification-код — заготовка готова в index.html (`msvalidate.01`)
+- Яндекс.Вебмастер verification-код — заготовка готова в index.html (`yandex-verification`)
 - Партнёрская панель BC.Game — проверить наличие LTV/retention-отчётов по subId (ключевой блокер приоритизации остального плана)
 - Блог-раздел для SEO — решение по объёму/срокам
 - Discord-бот (`#daily-lucky-spin`/`#faq-bot`) — решение, делать ли, спецификация готова в `Texts/discord_server_structure.md`
 
 ## В процессе
 _(пусто)_
+
+## Выполнено (2026-07-18, сессия 5 — доп. каналы продвижения + реальный конкурентный срез)
+- Второй внешний мега-бриф (SEO-регистрации, соцсети, форумы, вирусность, бэклинки, конкуренты) — применён выборочно, не по чек-листу вслепую
+- Bing/Yandex Webmaster verification-плейсхолдеры в `Landing/index.html`, билд проверен
+- `Analytics/COMPETITORS.md` — реальный (не выдуманный) конкурентный срез через живой веб-поиск: кто стоит в выдаче по "BC.Game промокод"/"no KYC casino" — крупные медиа, не одностраничники, подтверждает необходимость блога
+- `GROWTH_PLAN.md` дополнен оценкой новых каналов (Quora/Medium/Dev.to/Hashnode/Pinterest/Flipboard/AlternativeTo/BetaList/AI-директории/VK/Bluesky) по реальным правилам площадок — Medium и Pinterest категорически запрещают гемблинг-контент официальными правилами, не "риск"
+- `Texts/quora_answers.md` — контент-пакет по актуальной политике Quora
+- `REPORT/ACTION_PLAN.md` дополнен, явно объяснено, почему не штамповались "30 постов/20 статей" по каждому каналу вслепую
 
 ## Выполнено (2026-07-18, сессия 4 — контент-пакеты каналов + фикс SocialProof)
 - `SocialProof.tsx`: фабрикованные "Live Win" → "Пример выигрыша", убран юридический риск прямого обмана (GEMINI.md п.8), билд проверен
