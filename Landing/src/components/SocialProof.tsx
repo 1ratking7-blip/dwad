@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// Illustrative examples, not live/real user data — labeled "Пример выигрыша" (not "Live"),
+// see REPORT/BUG_REPORT.md and GEMINI.md p.8 (avoid deceptive advertising).
 const wins = [
   { user: 'user_9**', game: 'Crash', amount: '2.45 ETH', multiplier: '15.4x' },
   { user: 'Kryp**', game: 'Plinko', amount: '14,200 TRX', multiplier: '250x' },
@@ -56,7 +58,7 @@ export default function SocialProof() {
             {wins[currentWin].user[0]}
           </div>
           <div>
-            <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-0.5">Live Win • {wins[currentWin].game}</div>
+            <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-0.5">Пример выигрыша • {wins[currentWin].game}</div>
             <div className="text-sm font-bold text-white mb-0.5">
               {wins[currentWin].user} <span className="text-[var(--color-accent)]">выиграл {wins[currentWin].amount}</span>
             </div>

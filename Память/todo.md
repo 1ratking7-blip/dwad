@@ -2,15 +2,22 @@
 
 *Обновлено: 2026-07-18*
 
-## Активные задачи (требуют доступа/решения пользователя — см. REPORT/TODO.md за полным списком)
+## Активные задачи (требуют доступа/решения пользователя — см. REPORT/TODO.md и REPORT/ACTION_PLAN.md за полным списком)
 - Apex-домен `zhelezo.space` не открывается по HTTPS — нужен доступ к DNS (Namecheap/Cloudflare)
 - PageSpeed Insights API-ключ или ручной прогон pagespeed.web.dev — для авторитетного Performance-балла
 - Google Search Console verification-код — заготовка готова в index.html
-- Решение по `SocialProof.tsx` (фабрикованные "live wins") — пометить как иллюстративные или подключить реальные данные
-- Партнёрская панель BC.Game — проверить наличие LTV/retention-отчётов по subId
+- Партнёрская панель BC.Game — проверить наличие LTV/retention-отчётов по subId (ключевой блокер приоритизации остального плана)
+- Блог-раздел для SEO — решение по объёму/срокам
+- Discord-бот (`#daily-lucky-spin`/`#faq-bot`) — решение, делать ли, спецификация готова в `Texts/discord_server_structure.md`
 
 ## В процессе
 _(пусто)_
+
+## Выполнено (2026-07-18, сессия 4 — контент-пакеты каналов + фикс SocialProof)
+- `SocialProof.tsx`: фабрикованные "Live Win" → "Пример выигрыша", убран юридический риск прямого обмана (GEMINI.md п.8), билд проверен
+- Написаны контент-пакеты под каналы, одобренные в `GROWTH_PLAN.md`, которых не было: `Texts/forum_bitcointalk.md`, `Texts/casino_directories.md`, `Texts/x_organic_content.md`, `Texts/discord_server_structure.md`
+- Написан `REPORT/ACTION_PLAN.md` — консолидированный, приоритизированный по влиянию на доход план
+- Отклонён (явно, с обоснованием) запрос на массовый скрапинг персональных данных + холодные рассылки по соцсетям — конфликт с GEMINI.md п.8 и ToS площадок
 
 ## Выполнено (2026-07-18, сессия 3 — "Autonomous CTO + Security + Growth")
 - Полный повторный аудит: зависимости (`npm audit` чисто), CI (все прогоны success), CSP-хэши в синхроне, секреты в истории — нет
