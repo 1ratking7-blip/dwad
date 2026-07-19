@@ -20,22 +20,22 @@
 
 ## План
 
-| День | Тип | Контент | Источник |
-|---|---|---|---|
-| 1 | Промо | Знакомство с брендом ZHELEZO | `Generated/twitter_30day_calendar.txt`, День 1 |
-| 2 | Органика | Тред: как проверить Provably Fair самому | `x_organic_content.md`, Тред 1 |
-| 3 | Органика | Твит: "no KYC не значит хуже" hot take | `x_organic_content.md` |
-| 4 | Промо | Как крутить Lucky Spin (инструкция) | `Generated/twitter_30day_calendar.txt`, День 2 |
-| 5 | Органика | Тред: математика Crash-мультипликатора | `x_organic_content.md`, Тред 2 |
-| 6 | Органика | Твит: "цвета мультипликатора — та же кривая" | `x_organic_content.md` |
-| 7 | Промо | Обзор Plinko (исправленный День 4 — механика без выдуманного выигрыша) | `Generated/twitter_30day_calendar.txt`, Дни 3-4 |
-| 8 | Органика | Твит: "вывод в 3 ночи без тикета" | `x_organic_content.md` |
-| 9 | Органика | Мем-концепт: "Waiting for KYC" vs "already cashed out" (передать дизайнеру) | `x_organic_content.md` |
-| 10 | Промо | Приветственный бонус 360% | `Generated/twitter_30day_calendar.txt` (следующий промо-день по календарю) |
-| 11 | Органика | Тред: Provably Fair — повтор с новым углом/вопросом аудитории (адаптировать Тред 1 под Q&A формат) | адаптация `x_organic_content.md` |
-| 12 | Органика | Твит: сравнение "что реально отличается между withdrawal-флоу" | адаптация из `forum_bitcointalk.md`, Пост 3 |
-| 13 | Промо | VIP/рейкбек программа | `Generated/twitter_30day_calendar.txt` |
-| 14 | Органика | Мем-концепт 2: "Explaining Provably Fair at 2am" (передать дизайнеру) | `x_organic_content.md` |
+| День | Статус | Тип | Контент | Источник |
+|---|---|---|---|---|
+| 1 | ✅ Запощено | Промо | Знакомство с брендом ZHELEZO | `Generated/twitter_30day_calendar.txt`, День 1 |
+| 2 | ✅ Запощено | Органика | Тред: как проверить Provably Fair самому | `x_organic_content.md`, Тред 1 |
+| 3 | ⬜ | Органика | Твит: "no KYC не значит хуже" hot take | `x_organic_content.md` |
+| 4 | ⬜ | Промо | Как крутить Lucky Spin (инструкция) | `Generated/twitter_30day_calendar.txt`, День 2 |
+| 5 | ⬜ | Органика | Тред: математика Crash-мультипликатора | `x_organic_content.md`, Тред 2 |
+| 6 | ⬜ | Органика | Твит: "цвета мультипликатора — та же кривая" | `x_organic_content.md` |
+| 7 | ⬜ | Промо | Обзор Plinko (исправленный День 4 — механика без выдуманного выигрыша) | `Generated/twitter_30day_calendar.txt`, Дни 3-4 |
+| 8 | ⬜ | Органика | Твит: "вывод в 3 ночи без тикета" | `x_organic_content.md` |
+| 9 | ⬜ | Органика | Мем-концепт: "Waiting for KYC" vs "already cashed out" (передать дизайнеру) | `x_organic_content.md` |
+| 10 | ⬜ | Промо | Приветственный бонус 360% | `Generated/twitter_30day_calendar.txt` (следующий промо-день по календарю) |
+| 11 | ⬜ | Органика | Тред: Provably Fair — повтор с новым углом/вопросом аудитории (адаптировать Тред 1 под Q&A формат) | адаптация `x_organic_content.md` |
+| 12 | ⬜ | Органика | Твит: сравнение "что реально отличается между withdrawal-флоу" | адаптация из `forum_bitcointalk.md`, Пост 3 |
+| 13 | ⬜ | Промо | VIP/рейкбек программа | `Generated/twitter_30day_calendar.txt` |
+| 14 | ⬜ | Органика | Мем-концепт 2: "Explaining Provably Fair at 2am" (передать дизайнеру) | `x_organic_content.md` |
 
 ## Как продолжать после Дня 14
 Повторить цикл с оставшимися промо-днями из `twitter_30day_calendar.txt` (Дни 5-30, за
