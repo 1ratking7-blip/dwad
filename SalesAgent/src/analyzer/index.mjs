@@ -35,6 +35,14 @@ const BOT_CHALLENGE_TITLE_PATTERNS = [
 // challenge page — real pages essentially never self-reload on a timer like this.
 const AUTO_RELOAD_SIGNATURE = /setTimeout\s*\(\s*function\s*\(\s*\)\s*\{\s*window\.location\.reload/i;
 
+// A bare IPv4 address is never a legitimate site/company name — no false-positive risk.
+// Added after baccarat.guru returned a 200 OK WAF denial page ("Sorry, your request has
+// been denied." + client IP + timestamp, no <title> at all) that isn't a Cloudflare JS
+// interstitial (no auto-reload script) so the check above missed it entirely and the IP+
+// timestamp string got saved as the company name. Different vendor, same underlying
+// problem: a non-content page returning 200 and being trusted as real data.
+const IP_ADDRESS_PATTERN = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/;
+
 function isBotChallengePage(html) {
   // First attempt (awisee.com) used a raw HTML-length threshold and missed this exact page —
   // a challenge page's CSS/animation payload can be 10KB+, so length alone is not a reliable
@@ -43,7 +51,14 @@ function isBotChallengePage(html) {
   const titleMatch = /<title>([^<]*)<\/title>/i.exec(html);
   const title = titleMatch?.[1]?.trim() ?? '';
   const titleLooksLikeChallenge = BOT_CHALLENGE_TITLE_PATTERNS.some((p) => p.test(title));
-  return titleLooksLikeChallenge && AUTO_RELOAD_SIGNATURE.test(html);
+  if (titleLooksLikeChallenge && AUTO_RELOAD_SIGNATURE.test(html)) return true;
+
+  // Generic WAF/rate-limit denial pages: no real <title>, but the extractable "name" (og:site_name
+  // or first text) starts with a bare IP — same signal as the check in analyzeCompany() below,
+  // duplicated here so seed URLs get skipped before we even bother parsing further.
+  if (IP_ADDRESS_PATTERN.test(title)) return true;
+
+  return false;
 }
 
 /**
@@ -84,6 +99,12 @@ export async function analyzeCompany(url) {
     $('meta[property="og:site_name"]').attr('content') ||
     $('title').first().text().trim().split(/[|\-–]/)[0].trim() ||
     new URL(url).hostname;
+
+  // Defense in depth: isBotChallengePage() only inspects <title>, but og:site_name could
+  // carry the same denial-page IP+timestamp string. No real company name is a bare IP.
+  if (IP_ADDRESS_PATTERN.test(name)) {
+    return { error: 'blocked_by_bot_protection', url };
+  }
 
   const description =
     $('meta[name="description"]').attr('content') ||
