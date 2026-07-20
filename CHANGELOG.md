@@ -15,6 +15,8 @@
   пользователь был вынужден таб-ать через весь header на каждой странице.
 - **Fix**: LanguageSwitcher теперь закрывается по Escape с возвратом фокуса на кнопку.
 - **Chore**: `Scripts/brand-monitor/run-checks.bat` — обёртка для периодического запуска
-  site-health-check.mjs + check-mentions.mjs, протестирована end-to-end. Регистрация в
-  Task Scheduler не выполнена — требует явного разрешения пользователя (команда готова
-  в README).
+  site-health-check.mjs + check-mentions.mjs, протестирована end-to-end.
+- **Automation**: зарегистрирована задача Windows Task Scheduler `ZHELEZO-BrandMonitor` —
+  ежедневный запуск `run-checks.bat` в 09:00, лог в `logs/monitor.log`. Подтверждено
+  явным разрешением пользователя (системное изменение вне репозитория), проверено
+  `schtasks /query` — статус Ready.
