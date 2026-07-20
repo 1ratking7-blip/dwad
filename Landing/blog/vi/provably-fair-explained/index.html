@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://www.zhelezo.space/blog/vi/provably-fair-explained/" />
+    <link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/blog/provably-fair-explained/" />
+    <link rel="alternate" hreflang="en" href="https://www.zhelezo.space/blog/en/provably-fair-explained/" />
+    <link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/provably-fair-explained/" />
+    <link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/provably-fair-explained/" />
+
+    <title>Provably Fair — Cách Tự Kiểm Tra Tính Công Bằng Của Game | ZHELEZO</title>
+    <meta name="description" content="Phân tích từng bước về Provably Fair: cơ chế kiểm tra tính công bằng thực sự hoạt động thế nào trong Crash, Plinko và Hash Dice trên BC.Game, và nó chứng minh được gì — điều gì thì không." />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="ZHELEZO Crypto Gaming" />
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="og:url" content="https://www.zhelezo.space/blog/vi/provably-fair-explained/" />
+    <meta property="og:title" content="Provably Fair — Cách Tự Kiểm Tra Tính Công Bằng Của Game" />
+    <meta property="og:description" content="Phân tích từng bước cơ chế xác minh Provably Fair." />
+    <meta property="og:image" content="https://www.zhelezo.space/og-image.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Provably Fair — Tự Kiểm Tra Tính Công Bằng" />
+    <meta name="twitter:description" content="Phân tích từng bước cơ chế Provably Fair." />
+    <meta name="twitter:image" content="https://www.zhelezo.space/og-image.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Provably Fair — Cách Tự Kiểm Tra Tính Công Bằng Của Game",
+        "description": "Phân tích từng bước cơ chế xác minh Provably Fair trong Crash, Plinko và Hash Dice.",
+        "datePublished": "2026-07-18",
+        "inLanguage": "vi",
+        "author": { "@type": "Organization", "name": "ZHELEZO Crypto Gaming" },
+        "publisher": { "@type": "Organization", "name": "ZHELEZO Crypto Gaming", "logo": { "@type": "ImageObject", "url": "https://www.zhelezo.space/icon-512.png" } }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Trang chủ", "item": "https://www.zhelezo.space/vi/" },
+          { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.zhelezo.space/blog/vi/" },
+          { "@type": "ListItem", "position": 3, "name": "Provably Fair — Cách Tự Kiểm Tra Tính Công Bằng Của Game" }
+        ]
+      }
+    </script>
+
+    <script type="module" src="../../blog-entry.ts"></script>
+  </head>
+  <body class="bg-[var(--color-bg)] text-gray-100 antialiased font-sans">
+    <header class="pt-10 pb-6 border-b border-[var(--color-border)]">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 flex items-center space-x-3">
+        <a href="/vi/" class="flex items-center space-x-3">
+          <div class="bg-[var(--color-accent)] p-2 rounded-lg text-black font-extrabold flex items-center justify-center">
+            <span class="text-xl" aria-hidden="true">⚡</span>
+          </div>
+          <span class="text-xl font-black tracking-widest bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-2)] bg-clip-text text-transparent">
+            ZHELEZO
+          </span>
+        </a>
+      </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 py-16">
+      <nav class="text-sm text-gray-500 mb-8">
+        <a href="/blog/vi/" class="hover:text-[var(--color-accent)]">Blog</a> / Provably Fair
+      </nav>
+
+      <h1 class="text-4xl font-black tracking-tight mb-6 leading-tight">Provably Fair — Cách Tự Kiểm Tra Tính Công Bằng Của Game</h1>
+
+      <div class="prose-content text-gray-300 leading-relaxed space-y-6">
+        <p>
+          "Provably Fair" không phải là khẩu hiệu marketing — đó là một cơ chế mã hóa cụ thể
+          cho phép người chơi tự kiểm tra bằng toán học rằng một vòng chơi không bị thay đổi
+          sau khi kết thúc, mà không cần tin vào lời nói của nhà điều hành. Hãy cùng phân tích
+          từng bước cách nó hoạt động, và chính xác nó chứng minh được điều gì — và điều gì
+          thì không.
+        </p>
+
+        <h2 class="text-2xl font-bold text-white pt-4">Cơ chế trong 4 bước</h2>
+        <ol class="list-decimal list-inside space-y-3 pl-2">
+          <li>
+            <strong class="text-white">Trước vòng chơi</strong>, nền tảng hiển thị cho bạn
+            mã hash (SHA-256) của server seed. Hash là một hàm một chiều — bạn không thể
+            khôi phục seed gốc từ đó, nhưng khi seed được tiết lộ sau này, bạn có thể kiểm
+            tra xem hash có khớp không.
+          </li>
+          <li>
+            <strong class="text-white">Người chơi cung cấp client seed</strong> (của riêng
+            bạn hoặc được tạo tự động), thường đi kèm với nonce — một số tăng dần theo mỗi
+            lượt cược.
+          </li>
+          <li>
+            <strong class="text-white">Kết quả vòng chơi</strong> được tính toán bằng hàm
+            xác định từ cả hai seed và nonce — nghĩa là nó đã được ấn định ngay tại thời
+            điểm cam kết hash, trước khi nền tảng nhìn thấy lượt cược của bạn.
+          </li>
+          <li>
+            <strong class="text-white">Sau vòng chơi</strong>, nền tảng tiết lộ server seed
+            gốc. Người chơi (hoặc công cụ xác minh độc lập) tính lại hash từ bước 1 và đối
+            chiếu — nếu hai hash khớp nhau, server không thể đã thay đổi seed sau khi thấy
+            lượt cược của bạn.
+          </li>
+        </ol>
+
+        <h2 class="text-2xl font-bold text-white pt-4">Điều này chứng minh được gì — và điều gì thì không</h2>
+        <p>
+          Provably Fair chứng minh rằng <em>một kết quả cụ thể không bị thay đổi sau khi kết
+          thúc</em>. Điều này không giống với "game có house edge tốt" — phân phối hệ số nhân
+          trong Crash hay xác suất trong Plinko có thể hoàn toàn trung thực về mặt xác minh
+          seed nhưng vẫn có lợi thế nhà cái được tích hợp sẵn (điều này bình thường và được
+          kỳ vọng ở bất kỳ game cờ bạc nào — vấn đề là lợi thế đó có được công khai minh bạch
+          hay không). Đây là hai vấn đề khác nhau, và Provably Fair chỉ trả lời vấn đề đầu tiên.
+        </p>
+
+        <h2 class="text-2xl font-bold text-white pt-4">Tự kiểm tra ở đâu</h2>
+        <p>
+          Trên BC.Game, mỗi game (Crash, Plinko, Hash Dice, Limbo) đều có mục
+          "Fairness"/"Provably Fair" riêng trong giao diện game, nơi bạn có thể nhập server
+          seed đã tiết lộ và nhận hash tính lại — không cần công cụ bên ngoài. Nếu một nền
+          tảng tuyên bố "Provably Fair" nhưng không cung cấp công cụ kiểm tra như vậy ngay
+          trong giao diện, đó là lý do để nghi ngờ về tuyên bố đó.
+        </p>
+
+        <h2 class="text-2xl font-bold text-white pt-4">Tiếp theo là gì</h2>
+        <p>
+          Thưởng chào mừng và Lucky Spin hàng ngày trên BC.Game có trên
+          <a href="/vi/#games" class="text-[var(--color-accent)] hover:underline">trang chủ ZHELEZO</a>.
+          Nếu bạn quan tâm đến mã khuyến mãi — có
+          <a href="/blog/vi/bc-game-promo-code-2026/" class="text-[var(--color-accent)] hover:underline">bài phân tích riêng</a>.
+          Phân tích chiến thuật Crash/Plinko — <a href="/blog/vi/crash-plinko-strategiya/" class="text-[var(--color-accent)] hover:underline">tại đây</a>.
+        </p>
+
+        <div class="pt-6">
+          <a
+            href="https://bcall-loop.bcgame-bet.com/dispatch-v6?i=zhelezo&p=/login/regist&subId1=seo&subId2=vi_provably-fair-explained"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center bg-[var(--color-accent)] text-black px-8 py-4 rounded-2xl font-black tracking-wide hover:shadow-[0_0_30px_color-mix(in_srgb,var(--color-accent)_50%,transparent)] hover:-translate-y-1 transition-all"
+          >
+            Thử Game Provably Fair Trên BC.Game
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-16 pt-8 border-t border-[var(--color-border)] text-xs text-gray-500">
+        18+. Chơi có trách nhiệm. Cờ bạc có thể gây nghiện.
+      </div>
+    </main>
+  </body>
+</html>

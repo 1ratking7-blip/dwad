@@ -27,54 +27,228 @@
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/vi/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/" />
   </url>
+
   <url>
     <loc>https://www.zhelezo.space/blog/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zhelezo.space/blog/bc-game-promo-code-2026/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.zhelezo.space/blog/provably-fair-explained/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.zhelezo.space/blog/bc-game-lucky-spin/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.zhelezo.space/blog/bc-game-vip-rakeback/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.zhelezo.space/blog/bc-game-otzyvy/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.zhelezo.space/blog/crash-plinko-strategiya/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.zhelezo.space/blog/no-kyc-crypto-casino/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/blog/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/blog/en/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/" />
   </url>
   <url>
     <loc>https://www.zhelezo.space/blog/en/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/blog/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/blog/en/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/" />
+  </url>
+  <url>
+    <loc>https://www.zhelezo.space/blog/vi/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/blog/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/blog/en/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/" />
+  </url>
+
+  <url>
+    <loc>https://www.zhelezo.space/blog/bc-game-promo-code-2026/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/blog/bc-game-promo-code-2026/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/blog/en/bc-game-promo-code-2026/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/bc-game-promo-code-2026/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/bc-game-promo-code-2026/" />
   </url>
   <url>
     <loc>https://www.zhelezo.space/blog/en/bc-game-promo-code-2026/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/blog/bc-game-promo-code-2026/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/blog/en/bc-game-promo-code-2026/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/bc-game-promo-code-2026/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/bc-game-promo-code-2026/" />
+  </url>
+  <url>
+    <loc>https://www.zhelezo.space/blog/vi/bc-game-promo-code-2026/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/blog/bc-game-promo-code-2026/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/blog/en/bc-game-promo-code-2026/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/bc-game-promo-code-2026/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/bc-game-promo-code-2026/" />
+  </url>
+
+  <url>
+    <loc>https://www.zhelezo.space/blog/provably-fair-explained/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/blog/provably-fair-explained/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/blog/en/provably-fair-explained/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/provably-fair-explained/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/provably-fair-explained/" />
+  </url>
+  <url>
+    <loc>https://www.zhelezo.space/blog/en/provably-fair-explained/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/blog/provably-fair-explained/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/blog/en/provably-fair-explained/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/provably-fair-explained/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/provably-fair-explained/" />
+  </url>
+  <url>
+    <loc>https://www.zhelezo.space/blog/vi/provably-fair-explained/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/blog/provably-fair-explained/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/blog/en/provably-fair-explained/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/provably-fair-explained/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/provably-fair-explained/" />
+  </url>
+
+  <url>
+    <loc>https://www.zhelezo.space/blog/bc-game-otzyvy/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/blog/bc-game-otzyvy/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/blog/en/bc-game-otzyvy/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/bc-game-otzyvy/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/bc-game-otzyvy/" />
+  </url>
+  <url>
+    <loc>https://www.zhelezo.space/blog/en/bc-game-otzyvy/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/blog/bc-game-otzyvy/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/blog/en/bc-game-otzyvy/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/bc-game-otzyvy/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/bc-game-otzyvy/" />
+  </url>
+  <url>
+    <loc>https://www.zhelezo.space/blog/vi/bc-game-otzyvy/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/blog/bc-game-otzyvy/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/blog/en/bc-game-otzyvy/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/bc-game-otzyvy/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/bc-game-otzyvy/" />
+  </url>
+
+  <url>
+    <loc>https://www.zhelezo.space/blog/crash-plinko-strategiya/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/blog/crash-plinko-strategiya/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/blog/en/crash-plinko-strategiya/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/crash-plinko-strategiya/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/crash-plinko-strategiya/" />
+  </url>
+  <url>
+    <loc>https://www.zhelezo.space/blog/en/crash-plinko-strategiya/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/blog/crash-plinko-strategiya/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/blog/en/crash-plinko-strategiya/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/crash-plinko-strategiya/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/crash-plinko-strategiya/" />
+  </url>
+  <url>
+    <loc>https://www.zhelezo.space/blog/vi/crash-plinko-strategiya/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/blog/crash-plinko-strategiya/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/blog/en/crash-plinko-strategiya/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/crash-plinko-strategiya/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/crash-plinko-strategiya/" />
+  </url>
+
+  <url>
+    <loc>https://www.zhelezo.space/blog/no-kyc-crypto-casino/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/blog/no-kyc-crypto-casino/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/blog/en/no-kyc-crypto-casino/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/no-kyc-crypto-casino/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/no-kyc-crypto-casino/" />
+  </url>
+  <url>
+    <loc>https://www.zhelezo.space/blog/en/no-kyc-crypto-casino/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/blog/no-kyc-crypto-casino/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/blog/en/no-kyc-crypto-casino/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/no-kyc-crypto-casino/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/no-kyc-crypto-casino/" />
+  </url>
+  <url>
+    <loc>https://www.zhelezo.space/blog/vi/no-kyc-crypto-casino/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/blog/no-kyc-crypto-casino/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/blog/en/no-kyc-crypto-casino/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/no-kyc-crypto-casino/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/no-kyc-crypto-casino/" />
+  </url>
+
+  <url>
+    <loc>https://www.zhelezo.space/blog/bc-game-lucky-spin/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/blog/bc-game-lucky-spin/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/blog/en/bc-game-lucky-spin/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/bc-game-lucky-spin/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/bc-game-lucky-spin/" />
+  </url>
+  <url>
+    <loc>https://www.zhelezo.space/blog/en/bc-game-lucky-spin/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/blog/bc-game-lucky-spin/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/blog/en/bc-game-lucky-spin/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/bc-game-lucky-spin/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/bc-game-lucky-spin/" />
+  </url>
+  <url>
+    <loc>https://www.zhelezo.space/blog/vi/bc-game-lucky-spin/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/blog/bc-game-lucky-spin/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/blog/en/bc-game-lucky-spin/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/bc-game-lucky-spin/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/bc-game-lucky-spin/" />
+  </url>
+
+  <url>
+    <loc>https://www.zhelezo.space/blog/bc-game-vip-rakeback/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/blog/bc-game-vip-rakeback/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/blog/en/bc-game-vip-rakeback/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/bc-game-vip-rakeback/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/bc-game-vip-rakeback/" />
+  </url>
+  <url>
+    <loc>https://www.zhelezo.space/blog/en/bc-game-vip-rakeback/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/blog/bc-game-vip-rakeback/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/blog/en/bc-game-vip-rakeback/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/bc-game-vip-rakeback/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/bc-game-vip-rakeback/" />
+  </url>
+  <url>
+    <loc>https://www.zhelezo.space/blog/vi/bc-game-vip-rakeback/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/blog/bc-game-vip-rakeback/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/blog/en/bc-game-vip-rakeback/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/bc-game-vip-rakeback/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/bc-game-vip-rakeback/" />
   </url>
 </urlset>
