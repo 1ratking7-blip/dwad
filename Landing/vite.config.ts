@@ -20,6 +20,7 @@ export default defineConfig({
         blogStrategy: resolve(__dirname, 'blog/crash-plinko-strategiya/index.html'),
         blogNoKyc: resolve(__dirname, 'blog/no-kyc-crypto-casino/index.html'),
         blogLuckySpin: resolve(__dirname, 'blog/bc-game-lucky-spin/index.html'),
+        blogVipRakeback: resolve(__dirname, 'blog/bc-game-vip-rakeback/index.html'),
         blogEnIndex: resolve(__dirname, 'blog/en/index.html'),
         blogEnPromoCode: resolve(__dirname, 'blog/en/bc-game-promo-code-2026/index.html'),
       },
