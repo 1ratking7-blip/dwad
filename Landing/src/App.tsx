@@ -28,9 +28,15 @@ function App() {
   return (
     <MotionConfig reducedMotion="user">
       <div className="min-h-screen bg-[var(--color-bg)]">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-[var(--color-accent)] focus:text-black focus:font-bold focus:px-4 focus:py-2 focus:rounded-lg"
+        >
+          {t.skipToContent}
+        </a>
         <Header />
         <SocialProof />
-        <main>
+        <main id="main-content" tabIndex={-1}>
           <Hero />
           <Suspense fallback={null}>
             <LuckyWheel />

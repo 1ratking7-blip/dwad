@@ -157,4 +157,5 @@ export const ru: Dictionary = {
   languageSwitcher: {
     label: 'Язык',
   },
+  skipToContent: 'Перейти к основному содержанию',
 };

@@ -157,4 +157,5 @@ export const vi: Dictionary = {
   languageSwitcher: {
     label: 'Ngôn ngữ',
   },
+  skipToContent: 'Chuyển đến nội dung chính',
 };

@@ -157,4 +157,5 @@ export const en: Dictionary = {
   languageSwitcher: {
     label: 'Language',
   },
+  skipToContent: 'Skip to main content',
 };

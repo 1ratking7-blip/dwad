@@ -139,4 +139,5 @@ export interface Dictionary {
   languageSwitcher: {
     label: string;
   };
+  skipToContent: string;
 }
