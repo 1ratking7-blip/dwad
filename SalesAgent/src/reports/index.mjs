@@ -8,34 +8,35 @@ const PERIOD_SQL = {
 
 export function generateStats({ since } = {}) {
   const db = getDb();
-  const whereCompanies = since ? `WHERE discovered_at >= '${since}'` : '';
-  const whereLeads = since ? `WHERE created_at >= '${since}'` : '';
-  const whereDrafts = since ? `WHERE created_at >= '${since}'` : '';
+  const whereCompanies = since ? 'WHERE discovered_at >= ?' : '';
+  const whereLeads = since ? 'WHERE created_at >= ?' : '';
+  const whereDrafts = since ? 'WHERE created_at >= ?' : '';
+  const sinceParams = since ? [since] : [];
 
-  const totalCompanies = db.prepare(`SELECT COUNT(*) AS n FROM companies ${whereCompanies}`).get().n;
-  const totalLeads = db.prepare(`SELECT COUNT(*) AS n FROM leads ${whereLeads}`).get().n;
-  const totalDrafts = db.prepare(`SELECT COUNT(*) AS n FROM message_drafts ${whereDrafts}`).get().n;
+  const totalCompanies = db.prepare(`SELECT COUNT(*) AS n FROM companies ${whereCompanies}`).get(...sinceParams).n;
+  const totalLeads = db.prepare(`SELECT COUNT(*) AS n FROM leads ${whereLeads}`).get(...sinceParams).n;
+  const totalDrafts = db.prepare(`SELECT COUNT(*) AS n FROM message_drafts ${whereDrafts}`).get(...sinceParams).n;
 
   const leadsByStatus = db
     .prepare(`SELECT status, COUNT(*) AS n FROM leads ${whereLeads} GROUP BY status`)
-    .all();
-  const priorityClause = since ? `WHERE created_at >= '${since}' AND priority IS NOT NULL` : 'WHERE priority IS NOT NULL';
+    .all(...sinceParams);
+  const priorityClause = since ? 'WHERE created_at >= ? AND priority IS NOT NULL' : 'WHERE priority IS NOT NULL';
   const leadsByPriority = db
     .prepare(`SELECT priority, COUNT(*) AS n FROM leads ${priorityClause} GROUP BY priority`)
-    .all();
+    .all(...sinceParams);
   const draftsByStatus = db
     .prepare(`SELECT status, COUNT(*) AS n FROM message_drafts ${whereDrafts} GROUP BY status`)
-    .all();
+    .all(...sinceParams);
   const byCountry = db
     .prepare(
       `SELECT COALESCE(country, 'Unknown') AS country, COUNT(*) AS n FROM companies ${whereCompanies} GROUP BY country ORDER BY n DESC`
     )
-    .all();
+    .all(...sinceParams);
   const byIndustry = db
     .prepare(
       `SELECT COALESCE(industry, 'Unknown') AS industry, COUNT(*) AS n FROM companies ${whereCompanies} GROUP BY industry ORDER BY n DESC`
     )
-    .all();
+    .all(...sinceParams);
 
   const upcomingActions = db
     .prepare(
