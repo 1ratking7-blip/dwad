@@ -24,7 +24,7 @@
 |---|---|---|---|---|
 | 1 | ✅ Запощено | Промо | Знакомство с брендом ZHELEZO | `Generated/twitter_30day_calendar.txt`, День 1 |
 | 2 | ✅ Запощено | Органика | Тред: как проверить Provably Fair самому | `x_organic_content.md`, Тред 1 |
-| 3 | ⬜ | Органика | Твит: "no KYC не значит хуже" hot take | `x_organic_content.md` |
+| 3 | ✅ Запощено | Органика | Твит: "no KYC не значит хуже" hot take | `x_organic_content.md` |
 | 4 | ⬜ | Промо | Как крутить Lucky Spin (инструкция) | `Generated/twitter_30day_calendar.txt`, День 2 |
 | 5 | ⬜ | Органика | Тред: математика Crash-мультипликатора | `x_organic_content.md`, Тред 2 |
 | 6 | ⬜ | Органика | Твит: "цвета мультипликатора — та же кривая" | `x_organic_content.md` |
