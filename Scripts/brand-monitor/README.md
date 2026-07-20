@@ -29,11 +29,21 @@ node check-mentions.mjs "your custom query"       # one-off custom query
 ```
 
 ### Running it periodically
-This is a one-shot script, not a daemon — nothing runs unless you run it. For a
-recurring check, use Windows Task Scheduler (same pattern as `ClaudeTelegramBot`'s
-proposed restart-on-failure setup): create a Basic Task, trigger daily/weekly,
-action = `node C:\Projects\CasinoReferral\Scripts\brand-monitor\check-mentions.mjs`,
-redirect output to a log file if you want a history instead of just console output.
+These are one-shot scripts, not daemons — nothing runs unless you run them.
+`run-checks.bat` (same folder) runs both in sequence and appends timestamped output to
+`logs\monitor.log` — tested manually and confirmed working (2026-07-21). Registering
+the recurring schedule itself needs your explicit go-ahead (it's a system-level change,
+not something to do silently), so it wasn't auto-registered. To set it up:
+
+```
+schtasks /create /tn "ZHELEZO-BrandMonitor" /tr "C:\Projects\CasinoReferral\Scripts\brand-monitor\run-checks.bat" /sc daily /st 09:00
+```
+
+Or via the Task Scheduler GUI: create a Basic Task, trigger daily (any time works —
+09:00 is just a reasonable default), action = start a program =
+`C:\Projects\CasinoReferral\Scripts\brand-monitor\run-checks.bat`. No admin rights or
+stored password needed as long as "run only when user is logged on" (the default) is
+left as-is.
 
 ## site-health-check.mjs
 
