@@ -6,7 +6,8 @@ import Hero from './components/Hero';
 import SocialProof from './components/SocialProof';
 import UrgencyTimer from './components/UrgencyTimer';
 import { trackEvent } from './lib/analytics';
-import { REF_LINK } from './lib/links';
+import { refLinkForLocale } from './lib/links';
+import { useLocale } from './i18n/LocaleContext';
 
 // Below-the-fold sections split out of the initial bundle so the browser has
 // less JS to parse/execute before the Hero (LCP element) can paint.
@@ -17,9 +18,12 @@ const FAQ = lazy(() => import('./components/FAQ'));
 const Footer = lazy(() => import('./components/Footer'));
 
 function App() {
+  const { locale, t } = useLocale();
+  const refLink = refLinkForLocale(locale);
+
   useEffect(() => {
-    trackEvent('page_view');
-  }, []);
+    trackEvent('page_view', { locale });
+  }, [locale]);
 
   return (
     <MotionConfig reducedMotion="user">
@@ -41,23 +45,23 @@ function App() {
                   </div>
 
                   <h2 className="text-3xl md:text-6xl font-black mb-8 text-white tracking-tight">
-                    ГОТОВ К МАКСИМАЛЬНОМУ <br />
-                    <span className="text-[var(--color-accent)]">ПРОФИТУ?</span>
+                    {t.bonusSection.h2Line1} <br />
+                    <span className="text-[var(--color-accent)]">{t.bonusSection.h2Line2}</span>
                   </h2>
                   <p className="text-gray-400 text-lg mb-12 max-w-2xl mx-auto">
-                    Регистрируйся по нашей ссылке и получи доступ к закрытому VIP-клубу, персональным бонусам и ежедневному колесу фортуны с призами в реальной крипте.
+                    {t.bonusSection.description}
                   </p>
 
                   <a
-                    href={REF_LINK}
+                    href={refLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackEvent('cta_click', { location: 'bonus_section' })}
                     className="inline-flex items-center space-x-3 bg-[var(--color-accent)] text-black px-12 py-6 rounded-2xl font-black text-xl tracking-wide hover:shadow-[0_0_40px_color-mix(in_srgb,var(--color-accent)_40%,transparent)] transition-all"
                   >
-                    <span>ЗАБРАТЬ 360% БОНУС (ОСТАЛОСЬ <UrgencyTimer />)</span>
+                    <span>{t.bonusSection.ctaLabel} <UrgencyTimer />{t.bonusSection.remainingLabel}</span>
                   </a>
-                  <p className="text-gray-400 text-xs mt-4">* Бонусное окно обновляется каждый час</p>
+                  <p className="text-gray-400 text-xs mt-4">{t.bonusSection.disclaimer}</p>
                 </div>
               </div>
             </section>

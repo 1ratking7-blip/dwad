@@ -9,6 +9,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href="https://www.zhelezo.space/" />
+    <link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/" />
+    <link rel="alternate" hreflang="en" href="https://www.zhelezo.space/en/" />
+    <link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/vi/" />
+    <link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/" />
+
+    <!--
+      Автоопределение языка при первом визите: если ещё не выбирали язык вручную
+      (нет записи в localStorage) — смотрим navigator.language браузера и уводим
+      на /en/ или /vi/, если он явно английский/вьетнамский. Выполняется в <head>
+      до отрисовки, чтобы не было вспышки контента не на том языке. Один раз —
+      после первого выбора (авто или ручного) localStorage.zhelezo_locale уже
+      установлен, и этот скрипт больше не редиректит повторно.
+
+      ВНИМАНИЕ: хэш этого блока должен быть в public/_headers, как и остальных
+      инлайн-скриптов ниже — см. комментарий там же.
+    -->
+    <script>
+      (function () {
+        var stored = window.localStorage.getItem('zhelezo_locale');
+        if (stored) return;
+        var lang = (navigator.language || '').toLowerCase();
+        var target = null;
+        if (lang.indexOf('en') === 0) target = '/en/';
+        else if (lang.indexOf('vi') === 0) target = '/vi/';
+        if (target) {
+          window.localStorage.setItem('zhelezo_locale', lang.indexOf('en') === 0 ? 'en' : 'vi');
+          window.location.replace(target);
+        }
+      })();
+    </script>
 
     <!--
       Гипотеза 2 (Analytics/HYPOTHESES.md): выбор цветовой темы (cyberpunk / web3)
@@ -171,6 +201,6 @@
   <body class="bg-[var(--color-bg)] text-gray-100 antialiased font-sans selection:bg-[var(--color-accent)] selection:text-black">
     <noscript><div><img src="https://mc.yandex.ru/watch/110820422" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="/src/main.ru.tsx"></script>
   </body>
 </html>

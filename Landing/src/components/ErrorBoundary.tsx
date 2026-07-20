@@ -1,9 +1,12 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 import { trackEvent } from '../lib/analytics';
-import { REF_LINK } from '../lib/links';
+import { refLinkForLocale } from '../lib/links';
+import type { Dictionary, Locale } from '../i18n/types';
 
 interface Props {
   children: ReactNode;
+  locale: Locale;
+  t: Dictionary;
 }
 
 interface State {
@@ -16,6 +19,10 @@ interface State {
  * сайта аффилиэйт-ссылки видит белый экран без единой кнопки. Здесь это
  * партнёрский лендинг — при падении рендера критично оставить хотя бы
  * рабочую реферальную ссылку, а не потерять посетителя молча.
+ *
+ * Живёт СНАРУЖИ LocaleProvider (см. main.*.tsx) — если сам провайдер или что-то
+ * в дереве под ним упадёт, boundary должен пережить это без контекста, поэтому
+ * locale/t приходят пропсами, а не через useLocale().
  */
 export class ErrorBoundary extends Component<Props, State> {
   state: State = { hasError: false };
@@ -35,18 +42,19 @@ export class ErrorBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.hasError) {
+      const { locale, t } = this.props;
       return (
         <div className="min-h-screen flex items-center justify-center bg-[var(--color-bg)] text-center px-6">
           <div>
-            <h1 className="text-2xl font-black text-white mb-4">Что-то пошло не так</h1>
-            <p className="text-gray-400 mb-8">Попробуйте обновить страницу — мы уже знаем об ошибке.</p>
+            <h1 className="text-2xl font-black text-white mb-4">{t.errorBoundary.title}</h1>
+            <p className="text-gray-400 mb-8">{t.errorBoundary.message}</p>
             <a
-              href={REF_LINK}
+              href={refLinkForLocale(locale)}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block bg-[var(--color-accent)] text-black px-8 py-4 rounded-2xl font-black tracking-wide"
             >
-              ПЕРЕЙТИ НА BC.GAME
+              {t.errorBoundary.cta}
             </a>
           </div>
         </div>

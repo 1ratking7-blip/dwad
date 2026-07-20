@@ -7,3 +7,13 @@ export const REF_LINK = BASE_REF_URL;
 export function refLinkWithSubId(subId: string): string {
   return `${BASE_REF_URL}&subId3=${subId}`;
 }
+
+/**
+ * Ссылка с меткой subId2=lang-<locale> — размечено ДО публикации мультиязычных
+ * страниц (2026-07-20), а не задним числом, по правилу Finance/SYSTEM.md: клик без
+ * subId-метки безвозвратно теряет атрибуцию. Позволяет позже сравнить конверсию
+ * по языковым версиям (ru/en/vi), когда появятся реальные данные.
+ */
+export function refLinkForLocale(locale: string): string {
+  return `${BASE_REF_URL}&subId2=lang-${locale}`;
+}

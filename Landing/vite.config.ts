@@ -13,6 +13,8 @@ export default defineConfig({
       // so each new post's index.html must be added here or Vite won't build/emit it.
       input: {
         main: resolve(__dirname, 'index.html'),
+        enHome: resolve(__dirname, 'en/index.html'),
+        viHome: resolve(__dirname, 'vi/index.html'),
         blogIndex: resolve(__dirname, 'blog/index.html'),
         blogPromoCode: resolve(__dirname, 'blog/bc-game-promo-code-2026/index.html'),
         blogProvablyFair: resolve(__dirname, 'blog/provably-fair-explained/index.html'),

@@ -1,27 +1,38 @@
 
 import { Twitter, Send, Github, ShieldAlert } from 'lucide-react';
 import { trackEvent } from '../lib/analytics';
-import { REF_LINK } from '../lib/links';
+import { refLinkForLocale } from '../lib/links';
+import { useLocale } from '../i18n/LocaleContext';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const refLink = REF_LINK;
+  const { locale, t } = useLocale();
+  const refLink = refLinkForLocale(locale);
+  const blogHref = locale === 'ru' ? '/blog/' : locale === 'en' ? '/blog/en/' : '/blog/';
+  const homeHref = locale === 'ru' ? '/' : `/${locale}/`;
+  // Privacy/Terms stay single shared RU pages across all locales for now — legal text
+  // needs real accuracy (not just fluent translation), and rushing it alongside the
+  // rest of this i18n rollout would risk exactly the kind of half-done legal copy
+  // this project has explicitly avoided elsewhere. Flagged as a follow-up, not skipped
+  // silently.
+  const privacyHref = '/privacy-policy';
+  const termsHref = '/terms';
 
   return (
     <footer id="site-footer" className="bg-[var(--color-bg-darker)] border-t border-[var(--color-border)] pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
           <div className="col-span-1 md:col-span-1">
-            <div className="flex items-center space-x-3 mb-6">
+            <a href={homeHref} className="flex items-center space-x-3 mb-6">
               <div className="bg-[var(--color-accent)] p-2 rounded-lg text-black font-extrabold flex items-center justify-center">
                 <span className="text-xl" aria-hidden="true">⚡</span>
               </div>
               <span className="text-2xl font-black tracking-widest bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-2)] bg-clip-text text-transparent">
                 ZHELEZO
               </span>
-            </div>
+            </a>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
-              Ведущий портал о крипто-гейминге и Web3 развлечениях. Мы помогаем игрокам находить лучшие бонусы и честные игровые платформы.
+              {t.footer.description}
             </p>
             <div className="flex space-x-4">
               {/* Соцсети ещё не запущены — раньше это были href="#" с preventDefault,
@@ -33,8 +44,8 @@ export default function Footer() {
               <button
                 type="button"
                 disabled
-                aria-label="Twitter — скоро"
-                title="Скоро"
+                aria-label={t.footer.socialTwitterSoon}
+                title={t.footer.soonTitle}
                 className="p-2 bg-[var(--color-card)] border border-[var(--color-border)] rounded-lg text-gray-600 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 <Twitter className="w-5 h-5" aria-hidden="true" />
@@ -42,8 +53,8 @@ export default function Footer() {
               <button
                 type="button"
                 disabled
-                aria-label="Telegram — скоро"
-                title="Скоро"
+                aria-label={t.footer.socialTelegramSoon}
+                title={t.footer.soonTitle}
                 className="p-2 bg-[var(--color-card)] border border-[var(--color-border)] rounded-lg text-gray-600 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 <Send className="w-5 h-5" aria-hidden="true" />
@@ -51,8 +62,8 @@ export default function Footer() {
               <button
                 type="button"
                 disabled
-                aria-label="GitHub — скоро"
-                title="Скоро"
+                aria-label={t.footer.socialGithubSoon}
+                title={t.footer.soonTitle}
                 className="p-2 bg-[var(--color-card)] border border-[var(--color-border)] rounded-lg text-gray-600 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 <Github className="w-5 h-5" aria-hidden="true" />
@@ -61,48 +72,48 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-white font-bold mb-6 tracking-wide">ПЛАТФОРМА</h3>
+            <h3 className="text-white font-bold mb-6 tracking-wide">{t.footer.platformHeading}</h3>
             <ul className="space-y-4 text-sm text-gray-400">
-              <li><a href="#games" className="hover:text-[var(--color-accent)] transition-colors">Игры Originals</a></li>
-              <li><a href={refLink} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'slots' })} className="hover:text-[var(--color-accent)] transition-colors">Слоты</a></li>
-              <li><a href={refLink} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'sportsbook' })} className="hover:text-[var(--color-accent)] transition-colors">Ставки на спорт</a></li>
-              <li><a href={refLink} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'esports' })} className="hover:text-[var(--color-accent)] transition-colors">Киберспорт</a></li>
+              <li><a href="#games" className="hover:text-[var(--color-accent)] transition-colors">{t.footer.gamesOriginals}</a></li>
+              <li><a href={refLink} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'slots' })} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.slots}</a></li>
+              <li><a href={refLink} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'sportsbook' })} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.sportsbook}</a></li>
+              <li><a href={refLink} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'esports' })} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.esports}</a></li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-white font-bold mb-6 tracking-wide">ПОДДЕРЖКА</h3>
+            <h3 className="text-white font-bold mb-6 tracking-wide">{t.footer.supportHeading}</h3>
             <ul className="space-y-4 text-sm text-gray-400">
-              <li><a href="/blog/" className="hover:text-[var(--color-accent)] transition-colors">Блог</a></li>
-              <li><a href="#faq" className="hover:text-[var(--color-accent)] transition-colors">FAQ</a></li>
-              <li><a href="#how-it-works" className="hover:text-[var(--color-accent)] transition-colors">Как начать</a></li>
-              <li><a href={refLink} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'vip_club' })} className="hover:text-[var(--color-accent)] transition-colors">VIP-клуб</a></li>
-              <li><a href="#faq" className="hover:text-[var(--color-accent)] transition-colors">Контакты</a></li>
+              <li><a href={blogHref} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.blog}</a></li>
+              <li><a href="#faq" className="hover:text-[var(--color-accent)] transition-colors">{t.footer.faq}</a></li>
+              <li><a href="#how-it-works" className="hover:text-[var(--color-accent)] transition-colors">{t.footer.howToStart}</a></li>
+              <li><a href={refLink} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'vip_club' })} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.vipClub}</a></li>
+              <li><a href="#faq" className="hover:text-[var(--color-accent)] transition-colors">{t.footer.contacts}</a></li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-white font-bold mb-6 tracking-wide">БОНУСЫ</h3>
+            <h3 className="text-white font-bold mb-6 tracking-wide">{t.footer.bonusesHeading}</h3>
             <ul className="space-y-4 text-sm text-gray-400">
-              <li><a href={refLink} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'welcome_360' })} className="hover:text-[var(--color-accent)] transition-colors">Приветственный 360%</a></li>
-              <li><a href={refLink} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'daily_lucky_spin' })} className="hover:text-[var(--color-accent)] transition-colors">Daily Lucky Spin</a></li>
-              <li><a href={refLink} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'weekly_cashback' })} className="hover:text-[var(--color-accent)] transition-colors">Еженедельный кэшбэк</a></li>
-              <li><a href={refLink} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'rakeback_20' })} className="hover:text-[var(--color-accent)] transition-colors">Рейкбек 20%</a></li>
+              <li><a href={refLink} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'welcome_360' })} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.welcome360}</a></li>
+              <li><a href={refLink} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'daily_lucky_spin' })} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.dailyLuckySpin}</a></li>
+              <li><a href={refLink} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'weekly_cashback' })} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.weeklyCashback}</a></li>
+              <li><a href={refLink} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'rakeback_20' })} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.rakeback20}</a></li>
             </ul>
           </div>
         </div>
 
         <div className="pt-10 border-t border-[var(--color-border)] flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
           <div className="flex items-center space-x-6 text-xs font-medium text-gray-400">
-            <span>&copy; {currentYear} ZHELEZO. All Rights Reserved.</span>
-            <a href="/privacy-policy" className="hover:text-gray-300 transition-colors">Privacy Policy</a>
-            <a href="/terms" className="hover:text-gray-300 transition-colors">Terms of Use</a>
+            <span>&copy; {currentYear} {t.footer.copyright}</span>
+            <a href={privacyHref} className="hover:text-gray-300 transition-colors">{t.footer.privacyPolicy}</a>
+            <a href={termsHref} className="hover:text-gray-300 transition-colors">{t.footer.termsOfUse}</a>
           </div>
-          
+
           <div className="flex items-center space-x-4 bg-[var(--color-card)] px-4 py-2 rounded-xl border border-[var(--color-border)]">
             <ShieldAlert className="w-4 h-4 text-orange-500" />
             <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-              18+ | Играйте ответственно
+              {t.footer.responsibleGambling}
             </span>
           </div>
         </div>

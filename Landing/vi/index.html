@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#00E676" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://www.zhelezo.space/vi/" />
+    <link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/" />
+    <link rel="alternate" hreflang="en" href="https://www.zhelezo.space/en/" />
+    <link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/vi/" />
+    <link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/" />
+
+    <!--
+      Гипотеза 2 (Analytics/HYPOTHESES.md): выбор цветовой темы (cyberpunk / web3)
+      до первой отрисовки, чтобы избежать мигания. Тема фиксируется через ?theme=
+      в URL (для сплита трафика по ссылкам-креативам) и сохраняется в localStorage.
+
+      ВНИМАНИЕ: CSP в public/_headers разрешает инлайновые скрипт-блоки этого файла
+      по sha256-хэшу их точного содержимого — этот блок побайтово идентичен тому же
+      в корневом index.html, поэтому его хэш уже зарегистрирован, отдельно
+      пересчитывать не нужно, пока текст не меняется.
+    -->
+    <script>
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        var requested = params.get('theme');
+        var theme = requested === 'web3' || requested === 'cyberpunk'
+          ? requested
+          : window.localStorage.getItem('zhelezo_theme') || 'cyberpunk';
+        window.localStorage.setItem('zhelezo_theme', theme);
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+
+    <!-- SEO Meta Tags -->
+    <title>ZHELEZO Crypto Gaming | Ưu Đãi Độc Quyền BC.Game 360% và Lucky Spin Hàng Ngày</title>
+    <meta name="description" content="Cổng thông tin đáng tin cậy đưa bạn đến với thế giới crypto gaming công bằng trên BC.Game. Nhận ưu đãi chào mừng độc quyền lên đến 360% cho các lần nạp tiền và quay vòng quay may mắn miễn phí mỗi ngày. Game Originals Provably Fair: Crash, Plinko, Hash Dice." />
+    <meta name="keywords" content="BC Game, BC.Game, casino crypto, Lucky Spin, thưởng 360%, game công bằng, Provably Fair, Crash, Plinko, mã khuyến mãi BC Game" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ZHELEZO Crypto Gaming" />
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="og:url" content="https://www.zhelezo.space/vi/" />
+    <meta property="og:title" content="ZHELEZO Crypto Gaming | Ưu Đãi Độc Quyền Từ BC.Game" />
+    <meta property="og:description" content="Đăng ký ngay hôm nay qua ZHELEZO, nhận thưởng chào mừng lên đến 360% và quay Lucky Spin miễn phí mỗi ngày với cơ hội trúng đến 5 BTC!" />
+    <meta property="og:image" content="https://www.zhelezo.space/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="ZHELEZO Crypto Gaming" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ZHELEZO Crypto Gaming | Ưu Đãi Độc Quyền Từ BC.Game" />
+    <meta name="twitter:description" content="Thưởng chào mừng đến 360% + Lucky Spin hàng ngày, không cần nạp tiền. Bắt đầu chơi trên nền tảng Web3 tốt nhất." />
+    <meta name="twitter:image" content="https://www.zhelezo.space/og-image.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" id="font-css">
+    <script>
+      document.getElementById('font-css').addEventListener('load', function () { this.rel = 'stylesheet'; });
+    </script>
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"></noscript>
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://mc.yandex.ru">
+
+    <!-- Schema.org: Organization + WebSite. FAQPage-разметка генерируется из FAQ.tsx -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "ZHELEZO Crypto Gaming",
+        "url": "https://www.zhelezo.space/vi/",
+        "logo": "https://www.zhelezo.space/icon-512.png",
+        "description": "Cổng thông tin về crypto gaming và giải trí Web3: ưu đãi độc quyền, game công bằng minh bạch Provably Fair và vòng quay may mắn mỗi ngày trên BC.Game."
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "ZHELEZO Crypto Gaming",
+        "url": "https://www.zhelezo.space/vi/"
+      }
+    </script>
+
+    <!-- Domain-ownership verification (Bing/Yandex/Google) lives on the root ru/
+         page only — it's a domain-level check, not per-path, no need to duplicate. -->
+
+    <!-- dataLayer доступен всегда — события пишутся сюда независимо от того, какие системы аналитики подключены -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+    </script>
+
+    <!-- Google Analytics 4 (см. Analytics/HYPOTHESES.md, раздел 3.1) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0RLZ7LGT08"></script>
+    <script>
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-0RLZ7LGT08');
+      window.gtag = gtag;
+    </script>
+
+    <!-- Yandex.Metrika counter -->
+    <script>window.YM_COUNTER_ID = 110820422;</script>
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=110820422', 'ym');
+
+        ym(110820422, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <!-- /Yandex.Metrika counter -->
+  </head>
+  <body class="bg-[var(--color-bg)] text-gray-100 antialiased font-sans selection:bg-[var(--color-accent)] selection:text-black">
+    <noscript><div><img src="https://mc.yandex.ru/watch/110820422" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.vi.tsx"></script>
+  </body>
+</html>

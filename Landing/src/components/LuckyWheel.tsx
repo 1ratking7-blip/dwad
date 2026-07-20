@@ -3,42 +3,35 @@ import { motion } from 'framer-motion';
 import { Sparkles, Gift } from 'lucide-react';
 import { trackEvent } from '../lib/analytics';
 import { refLinkWithSubId } from '../lib/links';
+import { useLocale } from '../i18n/LocaleContext';
 
-const refLink = refLinkWithSubId('lucky_wheel');
-
-const segments = [
-  { label: '50 FS', highlight: false, weight: 10 },
-  { label: 'БОНУС 100%', highlight: false, weight: 15 },
-  { label: '150 FS', highlight: false, weight: 10 },
-  { label: 'БОНУС 200%', highlight: false, weight: 15 },
-  { label: '250 FS', highlight: false, weight: 8 },
-  { label: 'БОНУС 300%', highlight: false, weight: 12 },
-  { label: '100 USDT', highlight: false, weight: 5 },
-  { label: '360% + 100FS', highlight: true, weight: 25 },
-];
-
-const segmentAngle = 360 / segments.length;
+const WEIGHTS = [10, 15, 10, 15, 8, 12, 5, 25];
+const HIGHLIGHT_INDEX = 7;
 
 function pickWeightedSegment(): number {
-  const totalWeight = segments.reduce((sum, s) => sum + s.weight, 0);
+  const totalWeight = WEIGHTS.reduce((sum, w) => sum + w, 0);
   let roll = Math.random() * totalWeight;
-  for (let i = 0; i < segments.length; i++) {
-    roll -= segments[i].weight;
+  for (let i = 0; i < WEIGHTS.length; i++) {
+    roll -= WEIGHTS[i];
     if (roll <= 0) return i;
   }
-  return segments.length - 1;
+  return WEIGHTS.length - 1;
 }
 
-const conicGradient = `conic-gradient(${segments
-  .map((s, i) => {
-    const from = i * segmentAngle;
-    const to = from + segmentAngle;
-    const color = s.highlight ? 'var(--color-accent)' : i % 2 === 0 ? 'var(--color-card)' : 'var(--color-border)';
-    return `${color} ${from}deg ${to}deg`;
-  })
-  .join(', ')})`;
+const segmentAngle = 360 / WEIGHTS.length;
+
+const conicGradient = `conic-gradient(${WEIGHTS.map((_, i) => {
+  const from = i * segmentAngle;
+  const to = from + segmentAngle;
+  const color = i === HIGHLIGHT_INDEX ? 'var(--color-accent)' : i % 2 === 0 ? 'var(--color-card)' : 'var(--color-border)';
+  return `${color} ${from}deg ${to}deg`;
+}).join(', ')})`;
 
 export default function LuckyWheel() {
+  const { locale, t } = useLocale();
+  const refLink = refLinkWithSubId(`lucky_wheel_${locale}`);
+  const segments = t.luckyWheel.segments;
+
   const [rotation, setRotation] = useState(0);
   const [isSpinning, setIsSpinning] = useState(false);
   const [result, setResult] = useState<string | null>(null);
@@ -61,11 +54,11 @@ export default function LuckyWheel() {
 
     setIsSpinning(true);
     setRotation(targetRotation);
-    trackEvent('wheel_spin', { result: segments[winningIndex].label });
+    trackEvent('wheel_spin', { result: segments[winningIndex] });
 
     spinTimeoutRef.current = window.setTimeout(() => {
       setIsSpinning(false);
-      setResult(segments[winningIndex].label);
+      setResult(segments[winningIndex]);
     }, 4200);
   };
 
@@ -77,30 +70,30 @@ export default function LuckyWheel() {
           <div className="text-center lg:text-left">
             <span className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[var(--color-border)] border border-[var(--color-border-soft)] text-[var(--color-accent)] text-xs font-bold tracking-widest uppercase mb-6">
               <Sparkles className="w-3 h-3" />
-              <span>Daily Lucky Spin</span>
+              <span>{t.luckyWheel.badge}</span>
             </span>
 
             <h2 className="text-3xl md:text-5xl font-black mb-6 text-white tracking-tight">
-              КРУТИ КОЛЕСО — <br />
-              <span className="text-[var(--color-accent)]">ЗАБИРАЙ БОНУС ПРЯМО СЕЙЧАС</span>
+              {t.luckyWheel.h2Line1} <br />
+              <span className="text-[var(--color-accent)]">{t.luckyWheel.h2Line2}</span>
             </h2>
 
             <p className="text-gray-400 text-lg mb-8 max-w-xl mx-auto lg:mx-0">
-              Один бесплатный спин уже ждёт тебя. Никакого депозита — просто нажми «Вращать» и получи гарантированный бонус на первый депозит на BC.Game.
+              {t.luckyWheel.description}
             </p>
 
             <ul className="space-y-3 text-sm text-gray-400 inline-block text-left">
               <li className="flex items-center space-x-2">
                 <Gift className="w-4 h-4 text-[var(--color-accent)] shrink-0" />
-                <span>Гарантированный приз в каждом спине</span>
+                <span>{t.luckyWheel.feature1}</span>
               </li>
               <li className="flex items-center space-x-2">
                 <Gift className="w-4 h-4 text-[var(--color-accent)] shrink-0" />
-                <span>Без депозита и скрытых условий</span>
+                <span>{t.luckyWheel.feature2}</span>
               </li>
               <li className="flex items-center space-x-2">
                 <Gift className="w-4 h-4 text-[var(--color-accent)] shrink-0" />
-                <span>Активация сразу после регистрации</span>
+                <span>{t.luckyWheel.feature3}</span>
               </li>
             </ul>
           </div>
@@ -115,16 +108,16 @@ export default function LuckyWheel() {
                 animate={{ rotate: rotation }}
                 transition={{ duration: 4, ease: [0.21, 0.62, 0.15, 1] }}
               >
-                {segments.map((s, i) => {
+                {segments.map((label, i) => {
                   const angle = i * segmentAngle + segmentAngle / 2 - 90;
                   return (
                     <div
-                      key={s.label}
+                      key={label}
                       className="absolute top-1/2 left-1/2 w-1/2 origin-left flex items-center justify-end pr-4"
                       style={{ transform: `rotate(${angle}deg)` }}
                     >
-                      <span className={`text-[10px] sm:text-xs font-black tracking-tight whitespace-nowrap ${s.highlight ? 'text-black' : 'text-white'}`}>
-                        {s.label}
+                      <span className={`text-[10px] sm:text-xs font-black tracking-tight whitespace-nowrap ${i === HIGHLIGHT_INDEX ? 'text-black' : 'text-white'}`}>
+                        {label}
                       </span>
                     </div>
                   );
@@ -143,11 +136,11 @@ export default function LuckyWheel() {
                   disabled={isSpinning}
                   className="w-full bg-[var(--color-accent)] text-black px-8 py-5 rounded-2xl font-black text-lg tracking-wide hover:shadow-[0_0_30px_color-mix(in_srgb,var(--color-accent)_50%,transparent)] hover:-translate-y-1 transition-all disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                 >
-                  {isSpinning ? 'КРУТИТСЯ...' : 'ВРАЩАТЬ КОЛЕСО'}
+                  {isSpinning ? t.luckyWheel.spinning : t.luckyWheel.spinButton}
                 </button>
               ) : (
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center" role="status" aria-live="polite">
-                  <div className="text-gray-400 text-xs uppercase tracking-widest font-bold mb-2">Твой приз</div>
+                  <div className="text-gray-400 text-xs uppercase tracking-widest font-bold mb-2">{t.luckyWheel.prizeLabel}</div>
                   <div className="text-2xl font-black text-[var(--color-accent)] mb-6">{result}</div>
                   <a
                     href={refLink}
@@ -156,7 +149,7 @@ export default function LuckyWheel() {
                     onClick={() => trackEvent('cta_click', { location: 'lucky_wheel', label: result })}
                     className="w-full inline-flex items-center justify-center bg-[var(--color-accent)] text-black px-8 py-5 rounded-2xl font-black text-lg tracking-wide hover:shadow-[0_0_30px_color-mix(in_srgb,var(--color-accent)_50%,transparent)] hover:-translate-y-1 transition-all"
                   >
-                    ЗАБРАТЬ ВЫИГРЫШ
+                    {t.luckyWheel.claimButton}
                   </a>
                 </motion.div>
               )}
