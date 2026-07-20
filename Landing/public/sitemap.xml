@@ -251,4 +251,59 @@
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/blog/vi/bc-game-vip-rakeback/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/blog/en/bc-game-vip-rakeback/" />
   </url>
+
+  <url>
+    <loc>https://www.zhelezo.space/privacy-policy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/privacy-policy" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/en/privacy-policy" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/vi/privacy-policy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/privacy-policy" />
+  </url>
+  <url>
+    <loc>https://www.zhelezo.space/en/privacy-policy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/privacy-policy" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/en/privacy-policy" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/vi/privacy-policy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/privacy-policy" />
+  </url>
+  <url>
+    <loc>https://www.zhelezo.space/vi/privacy-policy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/privacy-policy" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/en/privacy-policy" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/vi/privacy-policy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/privacy-policy" />
+  </url>
+  <url>
+    <loc>https://www.zhelezo.space/terms</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/terms" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/en/terms" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/vi/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/terms" />
+  </url>
+  <url>
+    <loc>https://www.zhelezo.space/en/terms</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/terms" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/en/terms" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/vi/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/terms" />
+  </url>
+  <url>
+    <loc>https://www.zhelezo.space/vi/terms</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/terms" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/en/terms" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/vi/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/terms" />
+  </url>
 </urlset>

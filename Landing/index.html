@@ -140,8 +140,10 @@
       window.dataLayer = window.dataLayer || [];
     </script>
 
-    <!-- Google Analytics 4 (см. Analytics/HYPOTHESES.md, раздел 3.1) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0RLZ7LGT08"></script>
+    <!-- Google Analytics 4 (см. Analytics/HYPOTHESES.md, раздел 3.1).
+         gtag() queues into dataLayer immediately (no network needed), so this is safe to
+         define eagerly; only the actual gtag.js download+execute (148KB, the real CPU cost)
+         is deferred below via __loadDeferredAnalytics — see comment there for why. -->
     <script>
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
@@ -184,19 +186,51 @@
       </script>
     -->
 
-    <!-- Yandex.Metrika counter -->
+    <!-- Yandex.Metrika counter. The stub below (m[i]=m[i]||function(){...}) IS the official
+         Yandex queuing pattern: it defines window.ym as a function that just pushes calls into
+         an array, so ym(...) calls made before tag.js actually loads are queued and replayed
+         once it does — nothing is lost. That means it's safe to call ym('init', ...) here
+         immediately; only the actual tag.js download+execute (94KB + 13KB webvisor phono
+         script — real Lighthouse audit on 2026-07-21 showed this + gtag.js as the dominant
+         main-thread cost delaying LCP to 6.1s/TBT 1480ms) is deferred, via
+         __loadDeferredAnalytics below. -->
     <script>window.YM_COUNTER_ID = 110820422;</script>
     <script type="text/javascript">
-        (function(m,e,t,r,i,k,a){
+        (function(m,e,t,r,i){
             m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
             m[i].l=1*new Date();
-            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=110820422', 'ym');
+        })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=110820422', 'ym');
 
         ym(110820422, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
     </script>
     <!-- /Yandex.Metrika counter -->
+
+    <!-- Defer the actual GTM/Yandex script downloads (the expensive part — parse+execute
+         competes with the browser for the same main thread that needs to paint the LCP
+         element) until the page has loaded and the main thread is idle. All calls made to
+         gtag()/ym() before that point are safely queued by the stubs above, so no events are
+         lost — this only moves *when* the heavy JS runs, not *whether* tracking works. -->
+    <script>
+      function __loadDeferredAnalytics() {
+        var g = document.createElement('script');
+        g.async = true;
+        g.src = 'https://www.googletagmanager.com/gtag/js?id=G-0RLZ7LGT08';
+        document.head.appendChild(g);
+
+        var k = document.createElement('script');
+        k.async = true;
+        k.src = 'https://mc.yandex.ru/metrika/tag.js?id=110820422';
+        var first = document.getElementsByTagName('script')[0];
+        first.parentNode.insertBefore(k, first);
+      }
+      window.addEventListener('load', function () {
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(__loadDeferredAnalytics, { timeout: 3000 });
+        } else {
+          setTimeout(__loadDeferredAnalytics, 1500);
+        }
+      });
+    </script>
   </head>
   <body class="bg-[var(--color-bg)] text-gray-100 antialiased font-sans selection:bg-[var(--color-accent)] selection:text-black">
     <noscript><div><img src="https://mc.yandex.ru/watch/110820422" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
