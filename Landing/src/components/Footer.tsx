@@ -8,15 +8,10 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
   const { locale, t } = useLocale();
   const refLink = refLinkForLocale(locale);
-  const blogHref = locale === 'ru' ? '/blog/' : locale === 'en' ? '/blog/en/' : '/blog/';
+  const blogHref = locale === 'ru' ? '/blog/' : `/blog/${locale}/`;
   const homeHref = locale === 'ru' ? '/' : `/${locale}/`;
-  // Privacy/Terms stay single shared RU pages across all locales for now — legal text
-  // needs real accuracy (not just fluent translation), and rushing it alongside the
-  // rest of this i18n rollout would risk exactly the kind of half-done legal copy
-  // this project has explicitly avoided elsewhere. Flagged as a follow-up, not skipped
-  // silently.
-  const privacyHref = '/privacy-policy';
-  const termsHref = '/terms';
+  const privacyHref = locale === 'ru' ? '/privacy-policy' : `/${locale}/privacy-policy`;
+  const termsHref = locale === 'ru' ? '/terms' : `/${locale}/terms`;
 
   return (
     <footer id="site-footer" className="bg-[var(--color-bg-darker)] border-t border-[var(--color-border)] pt-20 pb-10">
