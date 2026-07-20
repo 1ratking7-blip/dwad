@@ -46,8 +46,9 @@ export default function Header() {
               onClick={() => trackEvent('cta_click', { location: 'header_desktop' })}
               className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-dark)] text-black px-6 py-2.5 rounded-xl font-bold text-sm tracking-wide hover:brightness-110 hover:shadow-[0_0_15px_color-mix(in_srgb,var(--color-accent)_40%,transparent)] transition-all flex items-center space-x-2"
             >
-              <Coins className="w-4 h-4" />
+              <Coins className="w-4 h-4" aria-hidden="true" />
               <span>{t.header.ctaPlayNow}</span>
+              <span className="sr-only"> {t.opensInNewWindow}</span>
             </a>
           </div>
 
@@ -108,6 +109,7 @@ export default function Header() {
             className="w-full text-center block bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-dark)] text-black py-3 rounded-xl font-bold text-sm tracking-wide shadow-[0_0_15px_color-mix(in_srgb,var(--color-accent)_30%,transparent)]"
           >
             {t.header.mobileCta}
+            <span className="sr-only"> {t.opensInNewWindow}</span>
           </a>
         </div>
       )}

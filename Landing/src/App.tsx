@@ -66,6 +66,7 @@ function App() {
                     className="inline-flex items-center space-x-3 bg-[var(--color-accent)] text-black px-12 py-6 rounded-2xl font-black text-xl tracking-wide hover:shadow-[0_0_40px_color-mix(in_srgb,var(--color-accent)_40%,transparent)] transition-all"
                   >
                     <span>{t.bonusSection.ctaLabel} <UrgencyTimer />{t.bonusSection.remainingLabel}</span>
+                    <span className="sr-only"> {t.opensInNewWindow}</span>
                   </a>
                   <p className="text-gray-400 text-xs mt-4">{t.bonusSection.disclaimer}</p>
                 </div>

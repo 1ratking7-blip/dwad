@@ -140,4 +140,5 @@ export interface Dictionary {
     label: string;
   };
   skipToContent: string;
+  opensInNewWindow: string;
 }

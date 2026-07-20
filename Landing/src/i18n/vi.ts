@@ -158,4 +158,5 @@ export const vi: Dictionary = {
     label: 'Ngôn ngữ',
   },
   skipToContent: 'Chuyển đến nội dung chính',
+  opensInNewWindow: '(mở trong cửa sổ mới)',
 };

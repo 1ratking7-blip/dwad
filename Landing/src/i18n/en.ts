@@ -158,4 +158,5 @@ export const en: Dictionary = {
     label: 'Language',
   },
   skipToContent: 'Skip to main content',
+  opensInNewWindow: '(opens in a new window)',
 };

@@ -55,7 +55,8 @@ export default function Hero() {
                 className="w-full sm:w-auto bg-[var(--color-accent)] text-black px-10 py-5 rounded-2xl font-black text-lg tracking-wide hover:shadow-[0_0_30px_color-mix(in_srgb,var(--color-accent)_50%,transparent)] hover:-translate-y-1 transition-all flex items-center justify-center space-x-3"
               >
                 <span>{t.hero.ctaButton}</span>
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-5 h-5" aria-hidden="true" />
+                <span className="sr-only"> {t.opensInNewWindow}</span>
               </a>
 
               <div className="flex items-center space-x-4 text-gray-400 font-medium text-sm">

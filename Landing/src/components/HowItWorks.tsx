@@ -55,8 +55,9 @@ export default function HowItWorks() {
             >
                 <span className="group-hover:text-[var(--color-accent)] transition-colors">{t.howItWorks.ctaButton}</span>
                 <div className="bg-[var(--color-accent)] w-6 h-6 rounded-full flex items-center justify-center">
-                    <PlayCircle className="w-4 h-4 text-black" />
+                    <PlayCircle className="w-4 h-4 text-black" aria-hidden="true" />
                 </div>
+                <span className="sr-only"> {t.opensInNewWindow}</span>
             </a>
         </div>
       </div>

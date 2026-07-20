@@ -150,6 +150,7 @@ export default function LuckyWheel() {
                     className="w-full inline-flex items-center justify-center bg-[var(--color-accent)] text-black px-8 py-5 rounded-2xl font-black text-lg tracking-wide hover:shadow-[0_0_30px_color-mix(in_srgb,var(--color-accent)_50%,transparent)] hover:-translate-y-1 transition-all"
                   >
                     {t.luckyWheel.claimButton}
+                    <span className="sr-only"> {t.opensInNewWindow}</span>
                   </a>
                 </motion.div>
               )}

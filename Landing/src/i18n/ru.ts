@@ -158,4 +158,5 @@ export const ru: Dictionary = {
     label: 'Язык',
   },
   skipToContent: 'Перейти к основному содержанию',
+  opensInNewWindow: '(открывается в новом окне)',
 };

@@ -37,7 +37,8 @@ export default function Games() {
             className="flex items-center space-x-2 text-[var(--color-accent)] font-bold border-b-2 border-[color-mix(in_srgb,var(--color-accent)_20%,transparent)] hover:border-[var(--color-accent)] transition-all pb-1 group"
           >
             <span>{t.games.viewAll}</span>
-            <ExternalLink className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            <ExternalLink className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" aria-hidden="true" />
+            <span className="sr-only"> {t.opensInNewWindow}</span>
           </a>
         </div>
 
@@ -64,6 +65,7 @@ export default function Games() {
                 className="w-full bg-[var(--color-border)] text-white py-3 rounded-xl font-bold text-sm text-center group-hover:bg-[var(--color-accent)] group-hover:text-black transition-colors"
               >
                 {t.games.playButton}
+                <span className="sr-only"> {t.opensInNewWindow}</span>
               </a>
             </div>
           ))}

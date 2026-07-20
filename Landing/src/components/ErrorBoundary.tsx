@@ -55,6 +55,7 @@ export class ErrorBoundary extends Component<Props, State> {
               className="inline-block bg-[var(--color-accent)] text-black px-8 py-4 rounded-2xl font-black tracking-wide"
             >
               {t.errorBoundary.cta}
+              <span className="sr-only"> {t.opensInNewWindow}</span>
             </a>
           </div>
         </div>
