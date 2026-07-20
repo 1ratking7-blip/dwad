@@ -60,6 +60,8 @@ export default function Hero() {
                   <Rocket className="w-5 h-5 text-gray-400" />
                   <span>Instant Payouts</span>
                 </div>
+                <div className="w-1 h-1 bg-gray-700 rounded-full"></div>
+                <span className="text-xs">18+</span>
               </div>
             </div>
           </motion.div>
