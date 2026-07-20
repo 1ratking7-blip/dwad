@@ -54,3 +54,7 @@
   странице, `Header` уже `fixed top-0` — мобильный доступ к CTA уже решён), мёртвый код
   Landing (`noUnusedLocals`/`noUnusedParameters` в tsconfig + Tailwind JIT структурно не
   дают ему накапливаться).
+- **Docs**: подтверждено пользователем напрямую — Google Search Console подтверждена, sitemap
+  отправлен и доступен по `https://www.zhelezo.space/sitemap.xml`. Обновлён `ROADMAP.md` —
+  этот пункт больше не блокер роста; HTML-тег verification в `index.html` так и остался
+  плейсхолдером в комментарии (верификация прошла другим методом) — это не баг, не трогать.
