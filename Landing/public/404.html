@@ -26,8 +26,33 @@
 </head>
 <body>
   <div class="code">404</div>
-  <h1>Страница не найдена</h1>
-  <p>Такой страницы на ZHELEZO нет — возможно, ссылка устарела или содержит опечатку.</p>
-  <p><a href="/">&larr; Вернуться на главную</a></p>
+  <h1 id="h1">Страница не найдена</h1>
+  <p id="msg">Такой страницы на ZHELEZO нет — возможно, ссылка устарела или содержит опечатку.</p>
+  <p><a id="home" href="/">&larr; Вернуться на главную</a></p>
+  <script>
+    // Cloudflare Pages serves this one static file for every unmatched path across all
+    // 3 language sections (/, /en/, /vi/) — there's no per-directory 404 in static
+    // hosting, so detect the language from the URL prefix client-side instead.
+    (function () {
+      var COPY = {
+        en: { title: 'Page Not Found | ZHELEZO Crypto Gaming', h1: 'Page Not Found',
+          msg: "This page doesn't exist on ZHELEZO — the link may be outdated or mistyped.",
+          home: '← Back to homepage', href: '/en/', lang: 'en' },
+        vi: { title: 'Không Tìm Thấy Trang | ZHELEZO Crypto Gaming', h1: 'Không Tìm Thấy Trang',
+          msg: 'Trang này không tồn tại trên ZHELEZO — liên kết có thể đã cũ hoặc bị sai.',
+          home: '← Về trang chủ', href: '/vi/', lang: 'vi' },
+      };
+      var seg = location.pathname.split('/')[1];
+      var c = COPY[seg];
+      if (!c) return; // RU (no prefix) or unrecognized prefix — the RU markup above is already correct
+      document.documentElement.lang = c.lang;
+      document.title = c.title;
+      document.getElementById('h1').textContent = c.h1;
+      document.getElementById('msg').textContent = c.msg;
+      var home = document.getElementById('home');
+      home.href = c.href;
+      home.textContent = c.home;
+    })();
+  </script>
 </body>
 </html>
