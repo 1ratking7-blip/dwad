@@ -31,19 +31,19 @@ node check-mentions.mjs "your custom query"       # one-off custom query
 ### Running it periodically
 These are one-shot scripts, not daemons — nothing runs unless you run them.
 `run-checks.bat` (same folder) runs both in sequence and appends timestamped output to
-`logs\monitor.log` — tested manually and confirmed working (2026-07-21). Registering
-the recurring schedule itself needs your explicit go-ahead (it's a system-level change,
-not something to do silently), so it wasn't auto-registered. To set it up:
+`logs\monitor.log`.
+
+**Registered in Windows Task Scheduler as of 2026-07-21** (task name
+`ZHELEZO-BrandMonitor`, daily at 09:00, runs as the current user, no stored password
+needed). Registering it was withheld once as a system-level change pending explicit
+go-ahead — the user then explicitly authorized it, so it's live. To check on it:
 
 ```
-schtasks /create /tn "ZHELEZO-BrandMonitor" /tr "C:\Projects\CasinoReferral\Scripts\brand-monitor\run-checks.bat" /sc daily /st 09:00
+schtasks /query /tn "ZHELEZO-BrandMonitor" /v /fo list
 ```
 
-Or via the Task Scheduler GUI: create a Basic Task, trigger daily (any time works —
-09:00 is just a reasonable default), action = start a program =
-`C:\Projects\CasinoReferral\Scripts\brand-monitor\run-checks.bat`. No admin rights or
-stored password needed as long as "run only when user is logged on" (the default) is
-left as-is.
+To remove or change it later: `schtasks /delete /tn "ZHELEZO-BrandMonitor"` or edit it
+via the Task Scheduler GUI (Task Scheduler Library → look for `ZHELEZO-BrandMonitor`).
 
 ## site-health-check.mjs
 
