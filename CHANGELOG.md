@@ -58,3 +58,20 @@
   отправлен и доступен по `https://www.zhelezo.space/sitemap.xml`. Обновлён `ROADMAP.md` —
   этот пункт больше не блокер роста; HTML-тег verification в `index.html` так и остался
   плейсхолдером в комментарии (верификация прошла другим методом) — это не баг, не трогать.
+- **Doc fix**: `SalesAgent/docs/ARCHITECTURE.md` утверждал "нигде в коде нет вызова email/SMTP
+  API" — устарело с появлением `bin/send.mjs`. Обновлено под реальное текущее поведение.
+- **Full redesign (по явному брифу пользователя)**: чёрный/тёмно-зелёный/неоновый зелёный
+  (`#050505`/`#00FF66`) вместо прежней палитры cyberpunk-темы; новый canvas-фон с дрейфующими
+  частицами пепла/искр + два медленных glow-пятна (не WebGL-библиотека — лёгкий 2D canvas,
+  капped частиц, dpr≤2, пауза через Page Visibility API, статичный кадр при
+  prefers-reduced-motion); glassmorphism на карточках Games/HowItWorks/FAQ/Hero-статистике/
+  бонус-секции; scroll-reveal анимации (fade/blur/slide через framer-motion `whileInView`);
+  Header — динамическая прозрачность/blur при скролле (была статичной); новые компоненты
+  `SectionDivider` (глоу-разделители между секциями), `BackToTop`, `FollowMe` (8 соцсетей-
+  заглушек — Instagram/Telegram/Telegram Channel/Facebook/X/TikTok/YouTube/Discord, заменил
+  старый 3-иконочный блок в Footer); pure-CSS preloader в каждом index.html (RU/EN/VI, без
+  цены в JS-бандле), снимается первым `useEffect` в App.tsx.
+  **Проверено после деплоя, не на веру**: свежий Lighthouse на проде — Performance 82
+  (не изменился, LCP даже улучшился 3.5с → 3.2с), Accessibility 100, SEO 100, Best Practices 77
+  (не изменился, тот же добеплойный Яндекс.Метрика-кукис-кейс), CLS 0. Заголовки безопасности,
+  все 33 URL из sitemap, canonical/hreflang/schema — без изменений/регрессий.
