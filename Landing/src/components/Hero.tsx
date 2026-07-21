@@ -26,18 +26,18 @@ export default function Hero() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-4xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 0.7 }}
           >
             <span className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[var(--color-border)] border border-[var(--color-border-soft)] text-[var(--color-accent)] text-xs font-bold tracking-widest uppercase mb-8">
               <Zap className="w-3 h-3 fill-current" />
               <span>{t.hero.badge}</span>
             </span>
 
-            <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-6 leading-[1.1]">
+            <h1 className="text-5xl md:text-8xl font-black tracking-tighter mb-6 leading-[1.05]">
               {t.hero.h1Line1} <br />
-              <span className="bg-gradient-to-r from-[var(--color-accent)] via-[var(--color-accent)] to-[var(--color-accent-2)] bg-clip-text text-transparent">
+              <span className="neon-text-green bg-gradient-to-r from-[var(--color-accent)] via-[var(--color-accent)] to-[var(--color-accent-2)] bg-clip-text text-transparent">
                 {t.hero.h1Line2}
               </span>
             </h1>
@@ -52,7 +52,7 @@ export default function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackEvent('cta_click', { location: 'hero' })}
-                className="w-full sm:w-auto bg-[var(--color-accent)] text-black px-10 py-5 rounded-2xl font-black text-lg tracking-wide hover:shadow-[0_0_30px_color-mix(in_srgb,var(--color-accent)_50%,transparent)] hover:-translate-y-1 transition-all flex items-center justify-center space-x-3"
+                className="btn-glow w-full sm:w-auto bg-[var(--color-accent)] text-black px-10 py-5 rounded-2xl font-black text-lg tracking-wide shadow-[0_0_30px_color-mix(in_srgb,var(--color-accent)_50%,transparent)] flex items-center justify-center space-x-3"
               >
                 <span>{t.hero.ctaButton}</span>
                 <ArrowRight className="w-5 h-5" aria-hidden="true" />
@@ -84,11 +84,16 @@ export default function Hero() {
           className="mt-24 grid grid-cols-1 sm:grid-cols-3 gap-6"
         >
           {stats.map((stat, i) => (
-            <div key={i} className="bg-[var(--color-card)] border border-[var(--color-border)] p-8 rounded-3xl text-center hover:border-[color-mix(in_srgb,var(--color-accent)_30%,transparent)] transition-colors group">
+            <motion.div
+              key={i}
+              whileHover={{ y: -4, scale: 1.02 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              className="glass-card p-8 rounded-3xl text-center hover:border-[color-mix(in_srgb,var(--color-accent)_35%,transparent)] hover:shadow-[0_0_25px_color-mix(in_srgb,var(--color-accent)_12%,transparent)] transition-[border-color,box-shadow] group"
+            >
               <div className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-2 group-hover:text-[var(--color-accent)] transition-colors">{stat.label}</div>
               <div className="text-3xl font-black text-white mb-1">{stat.value}</div>
               <div className="text-gray-400 text-sm">{stat.sub}</div>
-            </div>
+            </motion.div>
           ))}
         </motion.div>
       </div>

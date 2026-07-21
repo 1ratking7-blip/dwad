@@ -67,7 +67,13 @@ export default function LuckyWheel() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[color-mix(in_srgb,var(--color-accent-2)_5%,transparent)] blur-[120px] rounded-full pointer-events-none"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div className="text-center lg:text-left">
+          <motion.div
+            initial={{ opacity: 0, x: -24, filter: 'blur(6px)' }}
+            whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6 }}
+            className="text-center lg:text-left"
+          >
             <span className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[var(--color-border)] border border-[var(--color-border-soft)] text-[var(--color-accent)] text-xs font-bold tracking-widest uppercase mb-6">
               <Sparkles className="w-3 h-3" />
               <span>{t.luckyWheel.badge}</span>
@@ -96,9 +102,15 @@ export default function LuckyWheel() {
                 <span>{t.luckyWheel.feature3}</span>
               </li>
             </ul>
-          </div>
+          </motion.div>
 
-          <div className="flex flex-col items-center">
+          <motion.div
+            initial={{ opacity: 0, x: 24, filter: 'blur(6px)' }}
+            whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="flex flex-col items-center"
+          >
             <div className="relative w-72 h-72 sm:w-96 sm:h-96">
               <div className="absolute -top-1 left-1/2 -translate-x-1/2 z-20 w-0 h-0 border-l-[14px] border-l-transparent border-r-[14px] border-r-transparent border-t-[24px] border-t-[var(--color-accent)] drop-shadow-[0_0_10px_color-mix(in_srgb,var(--color-accent)_60%,transparent)]"></div>
 
@@ -134,7 +146,7 @@ export default function LuckyWheel() {
                 <button
                   onClick={handleSpin}
                   disabled={isSpinning}
-                  className="w-full bg-[var(--color-accent)] text-black px-8 py-5 rounded-2xl font-black text-lg tracking-wide hover:shadow-[0_0_30px_color-mix(in_srgb,var(--color-accent)_50%,transparent)] hover:-translate-y-1 transition-all disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                  className="btn-glow w-full bg-[var(--color-accent)] text-black px-8 py-5 rounded-2xl font-black text-lg tracking-wide shadow-[0_0_30px_color-mix(in_srgb,var(--color-accent)_50%,transparent)] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:translate-y-0"
                 >
                   {isSpinning ? t.luckyWheel.spinning : t.luckyWheel.spinButton}
                 </button>
@@ -147,7 +159,7 @@ export default function LuckyWheel() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackEvent('cta_click', { location: 'lucky_wheel', label: result })}
-                    className="w-full inline-flex items-center justify-center bg-[var(--color-accent)] text-black px-8 py-5 rounded-2xl font-black text-lg tracking-wide hover:shadow-[0_0_30px_color-mix(in_srgb,var(--color-accent)_50%,transparent)] hover:-translate-y-1 transition-all"
+                    className="btn-glow w-full inline-flex items-center justify-center bg-[var(--color-accent)] text-black px-8 py-5 rounded-2xl font-black text-lg tracking-wide shadow-[0_0_30px_color-mix(in_srgb,var(--color-accent)_50%,transparent)]"
                   >
                     {t.luckyWheel.claimButton}
                     <span className="sr-only"> {t.opensInNewWindow}</span>
@@ -155,7 +167,7 @@ export default function LuckyWheel() {
                 </motion.div>
               )}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

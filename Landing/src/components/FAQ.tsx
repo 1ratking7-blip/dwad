@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { trackEvent } from '../lib/analytics';
 import { useLocale } from '../i18n/LocaleContext';
 
@@ -41,18 +42,28 @@ export default function FAQ() {
   };
 
   return (
-    <section id="faq" className="py-24 bg-[var(--color-bg)]">
+    <section id="faq" className="py-24 bg-[color-mix(in_srgb,var(--color-bg)_92%,transparent)]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
           <h2 className="text-3xl md:text-5xl font-black mb-6 text-white tracking-tight">{t.faq.heading}</h2>
           <p className="text-gray-400">{t.faq.subtitle}</p>
-        </div>
+        </motion.div>
 
         <div className="space-y-4">
           {faqs.map((faq, i) => (
-            <div
+            <motion.div
               key={i}
-              className="bg-[var(--color-card)] border border-[var(--color-border)] rounded-2xl overflow-hidden transition-colors hover:border-[color-mix(in_srgb,var(--color-border)_80%,transparent)]"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.4, delay: Math.min(i * 0.05, 0.3) }}
+              className="glass-card rounded-2xl overflow-hidden hover:border-[color-mix(in_srgb,var(--color-accent)_25%,transparent)] transition-colors"
             >
               <button
                 onClick={() => toggleFaq(i)}
@@ -82,7 +93,7 @@ export default function FAQ() {
                   {faq.a}
                 </p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

@@ -8,17 +8,29 @@
   по ?theme= в URL или сохранённому выбору в localStorage). Все "брендовые"
   цвета во всех компонентах ссылаются на эти переменные через Tailwind
   arbitrary values (напр. bg-[var(--color-accent)]), а не на хардкод хекс.
+
+  2026-07-21 редизайн: палитра "cyberpunk" (дефолтная) обновлена по прямому
+  брифу пользователя — чёрный/тёмно-зелёный/неоновый зелёный, без светлых
+  элементов. Ключ темы (`cyberpunk`) не переименован намеренно — его меняют
+  index.html (детект темы) и analytics.ts (параметр `theme` в трекинге),
+  переименование увеличило бы blast radius без функциональной пользы.
+  `web3`-вариант (отдельная маркетинговая гипотеза, не упомянута в брифе) не
+  тронут.
 */
 :root,
 [data-theme='cyberpunk'] {
-  --color-bg: #0B0E14;
-  --color-bg-darker: #06080C;
-  --color-accent: #00E676;
-  --color-accent-dark: #00B359;
-  --color-accent-2: #D500F9;
-  --color-card: #121824;
-  --color-border: #1F293D;
-  --color-border-soft: #2D3748;
+  --color-bg: #050505;
+  --color-bg-darker: #000000;
+  --color-accent: #00FF66;
+  --color-accent-dark: #00CC52;
+  --color-accent-2: #00FFA3;
+  --color-card: #0A1F14;
+  --color-border: #123322;
+  --color-border-soft: #1E4A32;
+  /* Glassmorphism-токены — полупрозрачные, для backdrop-blur карточек
+     (см. .glass-card ниже), отдельно от сплошных --color-card/-border. */
+  --color-glass: rgba(6, 20, 13, 0.55);
+  --color-glass-border: rgba(0, 255, 102, 0.16);
 }
 
 [data-theme='web3'] {
@@ -52,6 +64,36 @@
 
 .neon-text-green {
   text-shadow: 0 0 10px color-mix(in srgb, var(--color-accent) 30%, transparent);
+}
+
+/* Glassmorphism: полупрозрачный фон + blur + тонкая неоновая обводка.
+   Общий класс вместо повторения одного и того же набора Tailwind
+   arbitrary-value утилит в каждой карточке отдельно. */
+.glass-card {
+  background: var(--color-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-glass-border);
+}
+
+/* Общий hover/press-паттерн для кнопок-CTA: чуть увеличивается, слегка
+   поднимается, усиливается свечение; при нажатии — обратный "press"-эффект. */
+.btn-glow {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+.btn-glow:hover {
+  transform: translateY(-2px) scale(1.02);
+  filter: brightness(1.08);
+}
+.btn-glow:active {
+  transform: translateY(0) scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-glow:hover,
+  .btn-glow:active {
+    transform: none;
+  }
 }
 
 ::-webkit-scrollbar {

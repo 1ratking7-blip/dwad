@@ -144,10 +144,9 @@ export const en: Dictionary = {
     privacyPolicy: 'Privacy Policy',
     termsOfUse: 'Terms of Use',
     responsibleGambling: '18+ | Play Responsibly',
-    socialTwitterSoon: 'Twitter — coming soon',
-    socialTelegramSoon: 'Telegram — coming soon',
-    socialGithubSoon: 'GitHub — coming soon',
     soonTitle: 'Coming soon',
+    followMeHeading: 'Follow Us',
+    followMeSubtitle: 'News, bonuses, and community updates',
   },
   errorBoundary: {
     title: 'Something went wrong',
@@ -159,4 +158,5 @@ export const en: Dictionary = {
   },
   skipToContent: 'Skip to main content',
   opensInNewWindow: '(opens in a new window)',
+  backToTop: 'Back to top',
 };

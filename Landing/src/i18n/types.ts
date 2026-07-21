@@ -126,10 +126,9 @@ export interface Dictionary {
     privacyPolicy: string;
     termsOfUse: string;
     responsibleGambling: string;
-    socialTwitterSoon: string;
-    socialTelegramSoon: string;
-    socialGithubSoon: string;
     soonTitle: string;
+    followMeHeading: string;
+    followMeSubtitle: string;
   };
   errorBoundary: {
     title: string;
@@ -141,4 +140,5 @@ export interface Dictionary {
   };
   skipToContent: string;
   opensInNewWindow: string;
+  backToTop: string;
 }

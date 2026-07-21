@@ -144,10 +144,9 @@ export const ru: Dictionary = {
     privacyPolicy: 'Privacy Policy',
     termsOfUse: 'Terms of Use',
     responsibleGambling: '18+ | Играйте ответственно',
-    socialTwitterSoon: 'Twitter — скоро',
-    socialTelegramSoon: 'Telegram — скоро',
-    socialGithubSoon: 'GitHub — скоро',
     soonTitle: 'Скоро',
+    followMeHeading: 'Мы в соцсетях',
+    followMeSubtitle: 'Новости, бонусы и общение с сообществом',
   },
   errorBoundary: {
     title: 'Что-то пошло не так',
@@ -159,4 +158,5 @@ export const ru: Dictionary = {
   },
   skipToContent: 'Перейти к основному содержанию',
   opensInNewWindow: '(открывается в новом окне)',
+  backToTop: 'Наверх',
 };

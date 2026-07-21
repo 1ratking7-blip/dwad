@@ -52,7 +52,7 @@ export class ErrorBoundary extends Component<Props, State> {
               href={refLinkForLocale(locale)}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block bg-[var(--color-accent)] text-black px-8 py-4 rounded-2xl font-black tracking-wide"
+              className="btn-glow inline-block bg-[var(--color-accent)] text-black px-8 py-4 rounded-2xl font-black tracking-wide shadow-[0_0_20px_color-mix(in_srgb,var(--color-accent)_35%,transparent)]"
             >
               {t.errorBoundary.cta}
               <span className="sr-only"> {t.opensInNewWindow}</span>

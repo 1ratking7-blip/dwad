@@ -1,17 +1,38 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Menu, X, Coins, Shield } from 'lucide-react';
 import { trackEvent } from '../lib/analytics';
 import { refLinkForLocale } from '../lib/links';
 import { useLocale } from '../i18n/LocaleContext';
 import LanguageSwitcher from './LanguageSwitcher';
 
+const SCROLL_THRESHOLD_PX = 24;
+
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { locale, t } = useLocale();
   const refLink = refLinkForLocale(locale);
 
+  // Minimal/transparent at the very top of the page, more opaque + more blur
+  // once scrolled — the brief explicitly asked for opacity to change on scroll
+  // rather than staying static.
+  useEffect(() => {
+    function onScroll() {
+      setScrolled(window.scrollY > SCROLL_THRESHOLD_PX);
+    }
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-[color-mix(in_srgb,var(--color-bg)_90%,transparent)] backdrop-blur-md border-b border-[var(--color-border)]">
+    <header
+      className={`fixed top-0 left-0 w-full z-50 border-b transition-[background-color,backdrop-filter,border-color] duration-300 ${
+        scrolled
+          ? 'bg-[color-mix(in_srgb,var(--color-bg)_88%,transparent)] backdrop-blur-xl border-[var(--color-border)]'
+          : 'bg-[color-mix(in_srgb,var(--color-bg)_35%,transparent)] backdrop-blur-sm border-transparent'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
@@ -44,7 +65,7 @@ export default function Header() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackEvent('cta_click', { location: 'header_desktop' })}
-              className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-dark)] text-black px-6 py-2.5 rounded-xl font-bold text-sm tracking-wide hover:brightness-110 hover:shadow-[0_0_15px_color-mix(in_srgb,var(--color-accent)_40%,transparent)] transition-all flex items-center space-x-2"
+              className="btn-glow bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-dark)] text-black px-6 py-2.5 rounded-xl font-bold text-sm tracking-wide shadow-[0_0_15px_color-mix(in_srgb,var(--color-accent)_40%,transparent)] flex items-center space-x-2"
             >
               <Coins className="w-4 h-4" aria-hidden="true" />
               <span>{t.header.ctaPlayNow}</span>
@@ -106,7 +127,7 @@ export default function Header() {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackEvent('cta_click', { location: 'header_mobile' })}
-            className="w-full text-center block bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-dark)] text-black py-3 rounded-xl font-bold text-sm tracking-wide shadow-[0_0_15px_color-mix(in_srgb,var(--color-accent)_30%,transparent)]"
+            className="btn-glow w-full text-center block bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-dark)] text-black py-3 rounded-xl font-bold text-sm tracking-wide shadow-[0_0_15px_color-mix(in_srgb,var(--color-accent)_30%,transparent)]"
           >
             {t.header.mobileCta}
             <span className="sr-only"> {t.opensInNewWindow}</span>

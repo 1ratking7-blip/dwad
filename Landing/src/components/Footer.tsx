@@ -1,8 +1,10 @@
 
-import { Twitter, Send, Github, ShieldAlert } from 'lucide-react';
+import { ShieldAlert } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { trackEvent } from '../lib/analytics';
 import { refLinkForLocale } from '../lib/links';
 import { useLocale } from '../i18n/LocaleContext';
+import FollowMe from './FollowMe';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -14,8 +16,21 @@ export default function Footer() {
   const termsHref = locale === 'ru' ? '/terms' : `/${locale}/terms`;
 
   return (
-    <footer id="site-footer" className="bg-[var(--color-bg-darker)] border-t border-[var(--color-border)] pt-20 pb-10">
+    <footer
+      id="site-footer"
+      className="bg-[color-mix(in_srgb,var(--color-bg-darker)_92%,transparent)] border-t border-[var(--color-border)] pt-20 pb-10 relative z-10"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.5 }}
+          className="mb-16"
+        >
+          <FollowMe />
+        </motion.div>
+
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
           <div className="col-span-1 md:col-span-1">
             <a href={homeHref} className="flex items-center space-x-3 mb-6">
@@ -29,41 +44,6 @@ export default function Footer() {
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
               {t.footer.description}
             </p>
-            <div className="flex space-x-4">
-              {/* Соцсети ещё не запущены — раньше это были href="#" с preventDefault,
-                  что для зрячих пользователей выглядело как рабочая кнопка, которая
-                  без объяснений ничего не делает по клику (aria-label "(скоро)" читали
-                  только скринридеры). disabled <button> — стандартный паттерн для
-                  "элемент существует, но пока не активен": видимое приглушение для
-                  зрячих + корректная семантика для ассистивных технологий. */}
-              <button
-                type="button"
-                disabled
-                aria-label={t.footer.socialTwitterSoon}
-                title={t.footer.soonTitle}
-                className="p-2 bg-[var(--color-card)] border border-[var(--color-border)] rounded-lg text-gray-600 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                <Twitter className="w-5 h-5" aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                disabled
-                aria-label={t.footer.socialTelegramSoon}
-                title={t.footer.soonTitle}
-                className="p-2 bg-[var(--color-card)] border border-[var(--color-border)] rounded-lg text-gray-600 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                <Send className="w-5 h-5" aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                disabled
-                aria-label={t.footer.socialGithubSoon}
-                title={t.footer.soonTitle}
-                className="p-2 bg-[var(--color-card)] border border-[var(--color-border)] rounded-lg text-gray-600 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                <Github className="w-5 h-5" aria-hidden="true" />
-              </button>
-            </div>
           </div>
 
           <div>

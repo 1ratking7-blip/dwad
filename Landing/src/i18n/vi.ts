@@ -144,10 +144,9 @@ export const vi: Dictionary = {
     privacyPolicy: 'Chính Sách Bảo Mật',
     termsOfUse: 'Điều Khoản Sử Dụng',
     responsibleGambling: '18+ | Chơi Có Trách Nhiệm',
-    socialTwitterSoon: 'Twitter — sắp ra mắt',
-    socialTelegramSoon: 'Telegram — sắp ra mắt',
-    socialGithubSoon: 'GitHub — sắp ra mắt',
     soonTitle: 'Sắp ra mắt',
+    followMeHeading: 'Theo Dõi Chúng Tôi',
+    followMeSubtitle: 'Tin tức, ưu đãi và cập nhật từ cộng đồng',
   },
   errorBoundary: {
     title: 'Đã có lỗi xảy ra',
@@ -159,4 +158,5 @@ export const vi: Dictionary = {
   },
   skipToContent: 'Chuyển đến nội dung chính',
   opensInNewWindow: '(mở trong cửa sổ mới)',
+  backToTop: 'Lên đầu trang',
 };
