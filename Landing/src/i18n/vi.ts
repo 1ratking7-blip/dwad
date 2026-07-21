@@ -16,6 +16,8 @@ export const vi: Dictionary = {
     navGames: 'Game Originals',
     navHowItWorks: 'Bắt đầu',
     navFaq: 'FAQ',
+    navSocial: 'Mạng Xã Hội',
+    navPlayNow: 'Bắt Đầu Chơi',
     provablyFair: 'Provably Fair',
     ctaPlayNow: 'CHƠI NGAY',
     menuOpen: 'Mở menu',

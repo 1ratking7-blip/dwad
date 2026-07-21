@@ -33,6 +33,8 @@ export interface Dictionary {
     navGames: string;
     navHowItWorks: string;
     navFaq: string;
+    navSocial: string;
+    navPlayNow: string;
     provablyFair: string;
     ctaPlayNow: string;
     menuOpen: string;

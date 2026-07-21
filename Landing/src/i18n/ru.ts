@@ -16,6 +16,8 @@ export const ru: Dictionary = {
     navGames: 'Игры Originals',
     navHowItWorks: 'Как начать',
     navFaq: 'FAQ',
+    navSocial: 'Соцсети',
+    navPlayNow: 'Начать играть',
     provablyFair: 'Provably Fair',
     ctaPlayNow: 'ИГРАТЬ СЕЙЧАС',
     menuOpen: 'Открыть меню',

@@ -48,11 +48,22 @@ export default function Header() {
           </a>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex space-x-8 text-sm font-semibold tracking-wide text-gray-300">
+          <nav className="hidden lg:flex items-center space-x-8 text-sm font-semibold tracking-wide text-gray-300">
             <a href="#bonuses" className="hover:text-[var(--color-accent)] transition-colors">{t.header.navBonuses}</a>
             <a href="#games" className="hover:text-[var(--color-accent)] transition-colors">{t.header.navGames}</a>
             <a href="#how-it-works" className="hover:text-[var(--color-accent)] transition-colors">{t.header.navHowItWorks}</a>
             <a href="#faq" className="hover:text-[var(--color-accent)] transition-colors">{t.header.navFaq}</a>
+            <a href="#social" className="hover:text-[var(--color-accent)] transition-colors">{t.header.navSocial}</a>
+            <a
+              href={refLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackEvent('cta_click', { location: 'header_nav_play_now' })}
+              className="text-[var(--color-accent)] hover:brightness-125 transition-[filter]"
+            >
+              {t.header.navPlayNow}
+              <span className="sr-only"> {t.opensInNewWindow}</span>
+            </a>
           </nav>
 
           {/* Desktop CTA */}
@@ -123,6 +134,26 @@ export default function Header() {
               className="hover:text-[var(--color-accent)] py-2 border-b border-[color-mix(in_srgb,var(--color-border)_50%,transparent)] transition-colors"
             >
               {t.header.navFaq}
+            </a>
+            <a
+              href="#social"
+              onClick={() => setIsOpen(false)}
+              className="hover:text-[var(--color-accent)] py-2 border-b border-[color-mix(in_srgb,var(--color-border)_50%,transparent)] transition-colors"
+            >
+              {t.header.navSocial}
+            </a>
+            <a
+              href={refLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => {
+                trackEvent('cta_click', { location: 'header_nav_play_now_mobile' });
+                setIsOpen(false);
+              }}
+              className="text-[var(--color-accent)] py-2"
+            >
+              {t.header.navPlayNow}
+              <span className="sr-only"> {t.opensInNewWindow}</span>
             </a>
           </nav>
           <a

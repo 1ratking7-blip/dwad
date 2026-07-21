@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { trackEvent } from '../lib/analytics';
 import { refLinkForLocale } from '../lib/links';
 import { useLocale } from '../i18n/LocaleContext';
+import CornerBrackets from './CornerBrackets';
 
 const icons = [
   <Rocket className="w-8 h-8 text-[var(--color-accent)]" />,
@@ -58,30 +59,33 @@ export default function Games() {
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
               whileHover={{ y: -6, scale: 1.02 }}
-              className="glass-card p-8 rounded-3xl hover:border-[color-mix(in_srgb,var(--color-accent)_45%,transparent)] hover:shadow-[0_0_30px_color-mix(in_srgb,var(--color-accent)_15%,transparent)] transition-[border-color,box-shadow] group flex flex-col justify-between"
+              className="relative group"
             >
-              <div>
-                <div className="mb-8">{icons[i]}</div>
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-2xl font-bold text-white">{game.title}</h3>
-                  <span className="text-[10px] font-black bg-[var(--color-border)] text-[var(--color-accent)] px-2 py-0.5 rounded-full uppercase tracking-tighter">
-                    RTP {game.rtp}
-                  </span>
+              <div className="hud-panel chamfered p-8 hover:shadow-[0_0_30px_color-mix(in_srgb,var(--color-accent)_15%,transparent)] transition-shadow flex flex-col justify-between h-full">
+                <div>
+                  <div className="mb-8">{icons[i]}</div>
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-2xl font-bold text-white">{game.title}</h3>
+                    <span className="text-[10px] font-black bg-[var(--color-border)] text-[var(--color-accent)] px-2 py-0.5 rounded-full uppercase tracking-tighter">
+                      RTP {game.rtp}
+                    </span>
+                  </div>
+                  <p className="text-gray-400 text-sm leading-relaxed mb-8">
+                    {game.desc}
+                  </p>
                 </div>
-                <p className="text-gray-400 text-sm leading-relaxed mb-8">
-                  {game.desc}
-                </p>
+                <a
+                  href={refLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackEvent('cta_click', { location: 'games_card', game: game.title })}
+                  className="chamfered-sm shine-sweep w-full bg-[var(--color-border)] text-white py-3 font-bold text-sm text-center group-hover:bg-[var(--color-accent)] group-hover:text-black transition-colors"
+                >
+                  {t.games.playButton}
+                  <span className="sr-only"> {t.opensInNewWindow}</span>
+                </a>
               </div>
-              <a
-                href={refLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackEvent('cta_click', { location: 'games_card', game: game.title })}
-                className="w-full bg-[var(--color-border)] text-white py-3 rounded-xl font-bold text-sm text-center group-hover:bg-[var(--color-accent)] group-hover:text-black transition-colors"
-              >
-                {t.games.playButton}
-                <span className="sr-only"> {t.opensInNewWindow}</span>
-              </a>
+              <CornerBrackets />
             </motion.div>
           ))}
         </div>

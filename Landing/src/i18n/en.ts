@@ -16,6 +16,8 @@ export const en: Dictionary = {
     navGames: 'Originals',
     navHowItWorks: 'Get Started',
     navFaq: 'FAQ',
+    navSocial: 'Social',
+    navPlayNow: 'Start Playing',
     provablyFair: 'Provably Fair',
     ctaPlayNow: 'PLAY NOW',
     menuOpen: 'Open menu',

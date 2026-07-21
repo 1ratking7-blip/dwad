@@ -28,12 +28,8 @@ export default function FollowMe() {
   const { t } = useLocale();
 
   return (
-    <div className="glass-card rounded-3xl p-8 md:p-10">
-      <h3 className="text-white font-black text-xl md:text-2xl mb-2 tracking-tight">
-        {t.footer.followMeHeading}
-      </h3>
-      <p className="text-gray-400 text-sm mb-8">{t.footer.followMeSubtitle}</p>
-      <div className="flex flex-wrap gap-3">
+    <div className="hud-panel chamfered p-8 md:p-10">
+      <div className="flex flex-wrap gap-4 justify-center">
         {SOCIALS.map(({ name, href, Icon }) =>
           href ? (
             <a
@@ -42,7 +38,7 @@ export default function FollowMe() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={name}
-              className="btn-glow group flex items-center justify-center w-12 h-12 rounded-2xl bg-[var(--color-border)] text-gray-300 hover:text-black hover:bg-[var(--color-accent)] hover:shadow-[0_0_20px_color-mix(in_srgb,var(--color-accent)_50%,transparent)] transition-colors"
+              className="btn-glow btn-metal shine-sweep chamfered-sm group flex items-center justify-center w-14 h-14 text-black"
             >
               <Icon className="w-5 h-5" aria-hidden="true" />
               <span className="sr-only"> {t.opensInNewWindow}</span>
@@ -54,7 +50,7 @@ export default function FollowMe() {
               disabled
               aria-label={`${name} — ${t.footer.soonTitle}`}
               title={t.footer.soonTitle}
-              className="flex items-center justify-center w-12 h-12 rounded-2xl bg-[var(--color-border)]/50 text-gray-600 disabled:cursor-not-allowed disabled:opacity-50"
+              className="chamfered-sm flex items-center justify-center w-14 h-14 bg-[var(--color-border)]/50 text-gray-600 disabled:cursor-not-allowed disabled:opacity-50"
             >
               <Icon className="w-5 h-5" aria-hidden="true" />
             </button>

@@ -7,6 +7,7 @@ import { useLocale } from '../i18n/LocaleContext';
 import { useMagnetic } from '../lib/useMagnetic';
 import AnimatedCounter from './AnimatedCounter';
 import EnergyCore from './EnergyCore';
+import CornerBrackets from './CornerBrackets';
 
 export default function Hero() {
   const { locale, t } = useLocale();
@@ -41,7 +42,7 @@ export default function Hero() {
             </span>
 
             <h1 className="text-5xl md:text-8xl font-black tracking-tighter mb-6 leading-[1.05]">
-              {t.hero.h1Line1} <br />
+              <span className="metal-text">{t.hero.h1Line1}</span> <br />
               <span className="neon-text-green bg-gradient-to-r from-[var(--color-accent)] via-[var(--color-accent)] to-[var(--color-accent-2)] bg-clip-text text-transparent">
                 {t.hero.h1Line2}
               </span>
@@ -58,7 +59,7 @@ export default function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackEvent('cta_click', { location: 'hero' })}
-                className="btn-glow shine-sweep w-full sm:w-auto bg-[var(--color-accent)] text-black px-10 py-5 rounded-2xl font-black text-lg tracking-wide shadow-[0_0_30px_color-mix(in_srgb,var(--color-accent)_50%,transparent)] flex items-center justify-center space-x-3"
+                className="btn-glow btn-metal shine-sweep chamfered w-full sm:w-auto text-black px-10 py-5 font-black text-lg tracking-wide shadow-[0_0_30px_color-mix(in_srgb,var(--color-accent)_50%,transparent)] flex items-center justify-center space-x-3"
               >
                 <span>{t.hero.ctaButton}</span>
                 <ArrowRight className="w-5 h-5" aria-hidden="true" />
@@ -106,13 +107,16 @@ export default function Hero() {
               key={i}
               whileHover={{ y: -4, scale: 1.02 }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-              className="glass-card p-8 rounded-3xl text-center hover:border-[color-mix(in_srgb,var(--color-accent)_35%,transparent)] hover:shadow-[0_0_25px_color-mix(in_srgb,var(--color-accent)_12%,transparent)] transition-[border-color,box-shadow] group"
+              className="relative"
             >
-              <div className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-2 group-hover:text-[var(--color-accent)] transition-colors">{stat.label}</div>
-              <div className="text-3xl font-black text-white mb-1">
-                <AnimatedCounter value={stat.value} />
+              <div className="hud-panel chamfered p-8 text-center hover:shadow-[0_0_25px_color-mix(in_srgb,var(--color-accent)_12%,transparent)] transition-shadow group">
+                <div className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-2 group-hover:text-[var(--color-accent)] transition-colors">{stat.label}</div>
+                <div className="text-3xl font-black text-white mb-1">
+                  <AnimatedCounter value={stat.value} />
+                </div>
+                <div className="text-gray-400 text-sm">{stat.sub}</div>
               </div>
-              <div className="text-gray-400 text-sm">{stat.sub}</div>
+              <CornerBrackets />
             </motion.div>
           ))}
         </motion.div>

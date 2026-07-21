@@ -47,7 +47,7 @@ export default function HowItWorks() {
               )}
 
               <div className="relative z-10 flex flex-col items-center text-center">
-                <div className={`${colors[i]} w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                <div className={`${colors[i]} chamfered-sm w-16 h-16 flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                   {icons[i]}
                 </div>
                 <h3 className="text-xl font-bold text-white mb-4 uppercase tracking-wider">{step.title}</h3>
@@ -65,7 +65,7 @@ export default function HowItWorks() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackEvent('cta_click', { location: 'how_it_works' })}
-                className="btn-glow glass-card text-white px-8 py-4 rounded-2xl font-bold hover:border-[color-mix(in_srgb,var(--color-accent)_50%,transparent)] transition-colors flex items-center space-x-3 group"
+                className="btn-glow hud-panel chamfered text-white px-8 py-4 font-bold flex items-center space-x-3 group"
             >
                 <span className="group-hover:text-[var(--color-accent)] transition-colors">{t.howItWorks.ctaButton}</span>
                 <div className="bg-[var(--color-accent)] w-6 h-6 rounded-full flex items-center justify-center">

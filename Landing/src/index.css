@@ -228,6 +228,172 @@
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
 }
 
+/* ==========================================================================
+   2026-07-21, третий заход: "Premium Gaming UI" — полированный металл +
+   стекло + неон + объём, поверх (не вместо) палитры/canvas-фона из первых
+   двух заходов. Новый визуальный язык для панелей/рамок/кнопок/заголовков —
+   см. HudPanel.tsx для компонента, использующего эти классы вместе.
+   ========================================================================== */
+
+/* Chamfered ("срезанные") углы вместо простого border-radius — характерный
+   HUD-силуэт AAA-игровых интерфейсов, не просто скруглённый прямоугольник.
+   Отдельный класс (не завязан на .hud-panel), чтобы применять точечно. */
+.chamfered {
+  clip-path: polygon(
+    20px 0, calc(100% - 20px) 0, 100% 20px,
+    100% calc(100% - 20px), calc(100% - 20px) 100%, 20px 100%,
+    0 calc(100% - 20px), 0 20px
+  );
+}
+.chamfered-sm {
+  clip-path: polygon(
+    10px 0, calc(100% - 10px) 0, 100% 10px,
+    100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%,
+    0 calc(100% - 10px), 0 10px
+  );
+}
+
+/* Полированный металл — многослойный градиент, имитирующий отражение
+   окружения на изогнутой металлической поверхности (тёмный титан с
+   яркими бликами), плюс тонкая бевель-обводка (внутренняя тень сверху
+   светлая, снизу тёмная — эффект выпуклой панели). Анимированный сдвиг
+   background-position — "переливы света" по металлу без JS. */
+.metal-surface {
+  background: linear-gradient(
+    135deg,
+    #1a1f1c 0%,
+    #2e3630 12%,
+    #121815 24%,
+    #3a4740 38%,
+    #0d1210 52%,
+    #2a332d 68%,
+    #171c19 82%,
+    #262e29 100%
+  );
+  background-size: 250% 250%;
+  animation: metal-sheen 9s ease-in-out infinite;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 12%, transparent),
+    inset 0 -2px 4px color-mix(in srgb, black 60%, transparent),
+    inset 0 0 30px color-mix(in srgb, black 40%, transparent);
+}
+@keyframes metal-sheen {
+  0%, 100% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .metal-surface {
+    animation: none;
+  }
+}
+
+/* Карбон — двунаправленный repeating-gradient "плетёнка", дешёвый по GPU
+   (просто повторяющийся паттерн, не изображение). Используется как акцентная
+   текстура на панелях, не по всему сайту — иначе будет визуальный шум. */
+.carbon-texture {
+  background-color: #0a0a0a;
+  background-image:
+    repeating-linear-gradient(45deg, #151515 0, #151515 2px, transparent 2px, transparent 4px),
+    repeating-linear-gradient(-45deg, #101010 0, #101010 2px, transparent 2px, transparent 4px);
+}
+
+/* HUD-панель: стекло (backdrop-blur) + металлическая рамка + chamfered
+   силуэт. Металл на border-box, стекло на padding-box — тот же
+   двух-слойный background-приём, что у .gradient-border. */
+.hud-panel {
+  position: relative;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--color-glass), var(--color-glass)) padding-box,
+    linear-gradient(
+        155deg,
+        color-mix(in srgb, #cfd8d2 70%, transparent),
+        color-mix(in srgb, var(--color-accent) 50%, transparent) 30%,
+        color-mix(in srgb, #2a332d 80%, transparent) 55%,
+        color-mix(in srgb, var(--color-accent) 40%, transparent) 80%,
+        color-mix(in srgb, #cfd8d2 60%, transparent)
+      )
+      border-box;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    0 20px 50px -20px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 color-mix(in srgb, white 6%, transparent);
+}
+
+/* Светящиеся уголки-скобки — декоративная HUD-примета (прицел/targeting
+   corners). Живут в CornerBrackets.tsx как отдельные элементы-соседи
+   chamfered-панели, а не её потомки — clip-path родителя обрезал бы их
+   вместе с содержимым, если бы они были внутри. */
+.hud-corner {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+  border-color: var(--color-accent);
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--color-accent) 70%, transparent));
+}
+.hud-corner-tl { top: -1px; left: -1px; border-top: 2px solid; border-left: 2px solid; }
+.hud-corner-tr { top: -1px; right: -1px; border-top: 2px solid; border-right: 2px solid; }
+.hud-corner-bl { bottom: -1px; left: -1px; border-bottom: 2px solid; border-left: 2px solid; }
+.hud-corner-br { bottom: -1px; right: -1px; border-bottom: 2px solid; border-right: 2px solid; }
+
+/* Металлический текст — для заголовков ("огромная металлическая вывеска").
+   Хромовый градиент через background-clip:text, плюс неоновая подсветка
+   контура через drop-shadow.
+   ВАЖНО, найдено при аудите после первого деплоя этого прохода: изначально
+   здесь была бесконечная анимация background-position + двойной
+   drop-shadow — на H1 (LCP-элемент Hero) это реально просадило Lighthouse
+   Performance 82 → 78 (LCP 3.3с → 3.7с). Постоянно меняющийся фон текста
+   не даёт браузеру засчитать LCP-элемент "стабильно отрисованным" вовремя.
+   Убрано: градиент теперь статичный (без анимации), один drop-shadow
+   вместо двух — тот же металлический вид, без цены в LCP. Держать
+   анимированный/фильтрованный текст подальше от вероятных LCP-кандидатов
+   (H1/крупные hero-заголовки) — общий урок, не только для этого класса. */
+.metal-text {
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #d4ddd8 20%,
+    #8fa89b 45%,
+    #ffffff 55%,
+    #4a5c52 75%,
+    #cfd8d2 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 14px color-mix(in srgb, var(--color-accent) 40%, transparent));
+}
+
+/* Металлическая кнопка — заменяет плоский bg-accent на объёмную "клавишу":
+   градиент металла/стекла + внутренний блик сверху + тень снизу (выпуклость)
+   + при нажатии — инверсия теней (вдавленность). Комбинируется с
+   .btn-glow (magnet + lift) и .shine-sweep (пробегающий блик) на тех же
+   элементах — независимые классы, не переопределяют друг друга. */
+.btn-metal {
+  position: relative;
+  background: linear-gradient(180deg, var(--color-accent) 0%, var(--color-accent-dark) 55%, var(--color-accent-dark) 100%);
+  box-shadow:
+    inset 0 2px 0 color-mix(in srgb, white 45%, transparent),
+    inset 0 -3px 6px color-mix(in srgb, black 35%, transparent),
+    0 8px 20px -6px color-mix(in srgb, var(--color-accent) 55%, transparent);
+  transition: box-shadow 0.15s ease;
+}
+.btn-metal:active {
+  box-shadow:
+    inset 0 2px 4px color-mix(in srgb, black 45%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, white 20%, transparent),
+    0 4px 10px -6px color-mix(in srgb, var(--color-accent) 40%, transparent);
+}
+
+/* Тонкие светящиеся линии-разделители внутри панелей (не путать с
+   SectionDivider.tsx — те между секциями, эти внутри HUD-модулей). */
+.hud-hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-accent) 50%, transparent), transparent);
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }

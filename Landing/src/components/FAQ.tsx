@@ -63,7 +63,7 @@ export default function FAQ() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.4, delay: Math.min(i * 0.05, 0.3) }}
-              className="glass-card rounded-2xl overflow-hidden hover:border-[color-mix(in_srgb,var(--color-accent)_25%,transparent)] transition-colors"
+              className="hud-panel chamfered-sm overflow-hidden"
             >
               <button
                 onClick={() => toggleFaq(i)}
