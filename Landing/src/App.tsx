@@ -20,7 +20,6 @@ const LuckyWheel = lazy(() => import('./components/LuckyWheel'));
 const Games = lazy(() => import('./components/Games'));
 const HowItWorks = lazy(() => import('./components/HowItWorks'));
 const FAQ = lazy(() => import('./components/FAQ'));
-const Social = lazy(() => import('./components/Social'));
 const Footer = lazy(() => import('./components/Footer'));
 
 function App() {
@@ -114,8 +113,6 @@ function App() {
             <HowItWorks />
             <SectionDivider />
             <FAQ />
-            <SectionDivider />
-            <Social />
           </Suspense>
         </main>
         <Suspense fallback={null}>

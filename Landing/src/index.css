@@ -16,20 +16,35 @@
   переименование увеличило бы blast radius без функциональной пользы.
   `web3`-вариант (отдельная маркетинговая гипотеза, не упомянута в брифе) не
   тронут.
+
+  Уточнённая палитра (тот же день, повторный бриф — точные hex-коды
+  "дорогой премиальной гаммы"): база чёрный/графит/чёрный металл/титан,
+  металл сталь/хром, основной акцент неон/изумруд/лайм, второстепенные
+  акценты золото/янтарь/бирюза — используются точечно (см. .accent-gold и
+  т.п.), не как основной цвет интерфейса.
 */
 :root,
 [data-theme='cyberpunk'] {
   --color-bg: #050505;
   --color-bg-darker: #000000;
+  --color-graphite: #111111;
+  --color-metal-black: #1A1A1A;
+  --color-titanium: #2B2B2B;
+  --color-steel: #A8A8A8;
+  --color-chrome: #D8D8D8;
   --color-accent: #00FF66;
   --color-accent-dark: #00CC52;
-  --color-accent-2: #00FFA3;
-  --color-card: #0A1F14;
-  --color-border: #123322;
-  --color-border-soft: #1E4A32;
+  --color-accent-2: #00D26A;
+  --color-accent-lime: #39FF14;
+  --color-gold: #D4AF37;
+  --color-amber: #FFB300;
+  --color-turquoise: #00E5FF;
+  --color-card: var(--color-graphite);
+  --color-border: var(--color-metal-black);
+  --color-border-soft: var(--color-titanium);
   /* Glassmorphism-токены — полупрозрачные, для backdrop-blur карточек
      (см. .glass-card ниже), отдельно от сплошных --color-card/-border. */
-  --color-glass: rgba(6, 20, 13, 0.55);
+  --color-glass: rgba(17, 17, 17, 0.55);
   --color-glass-border: rgba(0, 255, 102, 0.16);
 }
 
@@ -64,6 +79,23 @@
 
 .neon-text-green {
   text-shadow: 0 0 10px color-mix(in srgb, var(--color-accent) 30%, transparent);
+}
+
+/* Второстепенные акценты (золото/янтарь/бирюза) — "использовать умеренно"
+   по брифу, поэтому только текст-цвет + мягкое свечение, не целые
+   заливки/градиенты фона. Для точечных деталей (бейджи, иконки), не для
+   основных CTA/панелей — те остаются на зелёном/металле. */
+.accent-gold {
+  color: var(--color-gold);
+  text-shadow: 0 0 8px color-mix(in srgb, var(--color-gold) 35%, transparent);
+}
+.accent-amber {
+  color: var(--color-amber);
+  text-shadow: 0 0 8px color-mix(in srgb, var(--color-amber) 35%, transparent);
+}
+.accent-turquoise {
+  color: var(--color-turquoise);
+  text-shadow: 0 0 8px color-mix(in srgb, var(--color-turquoise) 35%, transparent);
 }
 
 /* Glassmorphism: полупрозрачный фон + blur + тонкая неоновая обводка.
@@ -253,27 +285,30 @@
   );
 }
 
-/* Полированный металл — многослойный градиент, имитирующий отражение
-   окружения на изогнутой металлической поверхности (тёмный титан с
-   яркими бликами), плюс тонкая бевель-обводка (внутренняя тень сверху
-   светлая, снизу тёмная — эффект выпуклой панели). Анимированный сдвиг
-   background-position — "переливы света" по металлу без JS. */
+/* Полированный металл — многослойный градиент "чёрный → графит → тёмно-
+   зелёный" (буквально то, что просил пользователь), плюс тонкая
+   бевель-обводка (внутренняя тень сверху светлая, снизу тёмная — эффект
+   выпуклой панели). Анимированный сдвиг background-position — "переливы
+   света" по металлу без JS.
+   ВАЖНО (см. .metal-text ниже за полным разбором): анимированный/
+   фильтрованный фон реально просадил Lighthouse, когда оказался на
+   H1 (LCP-элементе). Этот класс декоративный и НЕ применяется к
+   заголовкам/вероятным LCP-кандидатам — только к второстепенным панелям
+   (напр. декоративные блоки на странице Community). */
 .metal-surface {
   background: linear-gradient(
     135deg,
-    #1a1f1c 0%,
-    #2e3630 12%,
-    #121815 24%,
-    #3a4740 38%,
-    #0d1210 52%,
-    #2a332d 68%,
-    #171c19 82%,
-    #262e29 100%
+    #050505 0%,
+    var(--color-graphite) 20%,
+    #0d1a12 40%,
+    var(--color-titanium) 55%,
+    #0a150e 75%,
+    var(--color-graphite) 100%
   );
   background-size: 250% 250%;
   animation: metal-sheen 9s ease-in-out infinite;
   box-shadow:
-    inset 0 1px 0 color-mix(in srgb, white 12%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--color-chrome) 15%, transparent),
     inset 0 -2px 4px color-mix(in srgb, black 60%, transparent),
     inset 0 0 30px color-mix(in srgb, black 40%, transparent);
 }
@@ -367,13 +402,20 @@
 }
 
 /* Металлическая кнопка — заменяет плоский bg-accent на объёмную "клавишу":
-   градиент металла/стекла + внутренний блик сверху + тень снизу (выпуклость)
-   + при нажатии — инверсия теней (вдавленность). Комбинируется с
-   .btn-glow (magnet + lift) и .shine-sweep (пробегающий блик) на тех же
-   элементах — независимые классы, не переопределяют друг друга. */
+   градиент "хром → полированная сталь → неоновый зелёный" (буквально по
+   брифу) + внутренний блик сверху + тень снизу (выпуклость) + при
+   нажатии — инверсия теней (вдавленность). Комбинируется с .btn-glow
+   (magnet + lift) и .shine-sweep (пробегающий блик) на тех же элементах —
+   независимые классы, не переопределяют друг друга. */
 .btn-metal {
   position: relative;
-  background: linear-gradient(180deg, var(--color-accent) 0%, var(--color-accent-dark) 55%, var(--color-accent-dark) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-chrome) 0%,
+    var(--color-steel) 15%,
+    var(--color-accent) 45%,
+    var(--color-accent-dark) 100%
+  );
   box-shadow:
     inset 0 2px 0 color-mix(in srgb, white 45%, transparent),
     inset 0 -3px 6px color-mix(in srgb, black 35%, transparent),
@@ -392,6 +434,23 @@
 .hud-hairline {
   height: 1px;
   background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-accent) 50%, transparent), transparent);
+}
+
+/* Лёгкая пульсация свечения для главного CTA сайта (кнопка Play Now в
+   шапке) — box-shadow, не фон/фильтр, и на маленьком элементе (кнопка,
+   не заголовок), так что урок с .metal-text здесь не повторяется: площадь
+   перерисовки крошечная, LCP-кандидатом кнопка в шапке не бывает. */
+.nav-pulse {
+  animation: nav-pulse 2.4s ease-in-out infinite;
+}
+@keyframes nav-pulse {
+  0%, 100% { box-shadow: 0 0 16px color-mix(in srgb, var(--color-accent) 45%, transparent); }
+  50% { box-shadow: 0 0 30px color-mix(in srgb, var(--color-accent) 75%, transparent); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-pulse {
+    animation: none;
+  }
 }
 
 ::-webkit-scrollbar {

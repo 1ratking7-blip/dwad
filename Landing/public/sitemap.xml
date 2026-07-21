@@ -29,6 +29,34 @@
   </url>
 
   <url>
+    <loc>https://www.zhelezo.space/community/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/community/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/community/en/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/community/vi/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/community/" />
+  </url>
+  <url>
+    <loc>https://www.zhelezo.space/community/en/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/community/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/community/en/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/community/vi/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/community/" />
+  </url>
+  <url>
+    <loc>https://www.zhelezo.space/community/vi/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/community/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/community/en/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/community/vi/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/community/" />
+  </url>
+
+  <url>
     <loc>https://www.zhelezo.space/blog/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

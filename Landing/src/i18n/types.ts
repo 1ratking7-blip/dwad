@@ -29,13 +29,8 @@ export interface Dictionary {
   };
   header: {
     logoAria: string;
-    navBonuses: string;
-    navGames: string;
-    navHowItWorks: string;
-    navFaq: string;
-    navSocial: string;
-    navPlayNow: string;
-    provablyFair: string;
+    navHome: string;
+    navCommunity: string;
     ctaPlayNow: string;
     menuOpen: string;
     menuClose: string;
@@ -129,8 +124,13 @@ export interface Dictionary {
     termsOfUse: string;
     responsibleGambling: string;
     soonTitle: string;
-    followMeHeading: string;
-    followMeSubtitle: string;
+  };
+  community: {
+    metaTitle: string;
+    metaDescription: string;
+    heading: string;
+    subtitle: string;
+    channelsHeading: string;
   };
   errorBoundary: {
     title: string;
