@@ -147,7 +147,7 @@ export const en: Dictionary = {
     metaTitle: 'ZHELEZO on Social Media — Telegram, Instagram, X, TikTok',
     metaDescription: 'All ZHELEZO social channels in one place: Telegram channel, Instagram, Facebook, X, and TikTok. News, bonuses, and honest updates, no spam.',
     heading: 'ZHELEZO on Social Media',
-    subtitle: 'Stay connected — news, bonuses, and real conversation across our official channels',
+    subtitle: 'Stay connected — news, bonuses, and real conversation with the community',
     channelsHeading: 'Official Channels',
   },
   errorBoundary: {
