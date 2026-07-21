@@ -11,6 +11,7 @@ import SectionDivider from './components/SectionDivider';
 import { trackEvent } from './lib/analytics';
 import { refLinkForLocale } from './lib/links';
 import { useLocale } from './i18n/LocaleContext';
+import { useMagnetic } from './lib/useMagnetic';
 
 // Below-the-fold sections split out of the initial bundle so the browser has
 // less JS to parse/execute before the Hero (LCP element) can paint.
@@ -23,6 +24,7 @@ const Footer = lazy(() => import('./components/Footer'));
 function App() {
   const { locale, t } = useLocale();
   const refLink = refLinkForLocale(locale);
+  const magneticBonusCta = useMagnetic<HTMLAnchorElement>(0.2);
 
   useEffect(() => {
     trackEvent('page_view', { locale });
@@ -43,6 +45,7 @@ function App() {
   return (
     <MotionConfig reducedMotion="user">
       <AnimatedBackground />
+      <div className="noise-overlay" aria-hidden="true" />
       {/* No solid background here on purpose — body's own bg-color (index.css) is the
           fallback base layer, AnimatedBackground paints on top of it, and this wrapper
           stays transparent so the canvas is actually visible through it. Individual
@@ -74,7 +77,7 @@ function App() {
                   whileInView={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
                   viewport={{ once: true, margin: '-100px' }}
                   transition={{ duration: 0.6 }}
-                  className="glass-card rounded-[40px] p-12 md:p-20 text-center relative overflow-hidden"
+                  className="gradient-border backdrop-blur-2xl rounded-[40px] p-12 md:p-20 text-center relative overflow-hidden"
                 >
                   <div className="absolute top-0 right-0 p-8">
                     <div className="text-[120px] font-black text-white/5 select-none leading-none">360%</div>
@@ -89,11 +92,12 @@ function App() {
                   </p>
 
                   <a
+                    ref={magneticBonusCta}
                     href={refLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackEvent('cta_click', { location: 'bonus_section' })}
-                    className="btn-glow inline-flex items-center space-x-3 bg-[var(--color-accent)] text-black px-12 py-6 rounded-2xl font-black text-xl tracking-wide shadow-[0_0_40px_color-mix(in_srgb,var(--color-accent)_40%,transparent)]"
+                    className="btn-glow shine-sweep inline-flex items-center space-x-3 bg-[var(--color-accent)] text-black px-12 py-6 rounded-2xl font-black text-xl tracking-wide shadow-[0_0_40px_color-mix(in_srgb,var(--color-accent)_40%,transparent)]"
                   >
                     <span>{t.bonusSection.ctaLabel} <UrgencyTimer />{t.bonusSection.remainingLabel}</span>
                     <span className="sr-only"> {t.opensInNewWindow}</span>

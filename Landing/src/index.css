@@ -77,23 +77,155 @@
 }
 
 /* Общий hover/press-паттерн для кнопок-CTA: чуть увеличивается, слегка
-   поднимается, усиливается свечение; при нажатии — обратный "press"-эффект. */
+   поднимается, усиливается свечение; при нажатии — обратный "press"-эффект.
+   --magnet-x/--magnet-y (см. src/lib/useMagnetic.ts) по умолчанию 0px, так
+   что кнопки без магнитного эффекта ведут себя ровно как раньше. */
 .btn-glow {
+  --magnet-x: 0px;
+  --magnet-y: 0px;
   transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  transform: translate(var(--magnet-x), var(--magnet-y));
 }
 .btn-glow:hover {
-  transform: translateY(-2px) scale(1.02);
+  transform: translate(var(--magnet-x), var(--magnet-y)) translateY(-2px) scale(1.02);
   filter: brightness(1.08);
 }
 .btn-glow:active {
-  transform: translateY(0) scale(0.97);
+  transform: translate(var(--magnet-x), var(--magnet-y)) translateY(0) scale(0.97);
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .btn-glow,
   .btn-glow:hover,
   .btn-glow:active {
     transform: none;
   }
+}
+
+/* Shine/sheen sweep — a diagonal highlight that slides across on hover.
+   Pure CSS (pseudo-element + transform), no JS, cheap on the compositor. */
+.shine-sweep {
+  position: relative;
+  overflow: hidden;
+}
+.shine-sweep::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 40%,
+    color-mix(in srgb, white 35%, transparent) 50%,
+    transparent 60%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+}
+.shine-sweep:hover::after {
+  transform: translateX(120%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .shine-sweep::after {
+    display: none;
+  }
+}
+
+/* Animated gradient border: a padding-box background (the card's own bg)
+   sitting over a border-box conic-gradient background on the same element
+   — no extra wrapper DOM needed. The gradient itself slowly rotates. */
+.gradient-border {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--color-glass), var(--color-glass)) padding-box,
+    conic-gradient(
+        from var(--gradient-angle, 0deg),
+        color-mix(in srgb, var(--color-accent) 70%, transparent),
+        transparent 30%,
+        transparent 70%,
+        color-mix(in srgb, var(--color-accent-2) 60%, transparent)
+      )
+      border-box;
+  animation: gradient-border-spin 6s linear infinite;
+}
+@property --gradient-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes gradient-border-spin {
+  to {
+    --gradient-angle: 360deg;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gradient-border {
+    animation: none;
+  }
+}
+
+/* Gentle floating drift for decorative elements (the hero core, badges). */
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.float-y {
+  animation: float-y 5s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .float-y {
+    animation: none;
+  }
+}
+
+/* Hero "energy core" — rotating rings + orbiting motes, see EnergyCore.tsx. */
+@keyframes spin-cw {
+  to { transform: rotate(360deg); }
+}
+@keyframes spin-ccw {
+  to { transform: rotate(-360deg); }
+}
+@keyframes core-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.06); opacity: 0.9; }
+}
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(var(--orbit-radius)) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(var(--orbit-radius)) rotate(-360deg); }
+}
+.energy-ring-cw {
+  animation: spin-cw var(--spin-duration, 14s) linear infinite;
+}
+.energy-ring-ccw {
+  animation: spin-ccw var(--spin-duration, 20s) linear infinite;
+}
+.energy-core-pulse {
+  animation: core-pulse 3s ease-in-out infinite;
+}
+.energy-mote {
+  animation: orbit var(--orbit-duration, 8s) linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .energy-ring-cw,
+  .energy-ring-ccw,
+  .energy-core-pulse,
+  .energy-mote {
+    animation: none;
+  }
+}
+
+/* Subtle film-grain noise overlay — a big part of what makes premium/gaming
+   UIs (Riot, Razer, Alienware) feel less flat than a plain gradient. Inline
+   SVG feTurbulence, no image request, opacity kept low so it textures
+   without ever competing with text contrast. */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
 }
 
 ::-webkit-scrollbar {

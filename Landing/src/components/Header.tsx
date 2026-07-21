@@ -3,6 +3,7 @@ import { Menu, X, Coins, Shield } from 'lucide-react';
 import { trackEvent } from '../lib/analytics';
 import { refLinkForLocale } from '../lib/links';
 import { useLocale } from '../i18n/LocaleContext';
+import { useMagnetic } from '../lib/useMagnetic';
 import LanguageSwitcher from './LanguageSwitcher';
 
 const SCROLL_THRESHOLD_PX = 24;
@@ -12,6 +13,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const { locale, t } = useLocale();
   const refLink = refLinkForLocale(locale);
+  const magneticCta = useMagnetic<HTMLAnchorElement>(0.2);
 
   // Minimal/transparent at the very top of the page, more opaque + more blur
   // once scrolled — the brief explicitly asked for opacity to change on scroll
@@ -61,11 +63,12 @@ export default function Header() {
               <span>{t.header.provablyFair}</span>
             </div>
             <a
+              ref={magneticCta}
               href={refLink}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackEvent('cta_click', { location: 'header_desktop' })}
-              className="btn-glow bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-dark)] text-black px-6 py-2.5 rounded-xl font-bold text-sm tracking-wide shadow-[0_0_15px_color-mix(in_srgb,var(--color-accent)_40%,transparent)] flex items-center space-x-2"
+              className="btn-glow shine-sweep bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-dark)] text-black px-6 py-2.5 rounded-xl font-bold text-sm tracking-wide shadow-[0_0_15px_color-mix(in_srgb,var(--color-accent)_40%,transparent)] flex items-center space-x-2"
             >
               <Coins className="w-4 h-4" aria-hidden="true" />
               <span>{t.header.ctaPlayNow}</span>
