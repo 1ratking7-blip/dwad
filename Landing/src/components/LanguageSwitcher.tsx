@@ -16,11 +16,25 @@ function persistLocale(locale: Locale) {
   }
 }
 
+/** Which page family we're on, so switching language keeps you on the same
+ * page instead of always bouncing to the homepage. Real bug found and fixed
+ * 2026-07-21: this component pre-dates the Community page — it always built
+ * `${LOCALE_PATH_PREFIX[loc]}/` (e.g. "/en/"), so switching language while on
+ * /community/ silently sent you to the homepage in that language instead of
+ * /community/en/. Checked at call time (not module load) since this runs
+ * client-side only in a static-per-locale SPA — window exists whenever this
+ * component actually renders. */
+function currentPageBase(): string {
+  if (typeof window === 'undefined') return '';
+  return window.location.pathname.startsWith('/community') ? '/community' : '';
+}
+
 export default function LanguageSwitcher() {
   const { locale, t } = useLocale();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const pageBase = currentPageBase();
 
   useEffect(() => {
     function onClickOutside(e: MouseEvent) {
@@ -65,7 +79,7 @@ export default function LanguageSwitcher() {
             <a
               key={loc}
               role="menuitem"
-              href={`${LOCALE_PATH_PREFIX[loc]}/`}
+              href={`${pageBase}${LOCALE_PATH_PREFIX[loc]}/`}
               onClick={() => {
                 persistLocale(loc);
                 trackEvent('cta_click', { location: 'language_switcher', label: loc });

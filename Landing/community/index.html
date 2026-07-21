@@ -15,9 +15,14 @@
     <link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/community/" />
 
     <!--
-      Автоопределение языка при первом визите — тот же блок, что и на главной
-      (index.html), побайтово идентичен, чтобы CSP-хэш совпадал без
-      перерегистрации в public/_headers.
+      Автоопределение языка при первом визите — ВАЖНО: НЕ побайтово идентичен
+      тому же блоку на главной (index.html) — цели редиректа здесь /community/en/
+      и /community/vi/, а не /en/ и /vi/. Реальный баг, найденный и исправленный
+      2026-07-21: первая версия была скопирована один в один с главной, из-за
+      чего первый визит на /community/ с английским/вьетнамским браузером без
+      сохранённого locale уводил посетителя на ГЛАВНУЮ страницу в этом языке,
+      а не оставлял его на /community/. Раз текст отличается — хэш другой,
+      зарегистрирован в public/_headers отдельно (см. комментарий там же).
     -->
     <script>
       (function () {
@@ -25,8 +30,8 @@
         if (stored) return;
         var lang = (navigator.language || '').toLowerCase();
         var target = null;
-        if (lang.indexOf('en') === 0) target = '/en/';
-        else if (lang.indexOf('vi') === 0) target = '/vi/';
+        if (lang.indexOf('en') === 0) target = '/community/en/';
+        else if (lang.indexOf('vi') === 0) target = '/community/vi/';
         if (target) {
           window.localStorage.setItem('zhelezo_locale', lang.indexOf('en') === 0 ? 'en' : 'vi');
           window.location.replace(target);

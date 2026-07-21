@@ -13,7 +13,12 @@
 # index.html requires adding both its hash here AND its script/connect domains below.
 # CI enforces this automatically (scripts/verify-csp-hashes.mjs, run in .github/workflows/
 # build.yml after the build step) — a forgotten hash now fails the build instead of shipping
-# a silently-broken script to production.
+# a silently-broken script to production. NOTE: that guard only checks the root
+# dist/index.html — en/, vi/, and community/*/index.html are NOT auto-verified, only
+# manually (see 2026-07-21 session notes). Most of their inline scripts are byte-identical
+# to the root copy (same hash, nothing to add), except community/index.html's language
+# auto-detect block, which is deliberately DIFFERENT (redirects to /community/en//vi/, not
+# /en//vi/ — real bug fixed 2026-07-21) and has its own hash below.
 
 /*
   X-Content-Type-Options: nosniff
@@ -21,7 +26,7 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=()
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-dpdFkCfeh+iVrKn3mRrtg29EPgNUfTyh8FgefQy85yg=' 'sha256-Y51X0EjJRNRW7pxncJy1V7dz18/tvuYKV/4oOx7jnZI=' 'sha256-YNhwZayFgDvBZmEVl20HapDlVZlj7gzJiDAGvD6F36k=' 'sha256-1Yd7kVEyMb6IK+f9wICjxTHUF/ICfVAr3ehweMijky4=' 'sha256-T12ajqjIfDTNw8Fno+37bflvEXy5YFt4aRl6zDNTxG8=' 'sha256-oRSs9P5nTZ/Ou1qSxkpEkRGPCvrLBuZcwd8yHN5Ckf8=' 'sha256-VTHjvPL0HMVibvbaRsazg76WhR2ESpokfNIoZYB7yc4=' 'sha256-SA1cILJAkPQWaqihUwlSJ+vsdhCqHpXa0nfvqDMyh3w=' 'sha256-tmeETFKeOwJB4Dr9oeUaVXr4WLlIUmHxpdmFklCUT2g=' 'sha256-V1tmsbD8MZoLemOmNubYoeEnDPL1BbXTVPLGFOxmgWA=' 'sha256-2CiKw/z8iroftfPsqbyAVIHWCgjZBQfcKqQX40orDb4=' https://www.googletagmanager.com https://mc.yandex.ru; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://mc.yandex.ru; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://mc.yandex.ru wss://mc.yandex.ru; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-dpdFkCfeh+iVrKn3mRrtg29EPgNUfTyh8FgefQy85yg=' 'sha256-Y51X0EjJRNRW7pxncJy1V7dz18/tvuYKV/4oOx7jnZI=' 'sha256-YNhwZayFgDvBZmEVl20HapDlVZlj7gzJiDAGvD6F36k=' 'sha256-1Yd7kVEyMb6IK+f9wICjxTHUF/ICfVAr3ehweMijky4=' 'sha256-T12ajqjIfDTNw8Fno+37bflvEXy5YFt4aRl6zDNTxG8=' 'sha256-oRSs9P5nTZ/Ou1qSxkpEkRGPCvrLBuZcwd8yHN5Ckf8=' 'sha256-VTHjvPL0HMVibvbaRsazg76WhR2ESpokfNIoZYB7yc4=' 'sha256-SA1cILJAkPQWaqihUwlSJ+vsdhCqHpXa0nfvqDMyh3w=' 'sha256-tmeETFKeOwJB4Dr9oeUaVXr4WLlIUmHxpdmFklCUT2g=' 'sha256-V1tmsbD8MZoLemOmNubYoeEnDPL1BbXTVPLGFOxmgWA=' 'sha256-2CiKw/z8iroftfPsqbyAVIHWCgjZBQfcKqQX40orDb4=' 'sha256-UOwrADyw3/q72cqxWz+jTp7hIaKFGmHawf6oCmlfaFY=' https://www.googletagmanager.com https://mc.yandex.ru; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://mc.yandex.ru; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://mc.yandex.ru wss://mc.yandex.ru; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
