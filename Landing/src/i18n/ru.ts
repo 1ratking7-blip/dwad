@@ -13,7 +13,7 @@ export const ru: Dictionary = {
   header: {
     logoAria: 'ZHELEZO — на главную',
     navHome: 'Главная',
-    navCommunity: 'Сообщество',
+    navCommunity: 'Соцсети',
     ctaPlayNow: 'ИГРАТЬ СЕЙЧАС',
     menuOpen: 'Открыть меню',
     menuClose: 'Закрыть меню',
@@ -144,9 +144,9 @@ export const ru: Dictionary = {
     soonTitle: 'Скоро',
   },
   community: {
-    metaTitle: 'Сообщество ZHELEZO — соцсети и каналы',
-    metaDescription: 'Присоединяйтесь к сообществу ZHELEZO: Telegram-канал, Instagram, Facebook, X и TikTok. Новости, бонусы и честные обновления без спама.',
-    heading: 'Сообщество ZHELEZO',
+    metaTitle: 'ZHELEZO в соцсетях — Telegram, Instagram, X, TikTok',
+    metaDescription: 'Все соцсети ZHELEZO в одном месте: Telegram-канал, Instagram, Facebook, X и TikTok. Новости, бонусы и честные обновления без спама.',
+    heading: 'ZHELEZO в соцсетях',
     subtitle: 'Будьте на связи — новости, бонусы и живое общение в наших официальных каналах',
     channelsHeading: 'Официальные каналы',
   },

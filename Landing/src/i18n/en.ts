@@ -13,7 +13,7 @@ export const en: Dictionary = {
   header: {
     logoAria: 'ZHELEZO — home',
     navHome: 'Home',
-    navCommunity: 'Community',
+    navCommunity: 'Social',
     ctaPlayNow: 'PLAY NOW',
     menuOpen: 'Open menu',
     menuClose: 'Close menu',
@@ -144,9 +144,9 @@ export const en: Dictionary = {
     soonTitle: 'Coming soon',
   },
   community: {
-    metaTitle: 'ZHELEZO Community — Social Channels',
-    metaDescription: 'Join the ZHELEZO community: Telegram channel, Instagram, Facebook, X, and TikTok. News, bonuses, and honest updates, no spam.',
-    heading: 'ZHELEZO Community',
+    metaTitle: 'ZHELEZO on Social Media — Telegram, Instagram, X, TikTok',
+    metaDescription: 'All ZHELEZO social channels in one place: Telegram channel, Instagram, Facebook, X, and TikTok. News, bonuses, and honest updates, no spam.',
+    heading: 'ZHELEZO on Social Media',
     subtitle: 'Stay connected — news, bonuses, and real conversation across our official channels',
     channelsHeading: 'Official Channels',
   },

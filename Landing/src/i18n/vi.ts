@@ -13,7 +13,7 @@ export const vi: Dictionary = {
   header: {
     logoAria: 'ZHELEZO — về trang chủ',
     navHome: 'Trang Chủ',
-    navCommunity: 'Cộng Đồng',
+    navCommunity: 'Mạng Xã Hội',
     ctaPlayNow: 'CHƠI NGAY',
     menuOpen: 'Mở menu',
     menuClose: 'Đóng menu',
@@ -144,9 +144,9 @@ export const vi: Dictionary = {
     soonTitle: 'Sắp ra mắt',
   },
   community: {
-    metaTitle: 'Cộng Đồng ZHELEZO — Kênh Mạng Xã Hội',
-    metaDescription: 'Tham gia cộng đồng ZHELEZO: kênh Telegram, Instagram, Facebook, X và TikTok. Tin tức, ưu đãi và cập nhật trung thực, không spam.',
-    heading: 'Cộng Đồng ZHELEZO',
+    metaTitle: 'ZHELEZO Trên Mạng Xã Hội — Telegram, Instagram, X, TikTok',
+    metaDescription: 'Tất cả kênh mạng xã hội của ZHELEZO: kênh Telegram, Instagram, Facebook, X và TikTok. Tin tức, ưu đãi và cập nhật trung thực, không spam.',
+    heading: 'ZHELEZO Trên Mạng Xã Hội',
     subtitle: 'Luôn kết nối — tin tức, ưu đãi và trò chuyện thực sự trên các kênh chính thức của chúng tôi',
     channelsHeading: 'Kênh Chính Thức',
   },
