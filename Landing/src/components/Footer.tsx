@@ -1,13 +1,15 @@
 
 import { ShieldAlert } from 'lucide-react';
 import { trackEvent } from '../lib/analytics';
-import { refLinkForLocale } from '../lib/links';
+import { refLinkForLocation } from '../lib/links';
 import { useLocale } from '../i18n/LocaleContext';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const { locale, t } = useLocale();
-  const refLink = refLinkForLocale(locale);
+  // Each footer link gets its own subId3 (matching its trackEvent label) instead
+  // of sharing one tag — see refLinkForLocation's comment in lib/links.ts for why.
+  const footerLink = (label: string) => refLinkForLocation(locale, `footer_${label}`);
   const blogHref = locale === 'ru' ? '/blog/' : `/blog/${locale}/`;
   const homeHref = locale === 'ru' ? '/' : `/${locale}/`;
   const privacyHref = locale === 'ru' ? '/privacy-policy' : `/${locale}/privacy-policy`;
@@ -38,9 +40,9 @@ export default function Footer() {
             <h3 className="text-white font-bold mb-6 tracking-wide">{t.footer.platformHeading}</h3>
             <ul className="space-y-4 text-sm text-gray-400">
               <li><a href="#games" className="hover:text-[var(--color-accent)] transition-colors">{t.footer.gamesOriginals}</a></li>
-              <li><a href={refLink} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'slots' })} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.slots}<span className="sr-only"> {t.opensInNewWindow}</span></a></li>
-              <li><a href={refLink} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'sportsbook' })} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.sportsbook}<span className="sr-only"> {t.opensInNewWindow}</span></a></li>
-              <li><a href={refLink} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'esports' })} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.esports}<span className="sr-only"> {t.opensInNewWindow}</span></a></li>
+              <li><a href={footerLink('slots')} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'slots' })} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.slots}<span className="sr-only"> {t.opensInNewWindow}</span></a></li>
+              <li><a href={footerLink('sportsbook')} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'sportsbook' })} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.sportsbook}<span className="sr-only"> {t.opensInNewWindow}</span></a></li>
+              <li><a href={footerLink('esports')} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'esports' })} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.esports}<span className="sr-only"> {t.opensInNewWindow}</span></a></li>
             </ul>
           </div>
 
@@ -50,7 +52,7 @@ export default function Footer() {
               <li><a href={blogHref} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.blog}</a></li>
               <li><a href="#faq" className="hover:text-[var(--color-accent)] transition-colors">{t.footer.faq}</a></li>
               <li><a href="#how-it-works" className="hover:text-[var(--color-accent)] transition-colors">{t.footer.howToStart}</a></li>
-              <li><a href={refLink} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'vip_club' })} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.vipClub}<span className="sr-only"> {t.opensInNewWindow}</span></a></li>
+              <li><a href={footerLink('vip_club')} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'vip_club' })} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.vipClub}<span className="sr-only"> {t.opensInNewWindow}</span></a></li>
               <li><a href="#faq" className="hover:text-[var(--color-accent)] transition-colors">{t.footer.contacts}</a></li>
             </ul>
           </div>
@@ -58,10 +60,10 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-bold mb-6 tracking-wide">{t.footer.bonusesHeading}</h3>
             <ul className="space-y-4 text-sm text-gray-400">
-              <li><a href={refLink} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'welcome_360' })} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.welcome360}<span className="sr-only"> {t.opensInNewWindow}</span></a></li>
-              <li><a href={refLink} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'daily_lucky_spin' })} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.dailyLuckySpin}<span className="sr-only"> {t.opensInNewWindow}</span></a></li>
-              <li><a href={refLink} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'weekly_cashback' })} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.weeklyCashback}<span className="sr-only"> {t.opensInNewWindow}</span></a></li>
-              <li><a href={refLink} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'rakeback_20' })} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.rakeback20}<span className="sr-only"> {t.opensInNewWindow}</span></a></li>
+              <li><a href={footerLink('welcome_360')} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'welcome_360' })} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.welcome360}<span className="sr-only"> {t.opensInNewWindow}</span></a></li>
+              <li><a href={footerLink('daily_lucky_spin')} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'daily_lucky_spin' })} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.dailyLuckySpin}<span className="sr-only"> {t.opensInNewWindow}</span></a></li>
+              <li><a href={footerLink('weekly_cashback')} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'weekly_cashback' })} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.weeklyCashback}<span className="sr-only"> {t.opensInNewWindow}</span></a></li>
+              <li><a href={footerLink('rakeback_20')} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'rakeback_20' })} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.rakeback20}<span className="sr-only"> {t.opensInNewWindow}</span></a></li>
             </ul>
           </div>
         </div>

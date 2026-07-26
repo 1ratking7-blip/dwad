@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { ArrowRight, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { trackEvent } from '../lib/analytics';
-import { refLinkForLocale } from '../lib/links';
+import { refLinkForLocation } from '../lib/links';
 import { useLocale } from '../i18n/LocaleContext';
 
 const SHOW_AFTER_PX = 400;
@@ -17,7 +17,7 @@ const SHOW_AFTER_PX = 400;
  */
 export default function MobileStickyCta() {
   const { locale, t } = useLocale();
-  const refLink = refLinkForLocale(locale);
+  const refLink = refLinkForLocation(locale, 'mobile_sticky');
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {

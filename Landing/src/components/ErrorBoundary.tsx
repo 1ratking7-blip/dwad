@@ -1,6 +1,6 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 import { trackEvent } from '../lib/analytics';
-import { refLinkForLocale } from '../lib/links';
+import { refLinkForLocation } from '../lib/links';
 import type { Dictionary, Locale } from '../i18n/types';
 
 interface Props {
@@ -49,7 +49,7 @@ export class ErrorBoundary extends Component<Props, State> {
             <h1 className="text-2xl font-black text-white mb-4">{t.errorBoundary.title}</h1>
             <p className="text-gray-400 mb-8">{t.errorBoundary.message}</p>
             <a
-              href={refLinkForLocale(locale)}
+              href={refLinkForLocation(locale, 'error_boundary')}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-glow inline-block bg-[var(--color-accent)] text-black px-8 py-4 rounded-2xl font-black tracking-wide shadow-[0_0_20px_color-mix(in_srgb,var(--color-accent)_35%,transparent)]"

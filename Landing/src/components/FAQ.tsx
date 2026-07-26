@@ -65,20 +65,22 @@ export default function FAQ() {
               transition={{ duration: 0.4, delay: Math.min(i * 0.05, 0.3) }}
               className="hud-panel chamfered-sm overflow-hidden"
             >
-              <button
-                onClick={() => toggleFaq(i)}
-                aria-expanded={openIndex === i}
-                aria-controls={`faq-answer-${i}`}
-                id={`faq-question-${i}`}
-                className="w-full px-6 py-5 text-left flex items-center justify-between font-bold text-white group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
-              >
-                <span className="pr-8 group-hover:text-[var(--color-accent)] transition-colors">{faq.q}</span>
-                {openIndex === i ? (
-                  <ChevronUp className="w-5 h-5 text-[var(--color-accent)] shrink-0" aria-hidden="true" />
-                ) : (
-                  <ChevronDown className="w-5 h-5 text-gray-400 shrink-0" aria-hidden="true" />
-                )}
-              </button>
+              <h3 className="m-0">
+                <button
+                  onClick={() => toggleFaq(i)}
+                  aria-expanded={openIndex === i}
+                  aria-controls={`faq-answer-${i}`}
+                  id={`faq-question-${i}`}
+                  className="w-full px-6 py-5 text-left flex items-center justify-between font-bold text-white group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
+                >
+                  <span className="pr-8 group-hover:text-[var(--color-accent)] transition-colors">{faq.q}</span>
+                  {openIndex === i ? (
+                    <ChevronUp className="w-5 h-5 text-[var(--color-accent)] shrink-0" aria-hidden="true" />
+                  ) : (
+                    <ChevronDown className="w-5 h-5 text-gray-400 shrink-0" aria-hidden="true" />
+                  )}
+                </button>
+              </h3>
 
               <div
                 id={`faq-answer-${i}`}

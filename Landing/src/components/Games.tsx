@@ -2,7 +2,7 @@
 import { ExternalLink, Terminal, BarChart3, Binary, Rocket } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { trackEvent } from '../lib/analytics';
-import { refLinkForLocale } from '../lib/links';
+import { refLinkForLocation } from '../lib/links';
 import { useLocale } from '../i18n/LocaleContext';
 import CornerBrackets from './CornerBrackets';
 
@@ -15,7 +15,7 @@ const icons = [
 
 export default function Games() {
   const { locale, t } = useLocale();
-  const refLink = refLinkForLocale(locale);
+  const headerRefLink = refLinkForLocation(locale, 'games_header');
   const games = t.games.list;
 
   return (
@@ -38,7 +38,7 @@ export default function Games() {
             </p>
           </div>
           <a
-            href={refLink}
+            href={headerRefLink}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackEvent('cta_click', { location: 'games_header' })}
@@ -75,7 +75,7 @@ export default function Games() {
                   </p>
                 </div>
                 <a
-                  href={refLink}
+                  href={refLinkForLocation(locale, `games_card_${i}`)}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackEvent('cta_click', { location: 'games_card', game: game.title })}

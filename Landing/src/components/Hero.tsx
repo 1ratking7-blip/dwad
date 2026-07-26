@@ -2,7 +2,7 @@
 import { Rocket, Zap, ShieldCheck, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { trackEvent } from '../lib/analytics';
-import { refLinkForLocale } from '../lib/links';
+import { refLinkForLocation } from '../lib/links';
 import { useLocale } from '../i18n/LocaleContext';
 import { useMagnetic } from '../lib/useMagnetic';
 import AnimatedCounter from './AnimatedCounter';
@@ -11,7 +11,7 @@ import CornerBrackets from './CornerBrackets';
 
 export default function Hero() {
   const { locale, t } = useLocale();
-  const refLink = refLinkForLocale(locale);
+  const refLink = refLinkForLocation(locale, 'hero');
   const magneticCta = useMagnetic<HTMLAnchorElement>(0.25);
 
   const stats = [

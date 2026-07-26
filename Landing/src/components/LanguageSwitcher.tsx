@@ -61,7 +61,6 @@ export default function LanguageSwitcher() {
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        aria-haspopup="menu"
         aria-label={`${t.languageSwitcher.label}: ${LOCALE_LABELS[locale].name}`}
         className="flex items-center space-x-1.5 text-xs font-semibold text-gray-300 hover:text-[var(--color-accent)] border border-[var(--color-border)] px-3 py-1.5 rounded-full transition-colors"
       >
@@ -72,13 +71,11 @@ export default function LanguageSwitcher() {
 
       {open && (
         <div
-          role="menu"
           className="absolute right-0 mt-2 bg-[var(--color-card)] border border-[var(--color-border)] rounded-xl overflow-hidden shadow-2xl min-w-[160px] z-50"
         >
           {SUPPORTED_LOCALES.map((loc) => (
             <a
               key={loc}
-              role="menuitem"
               href={`${pageBase}${LOCALE_PATH_PREFIX[loc]}/`}
               onClick={() => {
                 persistLocale(loc);

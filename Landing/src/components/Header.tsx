@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Menu, X, Coins } from 'lucide-react';
 import { trackEvent } from '../lib/analytics';
-import { refLinkForLocale } from '../lib/links';
+import { refLinkForLocation } from '../lib/links';
 import { useLocale } from '../i18n/LocaleContext';
 import { useMagnetic } from '../lib/useMagnetic';
 import LanguageSwitcher from './LanguageSwitcher';
@@ -12,10 +12,27 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { locale, t } = useLocale();
-  const refLink = refLinkForLocale(locale);
+  const desktopRefLink = refLinkForLocation(locale, 'header_desktop');
+  const mobileRefLink = refLinkForLocation(locale, 'header_mobile');
   const magneticCta = useMagnetic<HTMLAnchorElement>(0.2);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const homeHref = locale === 'ru' ? '/' : `/${locale}/`;
   const communityHref = locale === 'ru' ? '/community/' : `/community/${locale}/`;
+
+  // Escape-to-close, same convention as LanguageSwitcher — a keyboard user who
+  // opened the mobile nav shouldn't have to tab all the way through its links
+  // just to dismiss it.
+  useEffect(() => {
+    if (!isOpen) return;
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        setIsOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    }
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [isOpen]);
 
   // Minimal/transparent at the very top of the page, more opaque + more blur
   // once scrolled — the brief explicitly asked for opacity to change on scroll
@@ -61,7 +78,7 @@ export default function Header() {
             <LanguageSwitcher />
             <a
               ref={magneticCta}
-              href={refLink}
+              href={desktopRefLink}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackEvent('cta_click', { location: 'header_desktop' })}
@@ -77,6 +94,7 @@ export default function Header() {
           <div className="lg:hidden flex items-center space-x-2">
             <LanguageSwitcher />
             <button
+              ref={menuButtonRef}
               onClick={() => setIsOpen(!isOpen)}
               aria-expanded={isOpen}
               aria-controls="mobile-nav"
@@ -109,7 +127,7 @@ export default function Header() {
             </a>
           </nav>
           <a
-            href={refLink}
+            href={mobileRefLink}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackEvent('cta_click', { location: 'header_mobile' })}

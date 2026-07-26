@@ -12,7 +12,7 @@ import SectionDivider from './components/SectionDivider';
 import CornerBrackets from './components/CornerBrackets';
 import AboutFounder from './components/AboutFounder';
 import { trackEvent } from './lib/analytics';
-import { refLinkForLocale } from './lib/links';
+import { refLinkForLocation } from './lib/links';
 import { useLocale } from './i18n/LocaleContext';
 import { useMagnetic } from './lib/useMagnetic';
 
@@ -26,7 +26,7 @@ const Footer = lazy(() => import('./components/Footer'));
 
 function App() {
   const { locale, t } = useLocale();
-  const refLink = refLinkForLocale(locale);
+  const refLink = refLinkForLocation(locale, 'bonus_section');
   const magneticBonusCta = useMagnetic<HTMLAnchorElement>(0.2);
 
   useEffect(() => {
@@ -85,7 +85,7 @@ function App() {
                   transition={{ duration: 0.6 }}
                   className="gradient-border chamfered backdrop-blur-2xl p-12 md:p-20 text-center relative overflow-hidden"
                 >
-                  <div className="absolute top-0 right-0 p-8">
+                  <div className="absolute top-0 right-0 p-8" aria-hidden="true">
                     <div className="text-[120px] font-black text-white/5 select-none leading-none">360%</div>
                   </div>
 

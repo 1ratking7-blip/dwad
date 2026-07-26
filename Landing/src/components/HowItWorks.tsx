@@ -2,7 +2,7 @@
 import { UserPlus, CreditCard, PlayCircle, Trophy } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { trackEvent } from '../lib/analytics';
-import { refLinkForLocale } from '../lib/links';
+import { refLinkForLocation } from '../lib/links';
 import { useLocale } from '../i18n/LocaleContext';
 
 const icons = [
@@ -15,7 +15,7 @@ const colors = ['bg-[var(--color-accent)]', 'bg-[var(--color-accent-2)]', 'bg-bl
 
 export default function HowItWorks() {
   const { locale, t } = useLocale();
-  const refLink = refLinkForLocale(locale);
+  const refLink = refLinkForLocation(locale, 'how_it_works');
   const steps = t.howItWorks.steps;
 
   return (
