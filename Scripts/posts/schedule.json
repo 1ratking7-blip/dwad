@@ -1,0 +1,77 @@
+{
+  "_comment": "Structured schedule for GitHub Actions auto-posting to @ZHELEz19. Dates are UTC calendar dates matching the workflow's `date -u +%Y-%m-%d`. photo_file_id is a Telegram file_id (reusable via the bot token without re-uploading). posted=false means not yet sent; the workflow flips it to true + records message_id after a successful send.",
+  "posts": [
+    {
+      "date": "2026-07-26",
+      "theme": "Закулисье",
+      "caption": "🎥 Закулисье: место, откуда все стримы\n\nМикрофон настроен, мониторы прогреты, свет включён — готовимся к очередному эфиру. Скоро увидимся вживую 🔥\n\n#ZHELEZO #Данила #Стрим #Закулисье",
+      "photo_file_id": "AgACAgIAAyEGAASLo3ufAAIBDmpbocf4dPw544CzKiksbcNbmjUHAALfGmsbHBfhSie7wVluT96oAQADAgADdwADPQQ",
+      "posted": true,
+      "message_id": 289,
+      "posted_at_utc": "2026-07-26T00:37:40.520593+00:00"
+    },
+    {
+      "date": "2026-07-27",
+      "theme": "Футбол — 16 лет",
+      "caption": "⚽ 16 лет в футболе — и это только начало\n\nФутбол — это то, с чего всё началось и что до сих пор держит в тонусе на 100%. Каждая тренировка — вклад в то, что вы видите на поле и на стриме.\n\nКто тоже играет — привет из Хошимина 🇻🇳\n\n#Футбол #ZHELEZO #Данила #Вьетнам",
+      "photo_file_id": "AgACAgIAAyEGAASLo3ufAAIBD2pbo62A3gkYB8S7l63wfy1Y-RSoAALpGmsbHBfhSmq45mkeGLUQAQADAgADdwADPQQ",
+      "posted": false
+    },
+    {
+      "date": "2026-07-28",
+      "theme": "Почему ZHELEZO (бренд)",
+      "caption": "🚀 Почему ZHELEZO\n\nСтрою бренд, а не разовый проект. Спорт, стримы, честный крипто-гейминг на одной платформе — без воды и без пафоса, только то, чем реально пользуюсь сам.\n\nЗаходи, стань частью этого с самого начала 💪\n👉 https://zhelezo.space\n\n#ZHELEZO #Бренд #Данила",
+      "photo_file_id": "AgACAgIAAyEGAASLo3ufAAIBAAFqW51i9kHQnimalSyQREAH79gNnAACwRprGxwX4UrKgy9TSgsvhgEAAwIAA3kAAz0E",
+      "posted": false
+    },
+    {
+      "date": "2026-07-29",
+      "theme": "Daily Lucky Spin",
+      "caption": "🎡 Не проверял Daily Lucky Spin — зря\n\nБесплатное колесо фортуны на zhelezo.space крутится раз в 24 часа, депозит не нужен. Реальная крипта на баланс — просто и без разводов.\n\n👉 https://zhelezo.space\n\n#LuckySpin #ZHELEZO #BCGame",
+      "photo_file_id": "AgACAgIAAyEGAASLo3ufAAIBEmpbo7VOom5M4LUfxA1ebxFhFDhtAALsGmsbHBfhSvEKtduxRMekAQADAgADeQADPQQ",
+      "posted": false
+    },
+    {
+      "date": "2026-07-30",
+      "theme": "Provably Fair",
+      "caption": "🔐 Честность, которую можно проверить\n\nНа платформе, которую я рекомендую через ZHELEZO, каждый раунд Crash/Plinko/Dice подтверждается хэшем в блокчейне ещё до старта игры. Не обещание на словах — математика.\n\n👉 Проверь сам: https://zhelezo.space\n\n#ProvablyFair #ZHELEZO #CryptoGaming",
+      "photo_file_id": "AgACAgIAAyEGAASLo3ufAAIBEWpbo7I_2zBwAp01QxtE9rvqXWU2AALrGmsbHBfhSptcTsORYFcnAQADAgADeQADPQQ",
+      "posted": false
+    },
+    {
+      "date": "2026-07-31",
+      "theme": "Опрос",
+      "caption": "🗳️ Опрос дня\n\nЧто вам интереснее видеть в канале?\n⚽ Футбол\n🎮 CS2/Faceit\n🎥 Стримы и закулисье\n🎰 Обзоры игр на ZHELEZO\n\nПишите в комментах — подстроюсь под вас 👇\n\n#ZHELEZO #Опрос",
+      "photo_file_id": null,
+      "posted": false
+    },
+    {
+      "date": "2026-08-01",
+      "theme": "Без KYC",
+      "caption": "⚡ Без KYC, вывод мгновенный\n\nНа платформе через ZHELEZO — 100+ криптовалют, никакой верификации личности на большинстве уровней, вывод за минуты. Из того, что реально ценю сам.\n\n👉 https://zhelezo.space\n\n#ZHELEZO #CryptoGaming #NoKYC",
+      "photo_file_id": "AgACAgIAAyEGAASLo3ufAAIBEGpbo7AhY6MZy14bmwcC5ZniOOiIAALqGmsbHBfhSiW9PcGJl_0BAQADAgADeQADPQQ",
+      "posted": false
+    },
+    {
+      "date": "2026-08-02",
+      "theme": "CTA Подписывайся",
+      "caption": "🔥 Если ещё не подписан — самое время\n\nФутбол, CS2, стримы, жизнь во Вьетнаме и мой проект ZHELEZO — всё в одном канале. Го расти вместе.\n\n👉 https://zhelezo.space\n\n#ZHELEZO #Данила #Подписывайся",
+      "photo_file_id": "AgACAgIAAyEGAASLo3ufAAIBCGpboB1v1u4unkrKSbUJxSColln7AALYGmsbHBfhSrA9uGHZhm0vAQADAgADeQADPQQ",
+      "posted": false
+    },
+    {
+      "date": "2026-08-11",
+      "theme": "Esports World Cup CS2",
+      "caption": "🏆 Esports World Cup 2026 — стримлю самый жирный призовой в этом году\n\n12–23 августа стартует CS2-турнир на Esports World Cup — 32 команды и призовой $2,000,000, это больше любого Major в этом году.\n\nВсю неделю буду в эфире на GOSH — смотрим составы, разбираем игры и держим руку на пульсе турнира вместе.\n\nА вы уже смотрите EWC или пока мимо? 👇\n\n#CS2 #EsportsWorldCup #ZHELEZO #Faceit #GOSH",
+      "photo_file_id": "AgACAgIAAyEGAASLo3ufAAIBBGpbnniVWPmuq8n0CpOWx_nNYt9TAALOGmsbHBfhSnt-TNqlMXerAQADAgADdwADPQQ",
+      "posted": false
+    },
+    {
+      "date": "2026-08-25",
+      "theme": "BLAST Open Fall",
+      "caption": "🎮 BLAST Open Fall — финалы в Порту\n\nС 26 августа по 6 сентября — BLAST Open Fall 2026, плей-офф офлайн в Порту (Португалия), призовой $1,100,000.\n\nСезон CS2 продолжает жарить — буду следить за сеткой и постараюсь позалипать на плей-офф вживую.\n\n#CS2 #BLASTOpenFall #ZHELEZO #Faceit",
+      "photo_file_id": "AgACAgIAAyEGAASLo3ufAAIBB2pbn8ojs1rhjR_16hhgC0D-OjzRAALXGmsbHBfhStEZCffKoZYXAQADAgADeQADPQQ",
+      "posted": false
+    }
+  ]
+}

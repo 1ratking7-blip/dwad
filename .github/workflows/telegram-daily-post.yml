@@ -1,0 +1,32 @@
+name: ZHELEz19 Daily Telegram Post
+
+on:
+  schedule:
+    # 12:00 UTC = 19:00 ICT (Asia/Ho_Chi_Minh, UTC+7)
+    - cron: '0 12 * * *'
+  workflow_dispatch: {}
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Post today's scheduled content (if any, if not already posted)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: python3 Scripts/post_scheduled.py
+
+      - name: Commit updated schedule.json if it changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet -- Scripts/posts/schedule.json; then
+            git add Scripts/posts/schedule.json
+            git commit -m "Auto-post: mark $(date -u +%Y-%m-%d) as posted [skip ci]"
+            git push
+          else
+            echo "No changes to schedule.json — nothing to commit"
+          fi
