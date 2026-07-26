@@ -150,6 +150,23 @@ export const en: Dictionary = {
     subtitle: 'Stay connected — news, bonuses, and real conversation with the community',
     channelsHeading: 'Official Channels',
   },
+  about: {
+    badge: 'The person behind ZHELEZO',
+    heading: 'WHY PEOPLE CHOOSE ZHELEZO',
+    name: 'Danila Zhelezov',
+    role: 'Footballer · Streamer · Founder of ZHELEZO',
+    bioParagraphs: [
+      "I'm a professional footballer — I've played for more than 16 years. Alongside sport, I'm deeply into crypto, Web3, AI, and iGaming, and I stream and create content as well.",
+      "ZHELEZO isn't a one-off affiliate site — it's my long-term project. I'm bringing honest crypto gaming, bonuses, reviews, news, and technology together in one place, so a real community can grow around it over time.",
+    ],
+    pillars: [
+      { title: '16+ years in sport', desc: 'Discipline and results — what I bring to the field every day, and to every other project I run.' },
+      { title: 'A real public face', desc: 'Streams and content under my own name — not an anonymous, faceless site with no accountability.' },
+      { title: 'Real data only', desc: 'No made-up numbers, no inflated stats, no paid-for reviews anywhere on this site.' },
+      { title: 'Built for the long run', desc: 'ZHELEZO is built as a long-term brand, not a landing page for a single ad push.' },
+    ],
+    ctaLabel: 'All my social channels',
+  },
   errorBoundary: {
     title: 'Something went wrong',
     message: "Try refreshing the page — we're already aware of the issue.",

@@ -7,8 +7,10 @@ import SocialProof from './components/SocialProof';
 import UrgencyTimer from './components/UrgencyTimer';
 import AnimatedBackground from './components/AnimatedBackground';
 import BackToTop from './components/BackToTop';
+import MobileStickyCta from './components/MobileStickyCta';
 import SectionDivider from './components/SectionDivider';
 import CornerBrackets from './components/CornerBrackets';
+import AboutFounder from './components/AboutFounder';
 import { trackEvent } from './lib/analytics';
 import { refLinkForLocale } from './lib/links';
 import { useLocale } from './i18n/LocaleContext';
@@ -62,8 +64,11 @@ function App() {
         <Header />
         <SocialProof />
         <BackToTop />
+        <MobileStickyCta />
         <main id="main-content" tabIndex={-1}>
           <Hero />
+          <SectionDivider />
+          <AboutFounder />
           <SectionDivider />
           <Suspense fallback={null}>
             <LuckyWheel />

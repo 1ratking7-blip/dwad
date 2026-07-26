@@ -132,6 +132,15 @@ export interface Dictionary {
     subtitle: string;
     channelsHeading: string;
   };
+  about: {
+    badge: string;
+    heading: string;
+    name: string;
+    role: string;
+    bioParagraphs: string[];
+    pillars: { title: string; desc: string }[];
+    ctaLabel: string;
+  };
   errorBoundary: {
     title: string;
     message: string;

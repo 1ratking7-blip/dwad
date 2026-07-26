@@ -150,6 +150,23 @@ export const vi: Dictionary = {
     subtitle: 'Luôn kết nối — tin tức, ưu đãi và trò chuyện thực sự cùng cộng đồng',
     channelsHeading: 'Kênh Chính Thức',
   },
+  about: {
+    badge: 'Người đứng sau ZHELEZO',
+    heading: 'VÌ SAO NÊN CHỌN ZHELEZO',
+    name: 'Danila Zhelezov',
+    role: 'Cầu thủ bóng đá · Streamer · Người sáng lập ZHELEZO',
+    bioParagraphs: [
+      'Tôi là cầu thủ bóng đá chuyên nghiệp — đã chơi bóng đá hơn 16 năm. Bên cạnh thể thao, tôi cũng tích cực phát triển trong lĩnh vực crypto, Web3, AI và iGaming, đồng thời làm streamer và sáng tạo nội dung.',
+      'ZHELEZO không phải là một trang affiliate làm cho có — đây là dự án dài hạn của tôi. Tôi gom crypto gaming trung thực, ưu đãi, bài đánh giá, tin tức và công nghệ vào một nơi duy nhất, để theo thời gian một cộng đồng thực sự có thể lớn lên từ đó.',
+    ],
+    pillars: [
+      { title: '16+ năm trong thể thao', desc: 'Kỷ luật và kết quả — điều tôi rèn luyện mỗi ngày trên sân và mang vào mọi dự án khác.' },
+      { title: 'Gương mặt thật, công khai', desc: 'Stream và nội dung dưới chính tên mình — không phải một trang web ẩn danh, thiếu trách nhiệm.' },
+      { title: 'Chỉ dữ liệu thật', desc: 'Không có con số bịa đặt, không thống kê thổi phồng, không đánh giá được trả tiền trên trang này.' },
+      { title: 'Xây dựng cho lâu dài', desc: 'ZHELEZO được xây dựng như một thương hiệu dài hạn, không phải trang đích cho một đợt quảng cáo.' },
+    ],
+    ctaLabel: 'Tất cả kênh mạng xã hội của tôi',
+  },
   errorBoundary: {
     title: 'Đã có lỗi xảy ra',
     message: 'Hãy thử tải lại trang — chúng tôi đã ghi nhận lỗi này.',
