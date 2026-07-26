@@ -144,8 +144,8 @@ export const vi: Dictionary = {
     soonTitle: 'Sắp ra mắt',
   },
   community: {
-    metaTitle: 'ZHELEZO Trên Mạng Xã Hội — Telegram, Instagram, X, TikTok',
-    metaDescription: 'Tất cả kênh mạng xã hội của ZHELEZO: kênh Telegram, Instagram, Facebook, X và TikTok. Tin tức, ưu đãi và cập nhật trung thực, không spam.',
+    metaTitle: 'ZHELEZO Trên Mạng Xã Hội — Telegram, Twitch, Instagram, X, TikTok',
+    metaDescription: 'Tất cả kênh mạng xã hội của ZHELEZO: kênh Telegram, Twitch, Instagram, Facebook, X và TikTok. Tin tức, ưu đãi và cập nhật trung thực, không spam.',
     heading: 'ZHELEZO Trên Mạng Xã Hội',
     subtitle: 'Luôn kết nối — tin tức, ưu đãi và trò chuyện thực sự cùng cộng đồng',
     channelsHeading: 'Kênh Chính Thức',

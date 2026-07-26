@@ -144,8 +144,8 @@ export const ru: Dictionary = {
     soonTitle: 'Скоро',
   },
   community: {
-    metaTitle: 'ZHELEZO в соцсетях — Telegram, Instagram, X, TikTok',
-    metaDescription: 'Все соцсети ZHELEZO в одном месте: Telegram-канал, Instagram, Facebook, X и TikTok. Новости, бонусы и честные обновления без спама.',
+    metaTitle: 'ZHELEZO в соцсетях — Telegram, Twitch, Instagram, X, TikTok',
+    metaDescription: 'Все соцсети ZHELEZO в одном месте: Telegram-канал, Twitch, Instagram, Facebook, X и TikTok. Новости, бонусы и честные обновления без спама.',
     heading: 'ZHELEZO в соцсетях',
     subtitle: 'Будьте на связи — новости, бонусы и живое общение с сообществом',
     channelsHeading: 'Официальные каналы',
