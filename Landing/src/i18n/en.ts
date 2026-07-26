@@ -155,7 +155,6 @@ export const en: Dictionary = {
     heading: 'WHY PEOPLE CHOOSE ZHELEZO',
     name: 'Danila Zhelezov',
     role: 'Footballer · Streamer · Founder of ZHELEZO',
-    photoInitials: 'DZ',
     bioParagraphs: [
       "I'm a professional footballer — I've played for more than 16 years. Alongside sport, I'm deeply into crypto, Web3, AI, and iGaming, and I stream and create content as well.",
       "ZHELEZO isn't a one-off affiliate site — it's my long-term project. I'm bringing honest crypto gaming, bonuses, reviews, news, and technology together in one place, so a real community can grow around it over time.",

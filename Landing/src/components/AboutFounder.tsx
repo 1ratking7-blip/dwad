@@ -47,17 +47,18 @@ export default function AboutFounder() {
         >
           <div className="hud-panel chamfered p-8 md:p-12">
             <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-8 sm:gap-10 items-start mb-8">
-              {/* Photo placeholder — chamfered frame + monogram, matches the
-                  rest of the site's HUD language instead of a generic circle
-                  avatar, so an empty photo slot still looks intentional. */}
+              {/* Real photo, chamfered to match the rest of the site's HUD
+                  language instead of a generic circle avatar crop. */}
               <div className="mx-auto sm:mx-0 shrink-0">
-                <div
-                  className="chamfered-sm w-28 h-28 sm:w-32 sm:h-32 btn-metal flex items-center justify-center relative"
-                  role="img"
-                  aria-label={about.name}
-                >
-                  <span className="text-3xl sm:text-4xl font-black text-black tracking-tight">{about.photoInitials}</span>
-                </div>
+                <img
+                  src="/founder-photo.jpg"
+                  alt={about.name}
+                  width={128}
+                  height={128}
+                  className="chamfered-sm w-28 h-28 sm:w-32 sm:h-32 object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
 
               <div className="text-center sm:text-left">

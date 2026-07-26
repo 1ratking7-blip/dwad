@@ -155,7 +155,6 @@ export const vi: Dictionary = {
     heading: 'VÌ SAO NÊN CHỌN ZHELEZO',
     name: 'Danila Zhelezov',
     role: 'Cầu thủ bóng đá · Streamer · Người sáng lập ZHELEZO',
-    photoInitials: 'DZ',
     bioParagraphs: [
       'Tôi là cầu thủ bóng đá chuyên nghiệp — đã chơi bóng đá hơn 16 năm. Bên cạnh thể thao, tôi cũng tích cực phát triển trong lĩnh vực crypto, Web3, AI và iGaming, đồng thời làm streamer và sáng tạo nội dung.',
       'ZHELEZO không phải là một trang affiliate làm cho có — đây là dự án dài hạn của tôi. Tôi gom crypto gaming trung thực, ưu đãi, bài đánh giá, tin tức và công nghệ vào một nơi duy nhất, để theo thời gian một cộng đồng thực sự có thể lớn lên từ đó.',
