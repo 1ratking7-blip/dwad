@@ -6,8 +6,8 @@ import CornerBrackets from './CornerBrackets';
 
 /**
  * Real, live social links, per the user's explicit list — Telegram Channel,
- * Instagram, Facebook, X, TikTok. lucide-react has no official TikTok mark
- * (it's a generic icon set, not brand logos) — Music2 substitutes, same
+ * Instagram, Facebook, X, TikTok, Twitch. lucide-react has no official TikTok
+ * mark (it's a generic icon set, not brand logos) — Music2 substitutes, same
  * stroke style as the rest so it doesn't look out of place.
  */
 const SOCIALS: { name: string; href: string; Icon: LucideIcon }[] = [
@@ -16,6 +16,7 @@ const SOCIALS: { name: string; href: string; Icon: LucideIcon }[] = [
   { name: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61583455052068&locale=ru_RU', Icon: Facebook },
   { name: 'X (Twitter)', href: 'https://x.com/zhelez23', Icon: Twitter },
   { name: 'TikTok', href: 'https://www.tiktok.com/@zhelez777?lang=ru-RU', Icon: Music2 },
+  { name: 'Twitch', href: 'https://m.twitch.tv/zhe1ezz/home', Icon: Twitch },
 ];
 
 /**
@@ -25,7 +26,6 @@ const SOCIALS: { name: string; href: string; Icon: LucideIcon }[] = [
  * lucide-react has no official Discord mark — MessageCircle substitutes.
  */
 const COMING_SOON: { name: string; Icon: LucideIcon }[] = [
-  { name: 'Twitch', Icon: Twitch },
   { name: 'YouTube', Icon: Youtube },
   { name: 'Discord', Icon: MessageCircle },
 ];
