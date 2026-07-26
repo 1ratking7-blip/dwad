@@ -137,9 +137,17 @@ export interface Dictionary {
     heading: string;
     name: string;
     role: string;
+    photoInitials: string;
     bioParagraphs: string[];
+    timeline: { year: string; label: string }[];
     pillars: { title: string; desc: string }[];
     ctaLabel: string;
+  };
+  mission: {
+    badge: string;
+    heading: string;
+    intro: string;
+    pillars: { title: string; desc: string }[];
   };
   errorBoundary: {
     title: string;

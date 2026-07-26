@@ -155,9 +155,16 @@ export const en: Dictionary = {
     heading: 'WHY PEOPLE CHOOSE ZHELEZO',
     name: 'Danila Zhelezov',
     role: 'Footballer · Streamer · Founder of ZHELEZO',
+    photoInitials: 'DZ',
     bioParagraphs: [
       "I'm a professional footballer — I've played for more than 16 years. Alongside sport, I'm deeply into crypto, Web3, AI, and iGaming, and I stream and create content as well.",
       "ZHELEZO isn't a one-off affiliate site — it's my long-term project. I'm bringing honest crypto gaming, bonuses, reviews, news, and technology together in one place, so a real community can grow around it over time.",
+    ],
+    timeline: [
+      { year: '16+ years', label: 'In professional football' },
+      { year: 'Since 2022', label: 'Streaming and content creation' },
+      { year: 'iGaming', label: 'Real Business Development experience' },
+      { year: '2026', label: 'ZHELEZO launches as its own brand' },
     ],
     pillars: [
       { title: '16+ years in sport', desc: 'Discipline and results — what I bring to the field every day, and to every other project I run.' },
@@ -166,6 +173,17 @@ export const en: Dictionary = {
       { title: 'Built for the long run', desc: 'ZHELEZO is built as a long-term brand, not a landing page for a single ad push.' },
     ],
     ctaLabel: 'All my social channels',
+  },
+  mission: {
+    badge: 'Mission',
+    heading: 'WHY ZHELEZO EXISTS',
+    intro: "The crypto gaming space is full of faceless sites: inflated reviews, unverifiable promises, landing pages built for a single ad push. ZHELEZO is an attempt to do it differently.",
+    pillars: [
+      { title: 'The problem I solve', desc: 'Instead of an anonymous site, a real person who actually uses what he recommends and puts his own name behind it.' },
+      { title: 'Brand values', desc: 'Honesty over hype: no made-up numbers, no fake reviews, no promises that can’t be verified.' },
+      { title: 'Transparency as a principle', desc: 'A bet on Provably Fair and mechanics you can check yourself, not just take on faith.' },
+      { title: 'Where this is heading', desc: 'From a personal project into a hub connecting crypto gaming, esports, technology, and a real community around them.' },
+    ],
   },
   errorBoundary: {
     title: 'Something went wrong',

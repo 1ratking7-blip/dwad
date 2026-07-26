@@ -11,6 +11,11 @@ const icons = [Trophy, BadgeCheck, ShieldCheck, InfinityIcon];
  * Trust/about section built entirely from facts the founder gave directly
  * (name, sport background, brand mission) — no invented stats or testimonials,
  * per the site's standing rule against fabricated social proof (see FAQ/SocialProof).
+ *
+ * The photo slot is a monogram placeholder, not a stock photo standing in for
+ * a real person — the founder's own rule elsewhere in this project is that a
+ * stranger's stock photo must never be presented as if it were him. Swap the
+ * placeholder block below for a real <img> the moment an actual photo exists.
  */
 export default function AboutFounder() {
   const { locale, t } = useLocale();
@@ -38,16 +43,44 @@ export default function AboutFounder() {
           whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6 }}
-          className="relative max-w-4xl mx-auto mb-16"
+          className="relative max-w-5xl mx-auto mb-16"
         >
-          <div className="hud-panel chamfered p-8 md:p-12 text-center">
-            <div className="text-2xl font-black text-white mb-1">{about.name}</div>
-            <div className="text-[var(--color-accent)] text-xs font-bold uppercase tracking-widest mb-6">{about.role}</div>
-            {about.bioParagraphs.map((p, i) => (
-              <p key={i} className="text-gray-400 leading-relaxed max-w-2xl mx-auto mb-4 last:mb-0">
-                {p}
-              </p>
-            ))}
+          <div className="hud-panel chamfered p-8 md:p-12">
+            <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-8 sm:gap-10 items-start mb-8">
+              {/* Photo placeholder — chamfered frame + monogram, matches the
+                  rest of the site's HUD language instead of a generic circle
+                  avatar, so an empty photo slot still looks intentional. */}
+              <div className="mx-auto sm:mx-0 shrink-0">
+                <div
+                  className="chamfered-sm w-28 h-28 sm:w-32 sm:h-32 btn-metal flex items-center justify-center relative"
+                  role="img"
+                  aria-label={about.name}
+                >
+                  <span className="text-3xl sm:text-4xl font-black text-black tracking-tight">{about.photoInitials}</span>
+                </div>
+              </div>
+
+              <div className="text-center sm:text-left">
+                <div className="text-2xl font-black text-white mb-1">{about.name}</div>
+                <div className="text-[var(--color-accent)] text-xs font-bold uppercase tracking-widest mb-6">{about.role}</div>
+                {about.bioParagraphs.map((p, i) => (
+                  <p key={i} className="text-gray-400 leading-relaxed mb-4 last:mb-0">
+                    {p}
+                  </p>
+                ))}
+              </div>
+            </div>
+
+            <div className="hud-hairline mb-8" />
+
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+              {about.timeline.map((item) => (
+                <div key={item.label} className="text-center sm:text-left">
+                  <div className="text-lg font-black text-[var(--color-accent)] mb-1">{item.year}</div>
+                  <div className="text-gray-400 text-xs leading-snug">{item.label}</div>
+                </div>
+              ))}
+            </div>
           </div>
           <CornerBrackets />
         </motion.div>

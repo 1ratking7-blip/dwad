@@ -1,13 +1,12 @@
-import { Instagram, Send, Facebook, Twitter, Music2, type LucideIcon } from 'lucide-react';
+import { Instagram, Send, Facebook, Twitter, Music2, Twitch, Youtube, MessageCircle, type LucideIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useLocale } from '../i18n/LocaleContext';
 import { trackEvent } from '../lib/analytics';
 import CornerBrackets from './CornerBrackets';
 
 /**
- * Real social links, per the user's explicit list — Telegram Channel,
- * Instagram, Facebook, X, TikTok only. Explicitly excluded: personal
- * Telegram, Discord, YouTube. lucide-react has no official TikTok mark
+ * Real, live social links, per the user's explicit list — Telegram Channel,
+ * Instagram, Facebook, X, TikTok. lucide-react has no official TikTok mark
  * (it's a generic icon set, not brand logos) — Music2 substitutes, same
  * stroke style as the rest so it doesn't look out of place.
  */
@@ -17,6 +16,18 @@ const SOCIALS: { name: string; href: string; Icon: LucideIcon }[] = [
   { name: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61583455052068&locale=ru_RU', Icon: Facebook },
   { name: 'X (Twitter)', href: 'https://x.com/zhelez23', Icon: Twitter },
   { name: 'TikTok', href: 'https://www.tiktok.com/@zhelez777?lang=ru-RU', Icon: Music2 },
+];
+
+/**
+ * Not live yet — no real account to link. Shown as a clearly muted,
+ * unclickable card (name + "coming soon", no follower count, no fake link)
+ * rather than either fabricating a presence or hiding the platform entirely.
+ * lucide-react has no official Discord mark — MessageCircle substitutes.
+ */
+const COMING_SOON: { name: string; Icon: LucideIcon }[] = [
+  { name: 'Twitch', Icon: Twitch },
+  { name: 'YouTube', Icon: Youtube },
+  { name: 'Discord', Icon: MessageCircle },
 ];
 
 export default function FollowMe() {
@@ -50,6 +61,25 @@ export default function FollowMe() {
             <span className="sr-only"> {t.opensInNewWindow}</span>
           </a>
           <CornerBrackets />
+        </motion.div>
+      ))}
+
+      {COMING_SOON.map(({ name, Icon }, i) => (
+        <motion.div
+          key={name}
+          initial={{ opacity: 0, y: 24, filter: 'blur(6px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.5, delay: (SOCIALS.length + i) * 0.08 }}
+          className="relative opacity-50"
+        >
+          <div className="hud-panel chamfered flex flex-col items-center text-center gap-4 p-10" aria-disabled="true">
+            <div className="chamfered-sm w-16 h-16 flex items-center justify-center text-gray-400 border border-[var(--color-border-soft)]">
+              <Icon className="w-7 h-7" aria-hidden="true" />
+            </div>
+            <span className="text-gray-300 font-bold text-lg tracking-wide">{name}</span>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500">{t.footer.soonTitle}</span>
+          </div>
         </motion.div>
       ))}
     </div>

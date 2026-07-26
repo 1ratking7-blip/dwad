@@ -11,6 +11,7 @@ import MobileStickyCta from './components/MobileStickyCta';
 import SectionDivider from './components/SectionDivider';
 import CornerBrackets from './components/CornerBrackets';
 import AboutFounder from './components/AboutFounder';
+import Mission from './components/Mission';
 import { trackEvent } from './lib/analytics';
 import { refLinkForLocation } from './lib/links';
 import { useLocale } from './i18n/LocaleContext';
@@ -69,6 +70,8 @@ function App() {
           <Hero />
           <SectionDivider />
           <AboutFounder />
+          <SectionDivider />
+          <Mission />
           <SectionDivider />
           <Suspense fallback={null}>
             <LuckyWheel />

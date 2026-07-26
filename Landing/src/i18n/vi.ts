@@ -155,9 +155,16 @@ export const vi: Dictionary = {
     heading: 'VÌ SAO NÊN CHỌN ZHELEZO',
     name: 'Danila Zhelezov',
     role: 'Cầu thủ bóng đá · Streamer · Người sáng lập ZHELEZO',
+    photoInitials: 'DZ',
     bioParagraphs: [
       'Tôi là cầu thủ bóng đá chuyên nghiệp — đã chơi bóng đá hơn 16 năm. Bên cạnh thể thao, tôi cũng tích cực phát triển trong lĩnh vực crypto, Web3, AI và iGaming, đồng thời làm streamer và sáng tạo nội dung.',
       'ZHELEZO không phải là một trang affiliate làm cho có — đây là dự án dài hạn của tôi. Tôi gom crypto gaming trung thực, ưu đãi, bài đánh giá, tin tức và công nghệ vào một nơi duy nhất, để theo thời gian một cộng đồng thực sự có thể lớn lên từ đó.',
+    ],
+    timeline: [
+      { year: '16+ năm', label: 'Trong bóng đá chuyên nghiệp' },
+      { year: 'Từ 2022', label: 'Streaming và sáng tạo nội dung' },
+      { year: 'iGaming', label: 'Kinh nghiệm thực tế về Business Development' },
+      { year: '2026', label: 'ZHELEZO ra mắt như một thương hiệu riêng' },
     ],
     pillars: [
       { title: '16+ năm trong thể thao', desc: 'Kỷ luật và kết quả — điều tôi rèn luyện mỗi ngày trên sân và mang vào mọi dự án khác.' },
@@ -166,6 +173,17 @@ export const vi: Dictionary = {
       { title: 'Xây dựng cho lâu dài', desc: 'ZHELEZO được xây dựng như một thương hiệu dài hạn, không phải trang đích cho một đợt quảng cáo.' },
     ],
     ctaLabel: 'Tất cả kênh mạng xã hội của tôi',
+  },
+  mission: {
+    badge: 'Sứ mệnh',
+    heading: 'VÌ SAO ZHELEZO TỒN TẠI',
+    intro: 'Thị trường crypto gaming đầy rẫy những trang web ẩn danh: đánh giá thổi phồng, lời hứa không thể kiểm chứng, trang đích chỉ để chạy một đợt quảng cáo. ZHELEZO là một nỗ lực để làm khác đi.',
+    pillars: [
+      { title: 'Vấn đề tôi giải quyết', desc: 'Thay vì một trang ẩn danh, là một con người thật sự dùng chính những gì mình giới thiệu và chịu trách nhiệm bằng chính tên của mình.' },
+      { title: 'Giá trị thương hiệu', desc: 'Trung thực quan trọng hơn hào nhoáng: không con số bịa đặt, không đánh giá giả, không lời hứa không thể kiểm chứng.' },
+      { title: 'Minh bạch là nguyên tắc', desc: 'Đặt cược vào Provably Fair và các cơ chế có thể tự kiểm tra, chứ không chỉ tin theo lời nói.' },
+      { title: 'Hướng đi tiếp theo', desc: 'Từ một dự án cá nhân trở thành nơi kết nối crypto gaming, thể thao điện tử, công nghệ và một cộng đồng thực sự xung quanh chúng.' },
+    ],
   },
   errorBoundary: {
     title: 'Đã có lỗi xảy ra',
