@@ -45,7 +45,8 @@ DNS API, которого нет ни в `.env`, ни в `Память/context.m
 `NightSkyline.tsx`, `MetalCard.tsx`, `FloatingWealth.tsx` (заменили CSS/SVG-плейсхолдеры).
 2 готовы, но без слота (`lifestyle-chips.webp` — нет секции бонусов/соцдоказательства крупнее
 тоста `SocialProof.tsx`; `section-cards-sprite.webp` — 6 сюжетов не совпадают 1-в-1 с 4
-иконками `Games.tsx`) — см. `sessions/2026-07-27_001.md`. Не закоммичено.
+иконками `Games.tsx`) — см. `sessions/2026-07-27_001.md`. **Закоммичено (`8fd2ae2`), запушено
+в `origin/main`, задеплоено на прод — проверено скриншотом на живом `www.zhelezo.space`.**
 
 ## Что дальше (см. todo.md)
 Активная сессия 2026-07-18 (после этой записи) — расширенный мандат "Autonomous CTO + Security +
