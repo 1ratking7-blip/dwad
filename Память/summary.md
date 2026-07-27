@@ -39,6 +39,14 @@ DNS API, которого нет ни в `.env`, ни в `Память/context.m
 
 Все запушены в `origin/main` и задеплоены на прод.
 
+## Luxury-редизайн — статус фото (2026-07-27)
+`design/prompts/01..06` — все 6 сгенерированы (gpt-image-2) и сконвертированы в WebP
+(`Landing/public/images/*.webp`, ~100-190КБ каждый). 4 вживлены в компоненты: `LuxuryCar.tsx`,
+`NightSkyline.tsx`, `MetalCard.tsx`, `FloatingWealth.tsx` (заменили CSS/SVG-плейсхолдеры).
+2 готовы, но без слота (`lifestyle-chips.webp` — нет секции бонусов/соцдоказательства крупнее
+тоста `SocialProof.tsx`; `section-cards-sprite.webp` — 6 сюжетов не совпадают 1-в-1 с 4
+иконками `Games.tsx`) — см. `sessions/2026-07-27_001.md`. Не закоммичено.
+
 ## Что дальше (см. todo.md)
 Активная сессия 2026-07-18 (после этой записи) — расширенный мандат "Autonomous CTO + Security +
 Growth": живой PageSpeed Insights через публичный API, свежий security/deps sweep, UX/UI, добавление
