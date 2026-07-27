@@ -1,20 +1,22 @@
-"""Post one real news item from a rotating set of RSS feeds to @ZHELEz19.
-
-Fallback for days with no evergreen entry in Scripts/posts/schedule.json (see
-post_scheduled.py + telegram-daily-post.yml, which only runs this when there
-was NO entry for today at all — never on top of an evergreen post, to respect
-the one-post-per-day rule).
+"""Post real news from a rotating set of RSS feeds to @ZHELEz19, every day —
+runs alongside whatever is (or isn't) queued in Scripts/posts/schedule.json,
+not just as a fallback for empty days. Normally one post/day (today's rotated
+category); if another category's freshest item looks genuinely important
+(matches IMPORTANT_KEYWORDS), it gets posted too, same run.
 
 No AI/LLM involved on purpose (no paid API key available) — this is a plain
 templated relay of a real, unedited headline + excerpt + link from the source
 feed, not an "analysis" or personal take. Honest about what it is rather than
-faking an editorial voice it can't actually have.
+faking an editorial voice it can't actually have. "Important" is a dumb
+keyword match, not real judgment — good enough to catch obviously big stories
+(hacks, records, finals) without pretending to be smarter than it is.
 
 Run from repo root: python3 Scripts/post_rss_news.py
 Requires TELEGRAM_BOT_TOKEN in the environment. Reads/writes
-Scripts/posts/rss_seen.json to avoid ever reposting the same article.
+Scripts/posts/rss_seen.json so nothing ever reposts.
 
-Exit codes: 0 = posted or nothing new anywhere (no-op), 1 = a real send failed.
+Exit codes: 0 = everything attempted succeeded (including a quiet no-op day),
+1 = at least one real send failed.
 """
 import html
 import json
@@ -30,13 +32,23 @@ from pathlib import Path
 CHAT_ID = "@ZHELEz19"
 SEEN_PATH = Path(__file__).resolve().parent / "posts" / "rss_seen.json"
 USER_AGENT = "Mozilla/5.0 (compatible; ZHELEZObot/1.0)"
+MAX_POSTS_PER_RUN = 3  # one per category, tops — a safety cap, not a target.
 
-# Rotated by day-of-year so the channel doesn't post the same category two
-# days running. Each entry: (key, feed_url, emoji, hashtags).
+# Each entry: (key, feed_url, emoji, hashtags). Rotated by day-of-year so the
+# channel doesn't lead with the same category two days running.
 CATEGORIES = [
     ("crypto", "https://cointelegraph.com/rss", "📰", "#Крипто #ZHELEZO #Новости"),
     ("esports", "https://dotesports.com/feed", "🎮", "#Киберспорт #ZHELEZO #Гейминг"),
     ("football", "https://feeds.bbci.co.uk/sport/football/rss.xml", "⚽", "#Футбол #ZHELEZO #Спорт"),
+]
+
+# Deliberately blunt substring match on the (English-language) source title —
+# no model to actually judge importance, so this only catches the obvious
+# cases rather than pretending to real editorial judgment.
+IMPORTANT_KEYWORDS = [
+    "breaking", "hack", "exploit", "breach", "stolen", "billion", "record",
+    "all-time high", "banned", "bankrupt", "collapse", "world cup", "major",
+    "champion", "final", "dies", "retires", "resigns",
 ]
 
 TAG_RE = re.compile(r"<[^>]+>")
@@ -87,6 +99,11 @@ def find_image(item: ET.Element):
     return None
 
 
+def is_important(title: str) -> bool:
+    lowered = title.lower()
+    return any(kw in lowered for kw in IMPORTANT_KEYWORDS)
+
+
 def telegram_call(method: str, fields: dict) -> dict:
     token = os.environ["TELEGRAM_BOT_TOKEN"]
     url = f"https://api.telegram.org/bot{token}/{method}"
@@ -96,70 +113,103 @@ def telegram_call(method: str, fields: dict) -> dict:
         return json.loads(resp.read().decode("utf-8"))
 
 
-def pick_article(seen: set):
-    """Try today's rotated category first, then the others, so a quiet feed
-    on one topic doesn't cause a silent no-op day if another has fresh news."""
-    day_index = datetime.now(timezone.utc).timetuple().tm_yday
-    ordered = CATEGORIES[day_index % len(CATEGORIES):] + CATEGORIES[:day_index % len(CATEGORIES)]
+def freshest_unseen(feed_url: str, key: str, seen: set):
+    try:
+        root = fetch_feed(feed_url)
+    except Exception as exc:
+        print(f"[post_rss_news] WARN could not fetch {key} feed ({feed_url}): {exc}")
+        return None
 
-    for key, feed_url, emoji, hashtags in ordered:
-        try:
-            root = fetch_feed(feed_url)
-        except Exception as exc:
-            print(f"[post_rss_news] WARN could not fetch {key} feed ({feed_url}): {exc}")
+    for item in root.findall(".//item"):
+        link = (item.findtext("link") or "").strip()
+        guid = (item.findtext("guid") or link).strip()
+        if not link or guid in seen:
             continue
-
-        for item in root.findall(".//item"):
-            link = (item.findtext("link") or "").strip()
-            guid = (item.findtext("guid") or link).strip()
-            if not link or guid in seen:
-                continue
-            title = clean_text(item.findtext("title") or "", limit=200)
-            desc = clean_text(item.findtext("description") or "", limit=280)
-            image = find_image(item)
-            return {"key": key, "emoji": emoji, "hashtags": hashtags, "title": title,
-                    "desc": desc, "link": link, "guid": guid, "image": image}
+        title = clean_text(item.findtext("title") or "", limit=200)
+        return {"key": key, "title": title, "link": link, "guid": guid,
+                "desc": clean_text(item.findtext("description") or "", limit=280),
+                "image": find_image(item)}
     return None
 
 
-def main() -> int:
-    seen = load_seen()
-    article = pick_article(seen)
+def gather_candidates(seen: set):
+    """One freshest-unseen candidate per category, in today's rotation order."""
+    day_index = datetime.now(timezone.utc).timetuple().tm_yday
+    start = day_index % len(CATEGORIES)
+    ordered = CATEGORIES[start:] + CATEGORIES[:start]
 
-    if article is None:
-        print("[post_rss_news] no unseen article found in any feed — nothing to post, exiting cleanly")
-        return 0
+    candidates = []
+    for key, feed_url, emoji, hashtags in ordered:
+        found = freshest_unseen(feed_url, key, seen)
+        if found:
+            found["emoji"] = emoji
+            found["hashtags"] = hashtags
+            candidates.append(found)
+    return candidates
 
-    caption_parts = [f"{article['emoji']} {article['title']}"]
+
+def select_posts(candidates: list) -> list:
+    """Today's rotated pick always goes out (guarantees daily variety); any
+    OTHER category's candidate also goes out if it looks important."""
+    if not candidates:
+        return []
+    selected = [candidates[0]]
+    for c in candidates[1:]:
+        if is_important(c["title"]):
+            selected.append(c)
+    return selected[:MAX_POSTS_PER_RUN]
+
+
+def build_caption(article: dict) -> str:
+    parts = [f"{article['emoji']} {article['title']}"]
     if article["desc"]:
-        caption_parts.append(article["desc"])
-    caption_parts.append(f"Читать полностью: {article['link']}")
-    caption_parts.append(article["hashtags"])
-    caption = "\n\n".join(caption_parts)
+        parts.append(article["desc"])
+    parts.append(f"Читать полностью: {article['link']}")
+    parts.append(article["hashtags"])
+    return "\n\n".join(parts)
 
+
+def post_one(article: dict) -> bool:
+    caption = build_caption(article)
     print(f"[post_rss_news] posting [{article['key']}]: {article['title']}")
-
     try:
         if article["image"]:
             result = telegram_call("sendPhoto", {"chat_id": CHAT_ID, "photo": article["image"], "caption": caption})
             if not result.get("ok"):
-                # Some external images fail Telegram's fetch — fall back to text-only rather than failing the run.
                 print(f"[post_rss_news] sendPhoto failed ({result}), retrying as text")
                 result = telegram_call("sendMessage", {"chat_id": CHAT_ID, "text": caption})
         else:
             result = telegram_call("sendMessage", {"chat_id": CHAT_ID, "text": caption})
     except Exception as exc:
         print(f"[post_rss_news] ERROR calling Telegram API: {exc}")
-        return 1
+        return False
 
     if not result.get("ok"):
         print(f"[post_rss_news] ERROR Telegram API returned failure: {json.dumps(result)}")
-        return 1
+        return False
 
     print(f"[post_rss_news] SUCCESS — message_id={result['result']['message_id']}")
-    seen.add(article["guid"])
+    return True
+
+
+def main() -> int:
+    seen = load_seen()
+    candidates = gather_candidates(seen)
+    to_post = select_posts(candidates)
+
+    if not to_post:
+        print("[post_rss_news] no unseen article found in any feed — nothing to post, exiting cleanly")
+        return 0
+
+    any_failure = False
+    for article in to_post:
+        if post_one(article):
+            seen.add(article["guid"])
+        else:
+            any_failure = True
+
     save_seen(seen)
-    return 0
+    return 1 if any_failure else 0
 
 
 if __name__ == "__main__":
