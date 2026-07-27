@@ -15,18 +15,35 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Post today's scheduled content (if any, if not already posted)
+        id: scheduled
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-        run: python3 Scripts/post_scheduled.py
+        run: |
+          set -o pipefail
+          python3 Scripts/post_scheduled.py | tee scheduled_output.log
+          if grep -q "no entry for" scheduled_output.log; then
+            echo "need_rss=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "need_rss=false" >> "$GITHUB_OUTPUT"
+          fi
 
-      - name: Commit updated schedule.json if it changed
+      # Only runs when there was NO evergreen entry for today at all — never
+      # on top of a real evergreen post, so the channel still gets at most
+      # one automated post per day either way. See Scripts/post_rss_news.py.
+      - name: Post real news from RSS (fallback, no evergreen content queued today)
+        if: steps.scheduled.outputs.need_rss == 'true'
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: python3 Scripts/post_rss_news.py
+
+      - name: Commit updated schedule.json / rss_seen.json if they changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if ! git diff --quiet -- Scripts/posts/schedule.json; then
-            git add Scripts/posts/schedule.json
+          git add Scripts/posts/schedule.json Scripts/posts/rss_seen.json
+          if ! git diff --cached --quiet; then
             git commit -m "Auto-post: mark $(date -u +%Y-%m-%d) as posted [skip ci]"
             git push
           else
-            echo "No changes to schedule.json — nothing to commit"
+            echo "No changes to commit"
           fi
