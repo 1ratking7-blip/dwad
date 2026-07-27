@@ -13,6 +13,7 @@ export const vi: Dictionary = {
   header: {
     logoAria: 'ZHELEZO — về trang chủ',
     navHome: 'Trang Chủ',
+    navMission: 'Sứ Mệnh',
     navCommunity: 'Mạng Xã Hội',
     ctaPlayNow: 'CHƠI NGAY',
     menuOpen: 'Mở menu',

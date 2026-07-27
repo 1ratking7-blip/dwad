@@ -18,6 +18,10 @@ export default function Header() {
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const homeHref = locale === 'ru' ? '/' : `/${locale}/`;
   const communityHref = locale === 'ru' ? '/community/' : `/community/${locale}/`;
+  // Mission is a section on the home page (id="mission"), not its own route —
+  // the hash works whether the link is clicked from the home page itself or
+  // from another page like /community/.
+  const missionHref = `${homeHref}#mission`;
 
   // Escape-to-close, same convention as LanguageSwitcher — a keyboard user who
   // opened the mobile nav shouldn't have to tab all the way through its links
@@ -66,9 +70,10 @@ export default function Header() {
             </span>
           </a>
 
-          {/* Desktop Nav — minimal by design: Home / Community / the big Play Now CTA. */}
+          {/* Desktop Nav — minimal by design: Home / Mission / Community / the big Play Now CTA. */}
           <nav className="hidden lg:flex items-center space-x-10 text-sm font-semibold tracking-wide text-gray-300">
             <a href={homeHref} className="hover:text-[var(--color-accent)] transition-colors">{t.header.navHome}</a>
+            <a href={missionHref} className="hover:text-[var(--color-accent)] transition-colors">{t.header.navMission}</a>
             <a href={communityHref} className="hover:text-[var(--color-accent)] transition-colors">{t.header.navCommunity}</a>
           </nav>
 
@@ -117,6 +122,13 @@ export default function Header() {
               className="hover:text-[var(--color-accent)] py-2 border-b border-[color-mix(in_srgb,var(--color-border)_50%,transparent)] transition-colors"
             >
               {t.header.navHome}
+            </a>
+            <a
+              href={missionHref}
+              onClick={() => setIsOpen(false)}
+              className="hover:text-[var(--color-accent)] py-2 border-b border-[color-mix(in_srgb,var(--color-border)_50%,transparent)] transition-colors"
+            >
+              {t.header.navMission}
             </a>
             <a
               href={communityHref}

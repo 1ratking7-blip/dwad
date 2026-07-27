@@ -30,6 +30,7 @@ export interface Dictionary {
   header: {
     logoAria: string;
     navHome: string;
+    navMission: string;
     navCommunity: string;
     ctaPlayNow: string;
     menuOpen: string;

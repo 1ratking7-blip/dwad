@@ -13,6 +13,7 @@ export const en: Dictionary = {
   header: {
     logoAria: 'ZHELEZO — home',
     navHome: 'Home',
+    navMission: 'Mission',
     navCommunity: 'Social',
     ctaPlayNow: 'PLAY NOW',
     menuOpen: 'Open menu',

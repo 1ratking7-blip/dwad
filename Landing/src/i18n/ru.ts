@@ -13,6 +13,7 @@ export const ru: Dictionary = {
   header: {
     logoAria: 'ZHELEZO — на главную',
     navHome: 'Главная',
+    navMission: 'Миссия',
     navCommunity: 'Соцсети',
     ctaPlayNow: 'ИГРАТЬ СЕЙЧАС',
     menuOpen: 'Открыть меню',
