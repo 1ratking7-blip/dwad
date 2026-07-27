@@ -11,7 +11,7 @@ const icons = [
   <PlayCircle className="w-6 h-6 text-black" />,
   <Trophy className="w-6 h-6 text-black" />,
 ];
-const colors = ['bg-[var(--color-accent)]', 'bg-[var(--color-accent-2)]', 'bg-blue-400', 'bg-orange-400'];
+const colors = ['bg-[var(--color-accent)]', 'bg-[var(--color-gold)]', 'bg-[var(--color-accent-2)]', 'bg-[var(--color-amber)]'];
 
 export default function HowItWorks() {
   const { locale, t } = useLocale();

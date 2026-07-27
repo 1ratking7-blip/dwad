@@ -86,7 +86,7 @@ function App() {
                   whileInView={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
                   viewport={{ once: true, margin: '-100px' }}
                   transition={{ duration: 0.6 }}
-                  className="gradient-border chamfered backdrop-blur-2xl p-12 md:p-20 text-center relative overflow-hidden"
+                  className="gradient-border chamfered backdrop-blur-2xl p-12 md:p-20 text-center relative overflow-hidden hover:shadow-[0_0_50px_-10px_color-mix(in_srgb,var(--color-gold)_20%,transparent)] transition-shadow"
                 >
                   <div className="absolute top-0 right-0 p-8" aria-hidden="true">
                     <div className="text-[120px] font-black text-white/5 select-none leading-none">360%</div>

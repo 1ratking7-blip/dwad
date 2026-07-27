@@ -6,7 +6,10 @@ import { refLinkForLocation } from '../lib/links';
 import { useLocale } from '../i18n/LocaleContext';
 import { useMagnetic } from '../lib/useMagnetic';
 import AnimatedCounter from './AnimatedCounter';
-import EnergyCore from './EnergyCore';
+import LuxuryCar from './LuxuryCar';
+import MetalCard from './MetalCard';
+import NightSkyline from './NightSkyline';
+import FloatingWealth from './FloatingWealth';
 import CornerBrackets from './CornerBrackets';
 
 export default function Hero() {
@@ -22,11 +25,19 @@ export default function Hero() {
 
   return (
     <section id="hero" className="relative pt-32 pb-20 overflow-hidden">
-      {/* Background Glows */}
+      {/* Night-city backdrop — furthest-back layer, see design/prompts/03-night-city.md */}
+      <NightSkyline />
+      <div className="luxury-vignette" />
+
+      {/* Background Glows — emerald + gold, both driven by theme CSS variables */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[color-mix(in_srgb,var(--color-accent)_10%,transparent)] blur-[120px] rounded-full"></div>
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-[color-mix(in_srgb,var(--color-accent-2)_10%,transparent)] blur-[120px] rounded-full"></div>
+        <div className="absolute top-[30%] right-[5%] w-[25%] h-[25%] bg-[color-mix(in_srgb,var(--color-gold)_8%,transparent)] blur-[100px] rounded-full"></div>
       </div>
+
+      {/* Floating cash/coins — decorative, bottom-right diagonal, see design/prompts/04-money-coins.md */}
+      <FloatingWealth />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
@@ -36,13 +47,16 @@ export default function Hero() {
             transition={{ duration: 0.7 }}
             className="text-center lg:text-left lg:col-span-3 max-w-4xl mx-auto lg:mx-0"
           >
-            <span className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[var(--color-border)] border border-[var(--color-border-soft)] text-[var(--color-accent)] text-xs font-bold tracking-widest uppercase mb-8">
-              <Zap className="w-3 h-3 fill-current" />
+            {/* Responsive font-size/tracking, not a fixed text-xs tracking-widest: at
+                narrow phone widths this badge's uppercase Cyrillic text was wide enough
+                to overflow the 390px viewport (found via mobile screenshot QA). */}
+            <span className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[var(--color-border)] border border-[var(--color-border-soft)] text-[var(--color-accent)] text-[10px] sm:text-xs font-bold tracking-normal sm:tracking-widest uppercase mb-8 max-w-[92vw]">
+              <Zap className="w-3 h-3 fill-current shrink-0" />
               <span>{t.hero.badge}</span>
             </span>
 
             <h1 className="text-5xl md:text-8xl font-black tracking-tighter mb-6 leading-[1.05]">
-              <span className="metal-text">{t.hero.h1Line1}</span> <br />
+              <span className="gold-text">{t.hero.h1Line1}</span> <br />
               <span className="neon-text-green bg-gradient-to-r from-[var(--color-accent)] via-[var(--color-accent)] to-[var(--color-accent-2)] bg-clip-text text-transparent">
                 {t.hero.h1Line2}
               </span>
@@ -66,7 +80,10 @@ export default function Hero() {
                 <span className="sr-only"> {t.opensInNewWindow}</span>
               </a>
 
-              <div className="flex items-center space-x-4 text-gray-400 font-medium text-sm">
+              {/* flex-wrap + gap (not space-x, which only works single-row) — this row
+                  of 3 items + 2 dot separators was wide enough to overflow narrow
+                  phones without wrapping (found via mobile screenshot QA). */}
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-2 text-gray-400 font-medium text-sm">
                 <div className="flex items-center space-x-1.5">
                   <ShieldCheck className="w-5 h-5 text-gray-400" />
                   <span>{t.hero.noKyc}</span>
@@ -82,16 +99,20 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Energy core — hidden below `sm` to avoid crowding the fold on small
-              phones (the brief explicitly warned against overload/overflow on
-              mobile); visible from `sm` up, full prominence at `lg`. */}
+          {/* Luxury car + peeking metal card — hidden below `sm` to avoid crowding
+              the fold on small phones (the brief explicitly warned against
+              overload/overflow on mobile); visible from `sm` up, full
+              prominence at `lg`. */}
           <motion.div
             initial={{ opacity: 0, scale: 0.85 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.9, delay: 0.15 }}
-            className="hidden sm:block lg:col-span-2 float-y"
+            className="hidden sm:block lg:col-span-2 relative"
           >
-            <EnergyCore />
+            <LuxuryCar />
+            <div className="absolute -left-4 sm:-left-8 bottom-2 sm:bottom-6 z-20">
+              <MetalCard />
+            </div>
           </motion.div>
         </div>
 

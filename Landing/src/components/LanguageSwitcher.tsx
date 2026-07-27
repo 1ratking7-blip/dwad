@@ -65,7 +65,13 @@ export default function LanguageSwitcher() {
         className="flex items-center space-x-1.5 text-xs font-semibold text-gray-300 hover:text-[var(--color-accent)] border border-[var(--color-border)] px-3 py-1.5 rounded-full transition-colors"
       >
         <span aria-hidden="true">{LOCALE_LABELS[locale].flag}</span>
-        <span>{LOCALE_LABELS[locale].name}</span>
+        {/* Full locale name only from `sm` up — on narrow phones (<640px) the header
+            row (logo + this pill + hamburger) doesn't have room for "Русский"/"Tiếng
+            Việt" spelled out without overflowing the viewport; the 2-letter code
+            keeps the control legible and tappable without pushing the row wider than
+            the screen (real overflow found via mobile screenshot QA). */}
+        <span className="hidden sm:inline">{LOCALE_LABELS[locale].name}</span>
+        <span className="sm:hidden uppercase">{locale}</span>
         <ChevronDown className="w-3.5 h-3.5" aria-hidden="true" />
       </button>
 
