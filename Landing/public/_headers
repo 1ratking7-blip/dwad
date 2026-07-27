@@ -21,6 +21,21 @@
 # /en//vi/ — real bug fixed 2026-07-21) and has its own hash below. Same story for
 # hall-of-fame/index.html's auto-detect block (redirects to /hall-of-fame/en//vi/,
 # added 2026-07-27) — its own hash is 'sha256-p+dPcPtHHPOxhBQv989tw4+qDj3+/NF8+49Rtgo1INI='.
+#
+# connect-src: analytics.google.com / stats.g.doubleclick.net added 2026-07-27 — real
+# console errors found in production (gtag.js now sends the core GA4 hit to
+# analytics.google.com, and a linked-Google-Ads conversion ping to stats.g.doubleclick.net,
+# neither covered by the older google-analytics.com-only allowlist). Tried disabling this via
+# gtag('config', ..., { allow_google_signals: false }) first — verified with Playwright
+# network-request logging that the calls still fire regardless, so the flag doesn't actually
+# prevent them (reverted that change). These are the site's own first-party GA4 property's
+# own infrastructure, not a third party being newly trusted, so allow-listing them is the
+# correct fix rather than fighting a vendor script the page already fully trusts (it already
+# has a script-src hash to run arbitrary gtag.js code). NOT added: the region-specific
+# `ga-audiences` remarketing-signal pixel (e.g. google.com.vn) — it hits a different TLD per
+# visitor's Google account region with no finite/safe wildcard, and it's a non-critical
+# remarketing signal (not used — no Google Ads campaigns run from this site), so it's left
+# blocked; only the two hit-collection endpoints that matter for actual analytics were added.
 
 /*
   X-Content-Type-Options: nosniff
@@ -28,7 +43,7 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=()
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-dpdFkCfeh+iVrKn3mRrtg29EPgNUfTyh8FgefQy85yg=' 'sha256-Y51X0EjJRNRW7pxncJy1V7dz18/tvuYKV/4oOx7jnZI=' 'sha256-YNhwZayFgDvBZmEVl20HapDlVZlj7gzJiDAGvD6F36k=' 'sha256-1Yd7kVEyMb6IK+f9wICjxTHUF/ICfVAr3ehweMijky4=' 'sha256-T12ajqjIfDTNw8Fno+37bflvEXy5YFt4aRl6zDNTxG8=' 'sha256-oRSs9P5nTZ/Ou1qSxkpEkRGPCvrLBuZcwd8yHN5Ckf8=' 'sha256-VTHjvPL0HMVibvbaRsazg76WhR2ESpokfNIoZYB7yc4=' 'sha256-SA1cILJAkPQWaqihUwlSJ+vsdhCqHpXa0nfvqDMyh3w=' 'sha256-tmeETFKeOwJB4Dr9oeUaVXr4WLlIUmHxpdmFklCUT2g=' 'sha256-V1tmsbD8MZoLemOmNubYoeEnDPL1BbXTVPLGFOxmgWA=' 'sha256-2CiKw/z8iroftfPsqbyAVIHWCgjZBQfcKqQX40orDb4=' 'sha256-UOwrADyw3/q72cqxWz+jTp7hIaKFGmHawf6oCmlfaFY=' 'sha256-p+dPcPtHHPOxhBQv989tw4+qDj3+/NF8+49Rtgo1INI=' https://www.googletagmanager.com https://mc.yandex.ru; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://mc.yandex.ru; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://mc.yandex.ru wss://mc.yandex.ru; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-dpdFkCfeh+iVrKn3mRrtg29EPgNUfTyh8FgefQy85yg=' 'sha256-Y51X0EjJRNRW7pxncJy1V7dz18/tvuYKV/4oOx7jnZI=' 'sha256-YNhwZayFgDvBZmEVl20HapDlVZlj7gzJiDAGvD6F36k=' 'sha256-1Yd7kVEyMb6IK+f9wICjxTHUF/ICfVAr3ehweMijky4=' 'sha256-T12ajqjIfDTNw8Fno+37bflvEXy5YFt4aRl6zDNTxG8=' 'sha256-oRSs9P5nTZ/Ou1qSxkpEkRGPCvrLBuZcwd8yHN5Ckf8=' 'sha256-VTHjvPL0HMVibvbaRsazg76WhR2ESpokfNIoZYB7yc4=' 'sha256-SA1cILJAkPQWaqihUwlSJ+vsdhCqHpXa0nfvqDMyh3w=' 'sha256-tmeETFKeOwJB4Dr9oeUaVXr4WLlIUmHxpdmFklCUT2g=' 'sha256-V1tmsbD8MZoLemOmNubYoeEnDPL1BbXTVPLGFOxmgWA=' 'sha256-2CiKw/z8iroftfPsqbyAVIHWCgjZBQfcKqQX40orDb4=' 'sha256-UOwrADyw3/q72cqxWz+jTp7hIaKFGmHawf6oCmlfaFY=' 'sha256-p+dPcPtHHPOxhBQv989tw4+qDj3+/NF8+49Rtgo1INI=' https://www.googletagmanager.com https://mc.yandex.ru; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://mc.yandex.ru; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://www.googletagmanager.com https://mc.yandex.ru wss://mc.yandex.ru; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
