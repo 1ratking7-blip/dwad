@@ -13,6 +13,7 @@ export default function Footer() {
   // of sharing one tag — see refLinkForLocation's comment in lib/links.ts for why.
   const footerLink = (label: string) => refLinkForLocation(locale, `footer_${label}`);
   const blogHref = locale === 'ru' ? '/blog/' : `/blog/${locale}/`;
+  const hallOfFameHref = locale === 'ru' ? '/hall-of-fame/' : `/hall-of-fame/${locale}/`;
   const homeHref = locale === 'ru' ? '/' : `/${locale}/`;
   const privacyHref = locale === 'ru' ? '/privacy-policy' : `/${locale}/privacy-policy`;
   const termsHref = locale === 'ru' ? '/terms' : `/${locale}/terms`;
@@ -56,6 +57,7 @@ export default function Footer() {
               <li><a href="#how-it-works" className="hover:text-[var(--color-accent)] transition-colors">{t.footer.howToStart}</a></li>
               <li><a href={footerLink('vip_club')} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('cta_click', { location: 'footer', label: 'vip_club' })} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.vipClub}<span className="sr-only"> {t.opensInNewWindow}</span></a></li>
               <li><a href="#faq" className="hover:text-[var(--color-accent)] transition-colors">{t.footer.contacts}</a></li>
+              <li><a href={hallOfFameHref} className="hover:text-[var(--color-accent)] transition-colors">{t.footer.hallOfFameLink}</a></li>
             </ul>
           </div>
 

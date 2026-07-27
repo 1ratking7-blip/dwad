@@ -1,10 +1,18 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { Trophy, Sparkles, X } from 'lucide-react';
+import { Trophy, Sparkles, X, Share2 } from 'lucide-react';
 import { useAchievementsStore, dismissOldestToast } from '../lib/useAchievements';
 import { useEffect } from 'react';
 import { useLocale } from '../i18n/LocaleContext';
+import { trackEvent } from '../lib/analytics';
 
 const AUTO_DISMISS_MS = 5000;
+
+function handleShare(shareText: string) {
+  const url = `${window.location.origin}/?utm_source=share&utm_medium=achievement_toast`;
+  const intent = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(url)}`;
+  window.open(intent, '_blank', 'noopener,noreferrer,width=600,height=500');
+  trackEvent('easter_egg', { id: 'share_click' });
+}
 
 /**
  * Renders the current head of the achievement/egg toast queue (see
@@ -51,7 +59,16 @@ export default function AchievementToast() {
                 </div>
               )}
               <div className="text-sm font-bold text-[var(--color-text)] truncate">{current.title}</div>
-              <div className="text-xs text-[var(--color-text-secondary)]">{current.desc}</div>
+              <div className="text-xs text-[var(--color-text-secondary)] mb-2">{current.desc}</div>
+              <button
+                type="button"
+                onClick={() => handleShare(t.achievements.shareText)}
+                aria-label={t.achievements.shareButtonAria}
+                className="achievement-toast-share"
+              >
+                <Share2 className="w-3 h-3" aria-hidden="true" />
+                <span>{t.achievements.shareButtonLabel}</span>
+              </button>
             </div>
             <button
               type="button"

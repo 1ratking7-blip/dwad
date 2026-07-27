@@ -57,6 +57,34 @@
   </url>
 
   <url>
+    <loc>https://www.zhelezo.space/hall-of-fame/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/hall-of-fame/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/hall-of-fame/en/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/hall-of-fame/vi/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/hall-of-fame/" />
+  </url>
+  <url>
+    <loc>https://www.zhelezo.space/hall-of-fame/en/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/hall-of-fame/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/hall-of-fame/en/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/hall-of-fame/vi/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/hall-of-fame/" />
+  </url>
+  <url>
+    <loc>https://www.zhelezo.space/hall-of-fame/vi/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.zhelezo.space/hall-of-fame/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zhelezo.space/hall-of-fame/en/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.zhelezo.space/hall-of-fame/vi/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zhelezo.space/hall-of-fame/" />
+  </url>
+
+  <url>
     <loc>https://www.zhelezo.space/blog/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

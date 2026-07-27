@@ -115,6 +115,7 @@ export interface Dictionary {
     howToStart: string;
     vipClub: string;
     contacts: string;
+    hallOfFameLink: string;
     bonusesHeading: string;
     welcome360: string;
     dailyLuckySpin: string;
@@ -190,6 +191,24 @@ export interface Dictionary {
     zhelezoModeTitle: string;
     zhelezoModeDesc: string;
     unlockedLabel: string;
+    shareButtonLabel: string;
+    shareButtonAria: string;
+    shareText: string;
+  };
+  hallOfFame: {
+    metaTitle: string;
+    metaDescription: string;
+    badge: string;
+    heading: string;
+    subtitle: string;
+    huntHeading: string;
+    hunts: { title: string; hint: string }[];
+    emptyStateTitle: string;
+    emptyStateDesc: string;
+    submitHeading: string;
+    submitDesc: string;
+    submitCta: string;
+    rulesNote: string;
   };
   skipToContent: string;
   opensInNewWindow: string;

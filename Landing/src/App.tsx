@@ -23,7 +23,7 @@ import { refLinkForLocation } from './lib/links';
 import { useLocale } from './i18n/LocaleContext';
 import { useMagnetic } from './lib/useMagnetic';
 import { useSectionTracker } from './lib/useSectionTracker';
-import { useSecretWord } from './lib/useSecretWord';
+import { useSecretWord, activateGoldMode } from './lib/useSecretWord';
 import { unlockAchievement } from './lib/useAchievements';
 import { useDeferredMount } from './lib/useDeferredMount';
 
@@ -65,6 +65,16 @@ function App() {
 
   useSectionTracker(t.achievements.explorerTitle, t.achievements.explorerDesc);
   useSecretWord(t.achievements.zhelezoModeTitle, t.achievements.zhelezoModeDesc);
+
+  // `?gold=1` — a direct link into the 10s "gold mode" easter egg for
+  // marketing screenshots/trailers, without needing to type the secret word
+  // on camera. Same activation path as the keyboard egg (lib/useSecretWord.ts).
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get('gold') === '1') {
+      activateGoldMode('query-param', t.achievements.zhelezoModeTitle, t.achievements.zhelezoModeDesc);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   // Decorative, non-critical widgets (cursor glow, scroll progress, toasts,
   // easter-egg overlays) mount one idle tick after first paint — found via
   // Lighthouse that mounting them immediately competed with Hero's own
