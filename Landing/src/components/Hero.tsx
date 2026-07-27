@@ -5,9 +5,9 @@ import { trackEvent } from '../lib/analytics';
 import { refLinkForLocation } from '../lib/links';
 import { useLocale } from '../i18n/LocaleContext';
 import { useMagnetic } from '../lib/useMagnetic';
+import { useParallax } from '../lib/useParallax';
 import AnimatedCounter from './AnimatedCounter';
 import LuxuryCar from './LuxuryCar';
-import MetalCard from './MetalCard';
 import NightSkyline from './NightSkyline';
 import FloatingWealth from './FloatingWealth';
 import CornerBrackets from './CornerBrackets';
@@ -16,6 +16,9 @@ export default function Hero() {
   const { locale, t } = useLocale();
   const refLink = refLinkForLocation(locale, 'hero');
   const magneticCta = useMagnetic<HTMLAnchorElement>(0.25);
+  // Brief: the car should stay "practically still" under parallax — a much
+  // smaller strength than the money particles get.
+  const carParallax = useParallax<HTMLDivElement>(3);
 
   const stats = [
     { label: t.hero.statDailyLabel, value: t.hero.statDailyValue, sub: t.hero.statDailySub },
@@ -29,99 +32,107 @@ export default function Hero() {
       <NightSkyline />
       <div className="luxury-vignette" />
 
-      {/* Background Glows — emerald + gold, both driven by theme CSS variables */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[color-mix(in_srgb,var(--color-accent)_10%,transparent)] blur-[120px] rounded-full"></div>
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-[color-mix(in_srgb,var(--color-accent-2)_10%,transparent)] blur-[120px] rounded-full"></div>
-        <div className="absolute top-[30%] right-[5%] w-[25%] h-[25%] bg-[color-mix(in_srgb,var(--color-gold)_8%,transparent)] blur-[100px] rounded-full"></div>
-      </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        {/* Background Glows — emerald + gold, both driven by theme CSS variables */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[color-mix(in_srgb,var(--color-accent)_10%,transparent)] blur-[120px] rounded-full"></div>
+          <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-[color-mix(in_srgb,var(--color-accent-2)_10%,transparent)] blur-[120px] rounded-full"></div>
+          <div className="absolute top-[30%] right-[5%] w-[25%] h-[25%] bg-[color-mix(in_srgb,var(--color-gold)_8%,transparent)] blur-[100px] rounded-full"></div>
+        </div>
 
-      {/* Floating cash/coins — decorative, bottom-right diagonal, see design/prompts/04-money-coins.md */}
-      <FloatingWealth />
+        {/* Car — embedded directly in the scene (wet asphalt + skyline behind
+            it, mask-faded edges), not a boxed/collaged element. Hidden below
+            `md` together with the text switching to left-aligned, so it never
+            has room to collide with the H1/CTA on tablet-narrow widths. */}
+        <div
+          ref={carParallax}
+          aria-hidden="true"
+          className="hidden lg:block absolute right-0 bottom-0 w-[48%] xl:w-[44%] max-w-[640px] h-[70%] max-h-[420px] z-[5] pointer-events-none"
+        >
+          <LuxuryCar />
+        </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}
-            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            transition={{ duration: 0.7 }}
-            className="text-center lg:text-left lg:col-span-3 max-w-4xl mx-auto lg:mx-0"
-          >
+        {/* Flying designer banknotes/coins — layered depth, kept out of the
+            left safe zone (see FloatingWealth.tsx LAYER_RANGES). */}
+        <FloatingWealth />
+
+        <motion.div
+          initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 0.7 }}
+          className="relative z-20 text-center md:text-left max-w-[620px] mx-auto md:mx-0"
+        >
             {/* Responsive font-size/tracking, not a fixed text-xs tracking-widest: at
                 narrow phone widths this badge's uppercase Cyrillic text was wide enough
-                to overflow the 390px viewport (found via mobile screenshot QA). */}
-            <span className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[var(--color-border)] border border-[var(--color-border-soft)] text-[var(--color-accent)] text-[10px] sm:text-xs font-bold tracking-normal sm:tracking-widest uppercase mb-8 max-w-[92vw]">
+                to overflow the 390px viewport (found via mobile screenshot QA).
+                Near-black bg + thin emerald border + reduced glow (premium cinematic
+                hero brief, п.15) instead of the louder --color-border fill. */}
+            <span
+              className="inline-flex items-center space-x-2 px-5 py-1.5 rounded-full text-[var(--color-accent)] text-[10px] sm:text-xs font-bold tracking-normal sm:tracking-widest uppercase mb-8 max-w-[92vw]"
+              style={{
+                background: 'color-mix(in srgb, var(--color-bg) 85%, black)',
+                border: '1px solid var(--color-border-emerald)',
+                boxShadow: '0 0 14px color-mix(in srgb, var(--color-accent) 12%, transparent)',
+              }}
+            >
               <Zap className="w-3 h-3 fill-current shrink-0" />
               <span>{t.hero.badge}</span>
             </span>
 
-            <h1 className="text-5xl md:text-8xl font-black tracking-tighter mb-6 leading-[1.05]">
-              <span className="gold-text">{t.hero.h1Line1}</span> <br />
-              <span className="neon-text-green bg-gradient-to-r from-[var(--color-accent)] via-[var(--color-accent)] to-[var(--color-accent-2)] bg-clip-text text-transparent">
-                {t.hero.h1Line2}
-              </span>
+            {/* Two block-level lines (not one flow joined by a literal <br/>) so
+                `text-wrap: balance` gets its own context per phrase — with a
+                single <br/>-joined flow, Chromium balances across the whole
+                H1 and can still leave a short orphan word on one of the two
+                lines (found via EN screenshot QA: "YOUR GATEWAY" / "TO"). */}
+            <h1 className="text-[clamp(2.5rem,1.35rem+4vw,5.5rem)] font-black tracking-tighter mb-6 leading-[1.05]">
+              <div className="gold-text [text-wrap:balance]">{t.hero.h1Line1}</div>
+              <div className="emerald-text [text-wrap:balance]">{t.hero.h1Line2}</div>
             </h1>
 
-            <p className="text-lg md:text-xl text-gray-400 mb-10 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+            <p className="text-base md:text-lg text-[var(--color-text-secondary)] mb-10 leading-[1.55] max-w-[600px] mx-auto md:mx-0">
               {t.hero.subtitle}
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-6">
+            <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-6">
               <a
                 ref={magneticCta}
                 href={refLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackEvent('cta_click', { location: 'hero' })}
-                className="btn-glow btn-metal shine-sweep chamfered w-full sm:w-auto text-black px-10 py-5 font-black text-lg tracking-wide shadow-[0_0_30px_color-mix(in_srgb,var(--color-accent)_50%,transparent)] flex items-center justify-center space-x-3"
+                className="group btn-glow btn-premium shine-sweep chamfered w-full sm:w-auto px-10 py-5 font-black text-lg tracking-wide flex items-center justify-center space-x-3"
               >
                 <span>{t.hero.ctaButton}</span>
-                <ArrowRight className="w-5 h-5" aria-hidden="true" />
+                <ArrowRight className="w-5 h-5 text-[var(--color-accent)] transition-transform duration-200 group-hover:translate-x-1.5" aria-hidden="true" />
                 <span className="sr-only"> {t.opensInNewWindow}</span>
               </a>
 
               {/* flex-wrap + gap (not space-x, which only works single-row) — this row
                   of 3 items + 2 dot separators was wide enough to overflow narrow
                   phones without wrapping (found via mobile screenshot QA). */}
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-2 text-gray-400 font-medium text-sm">
+              <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-2 text-[var(--color-text-secondary)] font-medium text-sm">
                 <div className="flex items-center space-x-1.5">
-                  <ShieldCheck className="w-5 h-5 text-gray-400" />
+                  <ShieldCheck className="w-5 h-5 text-[var(--color-text-secondary)]" />
                   <span>{t.hero.noKyc}</span>
                 </div>
                 <div className="w-1 h-1 bg-gray-700 rounded-full"></div>
                 <div className="flex items-center space-x-1.5">
-                  <Rocket className="w-5 h-5 text-gray-400" />
+                  <Rocket className="w-5 h-5 text-[var(--color-text-secondary)]" />
                   <span>{t.hero.instantPayouts}</span>
                 </div>
                 <div className="w-1 h-1 bg-gray-700 rounded-full"></div>
                 <span className="text-xs">{t.hero.ageGate}</span>
               </div>
             </div>
-          </motion.div>
+        </motion.div>
 
-          {/* Luxury car + peeking metal card — hidden below `sm` to avoid crowding
-              the fold on small phones (the brief explicitly warned against
-              overload/overflow on mobile); visible from `sm` up, full
-              prominence at `lg`. */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9, delay: 0.15 }}
-            className="hidden sm:block lg:col-span-2 relative"
-          >
-            <LuxuryCar />
-            <div className="absolute -left-4 sm:-left-8 bottom-2 sm:bottom-6 z-20">
-              <MetalCard />
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Stats Grid */}
+        {/* Stats Grid — premium dark cards (brief §16): near-black bg, thin
+            border, local emerald glow only on hover, no permanent glow. */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="mt-24 grid grid-cols-1 sm:grid-cols-3 gap-6"
+          className="relative z-20 mt-24 grid grid-cols-1 sm:grid-cols-3 gap-6"
         >
           {stats.map((stat, i) => (
             <motion.div
@@ -130,12 +141,12 @@ export default function Hero() {
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
               className="relative"
             >
-              <div className="hud-panel chamfered p-8 text-center hover:shadow-[0_0_25px_color-mix(in_srgb,var(--color-accent)_12%,transparent)] transition-shadow group">
-                <div className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-2 group-hover:text-[var(--color-accent)] transition-colors">{stat.label}</div>
-                <div className="text-3xl font-black text-white mb-1">
+              <div className="hud-panel chamfered p-8 text-center hover:shadow-[0_0_25px_color-mix(in_srgb,var(--color-accent)_14%,transparent)] transition-shadow duration-300 group">
+                <div className="text-[var(--color-text-muted)] text-xs font-bold uppercase tracking-widest mb-2 group-hover:text-[var(--color-accent)] transition-colors">{stat.label}</div>
+                <div className="text-3xl font-black text-[var(--color-text)] mb-1">
                   <AnimatedCounter value={stat.value} />
                 </div>
-                <div className="text-gray-400 text-sm">{stat.sub}</div>
+                <div className="text-[var(--color-text-secondary)] text-sm">{stat.sub}</div>
               </div>
               <CornerBrackets />
             </motion.div>

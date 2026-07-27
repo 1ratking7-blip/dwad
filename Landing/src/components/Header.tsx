@@ -54,8 +54,8 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 w-full z-50 border-b transition-[background-color,backdrop-filter,border-color] duration-300 ${
         scrolled
-          ? 'bg-[color-mix(in_srgb,var(--color-bg)_88%,transparent)] backdrop-blur-xl border-[var(--color-border)]'
-          : 'bg-[color-mix(in_srgb,var(--color-bg)_35%,transparent)] backdrop-blur-sm border-transparent'
+          ? 'nav-glass-scrolled border-[var(--color-border-thin)]'
+          : 'nav-glass-top border-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -87,9 +87,9 @@ export default function Header() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackEvent('cta_click', { location: 'header_desktop' })}
-              className="btn-glow btn-metal shine-sweep chamfered nav-pulse text-black px-7 py-3 font-black text-sm tracking-wide flex items-center space-x-2"
+              className="btn-glow btn-premium shine-sweep chamfered nav-pulse px-7 py-3 font-black text-sm tracking-wide flex items-center space-x-2"
             >
-              <Coins className="w-4 h-4" aria-hidden="true" />
+              <Coins className="w-4 h-4 text-[var(--color-accent)]" aria-hidden="true" />
               <span>{t.header.ctaPlayNow}</span>
               <span className="sr-only"> {t.opensInNewWindow}</span>
             </a>
@@ -104,7 +104,7 @@ export default function Header() {
               aria-expanded={isOpen}
               aria-controls="mobile-nav"
               aria-label={isOpen ? t.header.menuClose : t.header.menuOpen}
-              className="text-gray-400 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded-lg p-2"
+              className="text-gray-400 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded-lg p-2.5"
             >
               {isOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
             </button>
@@ -143,7 +143,7 @@ export default function Header() {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackEvent('cta_click', { location: 'header_mobile' })}
-            className="btn-glow btn-metal shine-sweep chamfered nav-pulse w-full text-center block text-black py-3 font-black text-sm tracking-wide"
+            className="btn-glow btn-premium shine-sweep chamfered nav-pulse w-full text-center block py-3 font-black text-sm tracking-wide"
           >
             {t.header.mobileCta}
             <span className="sr-only"> {t.opensInNewWindow}</span>
