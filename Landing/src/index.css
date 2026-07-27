@@ -688,3 +688,374 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* ==========================================================================
+   2026-07-27, third redesign — "interactive & alive": microanimations,
+   cursor glow, achievements, easter eggs. Everything below is additive on
+   top of the palette/scene primitives above, not a replacement for them.
+   The blanket `*` reduced-motion rule above already neutralizes every
+   keyframe animation's duration site-wide, so most of the classes below
+   don't repeat their own reduced-motion override unless they need a
+   genuinely different (not just instant) fallback — those that do are
+   additionally gated in JS (CursorGlow, MoneyStormOverlay, SpecialBonusBill)
+   so the effect never even mounts, not just "finishes instantly".
+   ========================================================================== */
+
+/* Anchor targets shouldn't hide under the fixed header when smooth-scrolled
+   to (nav clicks, hash links) — h-20 header (80px) plus breathing room. */
+section[id] {
+  scroll-margin-top: 96px;
+}
+
+/* Header nav links — replaces the old inline hover:text-accent utility with
+   an animated underline that also marks the current section (scroll-spy,
+   see lib/useActiveSection.ts) without a hard color swap alone. */
+.nav-link {
+  position: relative;
+  color: var(--color-text-secondary, #d1d5db);
+  transition: color 0.25s ease;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -6px;
+  height: 2px;
+  background: var(--color-accent);
+  border-radius: 1px;
+  transition: right 0.3s ease;
+}
+.nav-link:hover {
+  color: var(--color-accent);
+}
+.nav-link:hover::after {
+  right: 0;
+}
+.nav-link-active {
+  color: var(--color-accent);
+}
+.nav-link-active::after {
+  right: 0;
+}
+
+/* Cursor glow (desktop only, mounted by CursorGlow.tsx which already gates
+   prefers-reduced-motion/touch in JS before this ever renders meaningfully).
+   Large, very low-opacity radial gradient — lights the area around the
+   cursor without ever being bright enough to reduce text contrast, and
+   never intercepts clicks. */
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 440px;
+  height: 440px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  transform: translate3d(-9999px, -9999px, 0);
+  transition: opacity 0.4s ease;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-accent) 14%, transparent) 0%,
+    color-mix(in srgb, var(--color-accent) 5%, transparent) 35%,
+    transparent 70%
+  );
+  scale: var(--cursor-glow-scale, 1);
+  will-change: transform;
+}
+
+/* Scroll progress bar — fixed thin track under the header, filled width
+   driven by a single scaleX transform (ScrollProgress.tsx writes to the
+   fill element's ref directly, no re-render per scroll tick). */
+.scroll-progress-track {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 60;
+  background: transparent;
+  pointer-events: none;
+}
+.scroll-progress-fill {
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, var(--color-accent), var(--color-gold));
+  box-shadow: 0 0 8px color-mix(in srgb, var(--color-accent) 60%, transparent);
+}
+
+/* Achievement / egg toast (AchievementToast.tsx) — bottom-right, distinct
+   from SocialProof's bottom-left toast so the two never stack. */
+.achievement-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  max-width: 300px;
+  padding: 1rem 1.1rem;
+  background: color-mix(in srgb, var(--color-card) 92%, black);
+  border: 1px solid var(--color-border-emerald, var(--color-border));
+  border-radius: 1rem;
+  box-shadow: 0 20px 45px -18px rgba(0, 0, 0, 0.7), 0 0 30px -10px color-mix(in srgb, var(--color-accent) 25%, transparent);
+  backdrop-filter: blur(12px);
+}
+.achievement-toast-icon {
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-gold-light), var(--color-gold) 60%, var(--color-gold-dark));
+  color: #1a1204;
+}
+.achievement-toast-close {
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+  padding: 0.25rem;
+  border-radius: 0.4rem;
+  transition: color 0.2s ease;
+}
+.achievement-toast-close:hover {
+  color: var(--color-text);
+}
+.achievement-toast-close:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+}
+
+/* Gold-mode indicator pill (GoldModePill.tsx) — bottom-left, opposite corner. */
+.gold-mode-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 1rem;
+  border-radius: 0.85rem;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--color-gold) 22%, var(--color-bg)), var(--color-bg));
+  border: 1px solid var(--color-gold);
+  color: var(--color-gold-light);
+  box-shadow: 0 0 26px -6px color-mix(in srgb, var(--color-gold) 55%, transparent);
+}
+
+/* Easter egg #2 — secret gold mode. One class on <html> re-maps the accent
+   variables that every component already reads via var(--color-accent*),
+   so the whole site shifts toward gold for 10s without touching a single
+   component. Deliberately doesn't touch --color-bg/--color-graphite (the
+   brief warns against "весь интерфейс ярко-зелёным/перегруженным" — the
+   same restraint applies here: gold accents, not a gold background). */
+:root.gold-mode-active {
+  --color-accent: var(--color-gold);
+  --color-accent-2: var(--color-gold-light);
+  --color-accent-dark: var(--color-gold-dark);
+  --color-accent-mid: var(--color-gold-dark);
+  transition: none;
+}
+
+/* Money-storm particles (easter egg #1, MoneyStormOverlay.tsx) — a bounded
+   ~4s burst of a fixed set of DOM nodes generated once per activation, not
+   a continuous per-frame spawn loop. */
+@keyframes money-storm-fall {
+  0% {
+    transform: translate3d(0, -10vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(0, 110vh, 0) rotate(var(--storm-rotate, 360deg));
+    opacity: 0;
+  }
+}
+.money-storm-particle {
+  position: absolute;
+  top: 0;
+  animation: money-storm-fall var(--storm-duration, 2.5s) linear var(--storm-delay, 0s) 1 both;
+  box-shadow: 0 0 10px color-mix(in srgb, var(--color-gold) 35%, transparent);
+}
+
+/* Special clickable bonus bill (SpecialBonusBill.tsx) — the one particle in
+   the whole atmosphere system that's a real, focusable control. Gentle
+   float + a small looping gold-lightning pulse so it reads as "special"
+   without shouting. */
+@keyframes special-bill-float {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-10px) rotate(3deg); }
+}
+@keyframes special-bill-pulse {
+  0%, 100% { opacity: 0.75; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+.special-bonus-bill {
+  position: fixed;
+  z-index: 55;
+  padding: 0.4rem;
+  border-radius: 0.6rem;
+  animation: special-bill-float 3.2s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--color-gold) 45%, transparent));
+  transition: transform 0.2s ease;
+}
+.special-bonus-bill:hover,
+.special-bonus-bill:focus-visible {
+  transform: scale(1.12);
+  outline: none;
+}
+.special-bonus-bill:focus-visible {
+  filter: drop-shadow(0 0 0 3px var(--color-accent)) drop-shadow(0 0 10px color-mix(in srgb, var(--color-gold) 45%, transparent));
+}
+.special-bonus-bill-spark {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  color: var(--color-gold-light);
+  animation: special-bill-pulse 1.6s ease-in-out infinite;
+}
+
+/* Sparse window lights (NightSkyline.tsx) — rare, staggered flicker rather
+   than a synchronized blink across all of them. */
+@keyframes window-flicker {
+  0%, 92%, 100% { opacity: 0.15; }
+  94%, 98% { opacity: 0.85; }
+}
+.window-light {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 1px;
+  background: var(--color-gold);
+  animation: window-flicker 9s ease-in-out infinite;
+  pointer-events: none;
+}
+.window-lightning-egg {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: color-mix(in srgb, var(--color-gold) 70%, transparent);
+  opacity: 0.35;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  /* NightSkyline's wrapper is pointer-events:none (it's 99% decorative
+     background) — this is the one descendant that needs to stay clickable;
+     `pointer-events: auto` opts a single element back in without having
+     to lift the whole band out of that ancestor. */
+  pointer-events: auto;
+}
+.window-lightning-egg:hover,
+.window-lightning-egg:focus-visible {
+  opacity: 1;
+  transform: scale(1.3);
+  color: var(--color-gold);
+  outline: none;
+}
+.window-lightning-egg:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-accent);
+  border-radius: 50%;
+}
+
+/* Easter egg #4 — headlight sequence success flash (LuxuryCar.tsx). */
+@keyframes headlight-blink-kf {
+  0%, 100% { opacity: 0.2; }
+  20%, 60% { opacity: 1; }
+  40%, 80% { opacity: 0.3; }
+}
+.headlight-blink {
+  animation: headlight-blink-kf 1.6s ease-in-out 1;
+}
+
+/* CTA hover-burst sparks (Hero.tsx main CTA) — four small glyphs around the
+   button, paused by default and only played on hover via .group:hover, so
+   no JS state/timers are needed to drive them. */
+@keyframes cta-spark-pop {
+  0% { transform: translate(0, 0) scale(0.4); opacity: 0; }
+  35% { opacity: 1; }
+  100% { transform: translate(var(--spark-x, 0), var(--spark-y, 0)) scale(1); opacity: 0; }
+}
+.cta-spark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--color-gold) 70%, transparent);
+  pointer-events: none;
+  opacity: 0;
+  animation: cta-spark-pop 0.7s ease-out var(--spark-delay, 0s) infinite;
+  animation-play-state: paused;
+}
+.group:hover .cta-spark {
+  animation-play-state: running;
+}
+
+/* CTA click pulse (Hero.tsx main CTA) — a short neon ring impulse toggled
+   via a plain classList add/remove in the click handler (see
+   Hero.tsx handleCtaClick); never gates the anchor's own navigation. */
+@keyframes cta-pulse-kf {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-accent) 55%, transparent); }
+  100% { box-shadow: 0 0 0 22px color-mix(in srgb, var(--color-accent) 0%, transparent); }
+}
+.cta-pulse {
+  animation: cta-pulse-kf 0.55s ease-out 1;
+}
+
+/* Language-switch transition (LanguageSwitcher.tsx dropdown). */
+@keyframes lang-dropdown-in {
+  from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.lang-dropdown-enter {
+  animation: lang-dropdown-in 0.18s ease-out;
+}
+
+/* Pause every CSS animation while the tab is in the background (App.tsx
+   toggles this class via the Page Visibility API) — the ambient particle
+   systems, fog drift, window flicker, etc. all stop burning GPU/CPU on a
+   background tab instead of just running unseen. */
+.tab-hidden *,
+.tab-hidden *::before,
+.tab-hidden *::after {
+  animation-play-state: paused !important;
+}
+
+/* Mouse-tracked moving highlight on the Hero stat cards (HeroStatCard in
+   Hero.tsx) — position driven by --shine-x/--shine-y (0-100%, set by
+   useCardTilt, see lib/useTilt.ts) rather than raw cursor coordinates, so
+   it's relative to the card regardless of scroll position. Layered via a
+   pseudo-element so it doesn't fight the card's own background/border. */
+.card-shine {
+  position: relative;
+}
+.card-shine::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    220px circle at var(--shine-x, 50%) var(--shine-y, 50%),
+    color-mix(in srgb, var(--color-accent) 16%, transparent),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.card-shine:hover::before {
+  opacity: 1;
+}
+@media (pointer: coarse) {
+  .card-shine::before {
+    display: none;
+  }
+}

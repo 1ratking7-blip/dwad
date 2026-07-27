@@ -77,7 +77,7 @@ export default function LanguageSwitcher() {
 
       {open && (
         <div
-          className="absolute right-0 mt-2 bg-[var(--color-card)] border border-[var(--color-border)] rounded-xl overflow-hidden shadow-2xl min-w-[160px] z-50"
+          className="lang-dropdown-enter absolute right-0 mt-2 bg-[var(--color-card)] border border-[var(--color-border)] rounded-xl overflow-hidden shadow-2xl min-w-[160px] z-50"
         >
           {SUPPORTED_LOCALES.map((loc) => (
             <a

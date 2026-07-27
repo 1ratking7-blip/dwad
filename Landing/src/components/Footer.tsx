@@ -1,12 +1,14 @@
 
-import { ShieldAlert } from 'lucide-react';
+import { ShieldAlert, Bell, BellOff } from 'lucide-react';
 import { trackEvent } from '../lib/analytics';
 import { refLinkForLocation } from '../lib/links';
 import { useLocale } from '../i18n/LocaleContext';
+import { useAchievementsStore, setNotificationsEnabled } from '../lib/useAchievements';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const { locale, t } = useLocale();
+  const { notificationsEnabled } = useAchievementsStore();
   // Each footer link gets its own subId3 (matching its trackEvent label) instead
   // of sharing one tag — see refLinkForLocation's comment in lib/links.ts for why.
   const footerLink = (label: string) => refLinkForLocation(locale, `footer_${label}`);
@@ -75,11 +77,27 @@ export default function Footer() {
             <a href={termsHref} className="hover:text-gray-300 transition-colors">{t.footer.termsOfUse}</a>
           </div>
 
-          <div className="flex items-center space-x-4 bg-[var(--color-card)] px-4 py-2 rounded-xl border border-[var(--color-border)]">
-            <ShieldAlert className="w-4 h-4 text-orange-500" />
-            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-              {t.footer.responsibleGambling}
-            </span>
+          <div className="flex items-center space-x-3">
+            <button
+              type="button"
+              onClick={() => setNotificationsEnabled(!notificationsEnabled)}
+              aria-pressed={notificationsEnabled}
+              className="flex items-center space-x-2 bg-[var(--color-card)] px-3 py-2 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-border-emerald)] transition-colors text-[10px] font-bold text-gray-400 uppercase tracking-widest"
+            >
+              {notificationsEnabled ? (
+                <Bell className="w-4 h-4 text-[var(--color-accent)]" aria-hidden="true" />
+              ) : (
+                <BellOff className="w-4 h-4 text-gray-500" aria-hidden="true" />
+              )}
+              <span>{t.achievements.settingsToggleLabel}</span>
+            </button>
+
+            <div className="flex items-center space-x-4 bg-[var(--color-card)] px-4 py-2 rounded-xl border border-[var(--color-border)]">
+              <ShieldAlert className="w-4 h-4 text-orange-500" />
+              <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                {t.footer.responsibleGambling}
+              </span>
+            </div>
           </div>
         </div>
       </div>

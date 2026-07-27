@@ -40,7 +40,7 @@ function GameCard({ game, index, locale, playLabel, opensInNewWindow }: GameCard
         className="tilt-card hud-panel chamfered p-8 hover:shadow-[0_0_30px_color-mix(in_srgb,var(--color-gold)_15%,transparent)] transition-shadow flex flex-col justify-between h-full"
       >
         <div>
-          <div className="mb-8">{icons[index]}</div>
+          <div className="mb-8 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3">{icons[index]}</div>
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-2xl font-bold text-white">{game.title}</h3>
             <span className="text-[10px] font-black bg-[var(--color-border)] text-[var(--color-accent)] px-2 py-0.5 rounded-full uppercase tracking-tighter">

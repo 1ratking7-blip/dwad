@@ -12,10 +12,20 @@ import SectionDivider from './components/SectionDivider';
 import CornerBrackets from './components/CornerBrackets';
 import AboutFounder from './components/AboutFounder';
 import Mission from './components/Mission';
+import CursorGlow from './components/CursorGlow';
+import ScrollProgress from './components/ScrollProgress';
+import AchievementToast from './components/AchievementToast';
+import MoneyStormOverlay from './components/MoneyStormOverlay';
+import GoldModePill from './components/GoldModePill';
+import SpecialBonusBill from './components/SpecialBonusBill';
 import { trackEvent } from './lib/analytics';
 import { refLinkForLocation } from './lib/links';
 import { useLocale } from './i18n/LocaleContext';
 import { useMagnetic } from './lib/useMagnetic';
+import { useSectionTracker } from './lib/useSectionTracker';
+import { useSecretWord } from './lib/useSecretWord';
+import { unlockAchievement } from './lib/useAchievements';
+import { useDeferredMount } from './lib/useDeferredMount';
 
 // Below-the-fold sections split out of the initial bundle so the browser has
 // less JS to parse/execute before the Hero (LCP element) can paint.
@@ -46,9 +56,50 @@ function App() {
     return () => window.clearTimeout(timeout);
   }, []);
 
+  // "First Visit" achievement — every session, harmless if already unlocked
+  // (unlockAchievement is idempotent and only toasts once, ever).
+  useEffect(() => {
+    unlockAchievement('first_visit', t.achievements.firstVisitTitle, t.achievements.firstVisitDesc);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useSectionTracker(t.achievements.explorerTitle, t.achievements.explorerDesc);
+  useSecretWord(t.achievements.zhelezoModeTitle, t.achievements.zhelezoModeDesc);
+  // Decorative, non-critical widgets (cursor glow, scroll progress, toasts,
+  // easter-egg overlays) mount one idle tick after first paint — found via
+  // Lighthouse that mounting them immediately competed with Hero's own
+  // mount work during the LCP/TBT-critical window for no visible benefit
+  // (none of them are visible or interactive in the first seconds anyway).
+  const deferredReady = useDeferredMount();
+
+  // Pause every CSS animation while the tab is hidden — a single class on
+  // <html> (see index.css `.tab-hidden`) rather than per-component
+  // visibility handling, since most of this app's motion is CSS
+  // (animation-play-state), not rAF loops (the few rAF-driven effects —
+  // AnimatedBackground, cursor/parallax hooks — already pause/no-op on
+  // their own via the Page Visibility API or simply stop receiving
+  // mousemove events while the tab is in the background).
+  useEffect(() => {
+    function onVisibility() {
+      document.documentElement.classList.toggle('tab-hidden', document.hidden);
+    }
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => document.removeEventListener('visibilitychange', onVisibility);
+  }, []);
+
   return (
     <MotionConfig reducedMotion="user">
       <AnimatedBackground />
+      {deferredReady && (
+        <>
+          <CursorGlow />
+          <ScrollProgress />
+          <MoneyStormOverlay />
+          <SpecialBonusBill />
+          <GoldModePill />
+          <AchievementToast />
+        </>
+      )}
       <div className="noise-overlay" aria-hidden="true" />
       {/* No solid background here on purpose — body's own bg-color (index.css) is the
           fallback base layer, AnimatedBackground paints on top of it, and this wrapper

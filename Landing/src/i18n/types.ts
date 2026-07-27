@@ -157,7 +157,42 @@ export interface Dictionary {
   languageSwitcher: {
     label: string;
   };
+  heroCards: {
+    dailyExtra: string;
+    cryptoExtra: string;
+    rakebackExtra: string;
+  };
+  easterEggs: {
+    secretFoundTitle: string;
+    secretFoundDesc: string;
+    lightningModalTitle: string;
+    lightningModalFacts: string[];
+    lightningModalClose: string;
+    lightningButtonAria: string;
+    headlightButtonAria: string;
+    engineStartedTitle: string;
+    engineStartedDesc: string;
+    goldModeTitle: string;
+    goldModeDesc: string;
+    specialBillAria: string;
+  };
+  achievements: {
+    heading: string;
+    settingsToggleLabel: string;
+    firstVisitTitle: string;
+    firstVisitDesc: string;
+    explorerTitle: string;
+    explorerDesc: string;
+    collectorTitle: string;
+    collectorDesc: string;
+    secretFoundTitle: string;
+    secretFoundDesc: string;
+    zhelezoModeTitle: string;
+    zhelezoModeDesc: string;
+    unlockedLabel: string;
+  };
   skipToContent: string;
   opensInNewWindow: string;
   backToTop: string;
+  close: string;
 }

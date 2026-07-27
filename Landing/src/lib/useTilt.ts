@@ -63,25 +63,32 @@ export function useCardTilt<T extends HTMLElement>(maxDeg = 8) {
     if (!window.matchMedia('(pointer: fine)').matches) return;
 
     let raf = 0;
-    let pending: { rx: number; ry: number } | null = null;
+    let pending: { rx: number; ry: number; px: number; py: number } | null = null;
 
     function apply() {
       raf = 0;
       if (!pending || !el) return;
       el.style.setProperty('--tilt-x', `${pending.rx}deg`);
       el.style.setProperty('--tilt-y', `${pending.ry}deg`);
+      // Cursor position as a percentage within the card — drives .card-shine's
+      // moving highlight (see index.css). Separate from --tilt-x/-y (degrees)
+      // since CSS calc() can't mix deg and % units.
+      el.style.setProperty('--shine-x', `${pending.px}%`);
+      el.style.setProperty('--shine-y', `${pending.py}%`);
     }
 
     function onMove(e: MouseEvent) {
       const rect = el!.getBoundingClientRect();
-      const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1; // -1 .. 1
-      const ny = ((e.clientY - rect.top) / rect.height) * 2 - 1;
-      pending = { rx: -ny * maxDeg, ry: nx * maxDeg };
+      const fx = (e.clientX - rect.left) / rect.width; // 0 .. 1
+      const fy = (e.clientY - rect.top) / rect.height;
+      const nx = fx * 2 - 1; // -1 .. 1
+      const ny = fy * 2 - 1;
+      pending = { rx: -ny * maxDeg, ry: nx * maxDeg, px: fx * 100, py: fy * 100 };
       if (!raf) raf = requestAnimationFrame(apply);
     }
 
     function onLeave() {
-      pending = { rx: 0, ry: 0 };
+      pending = { rx: 0, ry: 0, px: 50, py: 50 };
       if (!raf) raf = requestAnimationFrame(apply);
     }
 

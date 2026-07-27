@@ -4,24 +4,69 @@ import { trackEvent } from '../lib/analytics';
 import { refLinkForLocation } from '../lib/links';
 import { useLocale } from '../i18n/LocaleContext';
 import { useMagnetic } from '../lib/useMagnetic';
+import { useActiveSection } from '../lib/useActiveSection';
+import { emitEgg } from '../lib/eggBus';
+import { unlockAchievement } from '../lib/useAchievements';
 import LanguageSwitcher from './LanguageSwitcher';
 
 const SCROLL_THRESHOLD_PX = 24;
+const NAV_SECTION_IDS = ['hero', 'mission'];
+const LOGO_EGG_CLICKS = 5;
+const LOGO_EGG_WINDOW_MS = 2000;
+const LOGO_GOLD_MS = 4000;
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [logoGold, setLogoGold] = useState(false);
   const { locale, t } = useLocale();
   const desktopRefLink = refLinkForLocation(locale, 'header_desktop');
   const mobileRefLink = refLinkForLocation(locale, 'header_mobile');
   const magneticCta = useMagnetic<HTMLAnchorElement>(0.2);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const logoClicksRef = useRef<number[]>([]);
+  const logoNavTimerRef = useRef(0);
   const homeHref = locale === 'ru' ? '/' : `/${locale}/`;
   const communityHref = locale === 'ru' ? '/community/' : `/community/${locale}/`;
   // Mission is a section on the home page (id="mission"), not its own route —
   // the hash works whether the link is clicked from the home page itself or
   // from another page like /community/.
   const missionHref = `${homeHref}#mission`;
+  const activeSection = useActiveSection(NAV_SECTION_IDS);
+  const onCommunityPage = typeof window !== 'undefined' && window.location.pathname.startsWith('/community');
+
+  // Easter egg #1: 5 rapid logo clicks trigger a ~4s money storm and turn
+  // the logo gold. The anchor's real navigation would otherwise fire (and
+  // full-page-reload, resetting the click counter) on click #1 already —
+  // since this is a plain <a>, not a client-side router link — so every
+  // click is held back briefly; if a 5th click doesn't arrive in time, it
+  // navigates home just like a normal click would, only ~350ms later.
+  function handleLogoClick(e: React.MouseEvent<HTMLAnchorElement>) {
+    e.preventDefault();
+    window.clearTimeout(logoNavTimerRef.current);
+
+    const now = Date.now();
+    logoClicksRef.current = [...logoClicksRef.current, now].filter((t0) => now - t0 < LOGO_EGG_WINDOW_MS);
+
+    if (logoClicksRef.current.length >= LOGO_EGG_CLICKS) {
+      logoClicksRef.current = [];
+      setLogoGold(true);
+      window.setTimeout(() => setLogoGold(false), LOGO_GOLD_MS);
+      emitEgg('money-storm', { source: 'logo' });
+      unlockAchievement('secret_found', t.achievements.secretFoundTitle, t.achievements.secretFoundDesc);
+      trackEvent('easter_egg', { id: 'money_storm' });
+      return;
+    }
+
+    logoNavTimerRef.current = window.setTimeout(() => {
+      logoClicksRef.current = [];
+      if (window.location.pathname === homeHref) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        window.location.href = homeHref;
+      }
+    }, 350);
+  }
 
   // Escape-to-close, same convention as LanguageSwitcher — a keyboard user who
   // opened the mobile nav shouldn't have to tab all the way through its links
@@ -61,20 +106,34 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href={homeHref} aria-label={t.header.logoAria} className="flex items-center space-x-3">
-            <div className="bg-[var(--color-accent)] p-2 rounded-lg text-black font-extrabold flex items-center justify-center">
+          <a
+            href={homeHref}
+            aria-label={t.header.logoAria}
+            onClick={handleLogoClick}
+            className="flex items-center space-x-3"
+            data-cursor-glow
+          >
+            <div
+              className={`p-2 rounded-lg text-black font-extrabold flex items-center justify-center transition-colors duration-500 ${logoGold ? 'bg-[var(--color-gold)]' : 'bg-[var(--color-accent)]'}`}
+            >
               <span className="text-xl" aria-hidden="true">⚡</span>
             </div>
-            <span className="text-xl sm:text-2xl font-black tracking-widest bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-2)] bg-clip-text text-transparent">
+            <span
+              className={`text-xl sm:text-2xl font-black tracking-widest bg-clip-text text-transparent transition-[background-image] duration-500 ${
+                logoGold
+                  ? 'bg-gradient-to-r from-[var(--color-gold-light)] to-[var(--color-gold)]'
+                  : 'bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-2)]'
+              }`}
+            >
               ZHELEZO
             </span>
           </a>
 
           {/* Desktop Nav — minimal by design: Home / Mission / Community / the big Play Now CTA. */}
           <nav className="hidden lg:flex items-center space-x-10 text-sm font-semibold tracking-wide text-gray-300">
-            <a href={homeHref} className="hover:text-[var(--color-accent)] transition-colors">{t.header.navHome}</a>
-            <a href={missionHref} className="hover:text-[var(--color-accent)] transition-colors">{t.header.navMission}</a>
-            <a href={communityHref} className="hover:text-[var(--color-accent)] transition-colors">{t.header.navCommunity}</a>
+            <a href={homeHref} className={`nav-link ${activeSection === 'hero' && !onCommunityPage ? 'nav-link-active' : ''}`}>{t.header.navHome}</a>
+            <a href={missionHref} className={`nav-link ${activeSection === 'mission' && !onCommunityPage ? 'nav-link-active' : ''}`}>{t.header.navMission}</a>
+            <a href={communityHref} className={`nav-link ${onCommunityPage ? 'nav-link-active' : ''}`}>{t.header.navCommunity}</a>
           </nav>
 
           {/* Desktop CTA — the single main CTA of the whole site, per the brief: chamfered

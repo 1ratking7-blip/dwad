@@ -25,27 +25,45 @@ interface Particle {
   speedY: number;
   driftX: number;
   driftPhase: number;
-  kind: 'ash' | 'spark';
+  kind: 'ash' | 'spark' | 'bill' | 'coin' | 'card';
   twinklePhase: number;
+  rotation: number;
+  rotationSpeed: number;
 }
 
 const ACCENT_RGB = '0, 255, 102';
+const GOLD_RGB = '211, 180, 90';
 
+/**
+ * "Global atmosphere across every section" (brief §2) reuses this existing
+ * canvas engine rather than a second DOM-based particle system: it's
+ * already mounted once at the App root, already perf-hardened (capped DPR,
+ * paused on tab-hide, reduced-motion static frame, particle count scaled by
+ * viewport), and a canvas draw call is far cheaper than dozens of extra
+ * animated DOM nodes spread across the whole document. `money` kinds
+ * (bill/coin/card) are a low-probability addition on top of the existing
+ * ash/spark — Hero keeps its own denser FloatingWealth particle system for
+ * its own dedicated composition; this is the sparse, everywhere-else layer.
+ */
 function createParticles(width: number, height: number, count: number): Particle[] {
   const particles: Particle[] = [];
   for (let i = 0; i < count; i++) {
     const depth = Math.random();
-    const kind: Particle['kind'] = Math.random() < 0.18 ? 'spark' : 'ash';
+    const roll = Math.random();
+    const kind: Particle['kind'] = roll < 0.06 ? 'bill' : roll < 0.1 ? 'coin' : roll < 0.13 ? 'card' : roll < 0.31 ? 'spark' : 'ash';
+    const isMoney = kind === 'bill' || kind === 'coin' || kind === 'card';
     particles.push({
       x: Math.random() * width,
       y: Math.random() * height,
       depth,
-      size: (kind === 'spark' ? 1 : 1.5) + depth * (kind === 'spark' ? 1.5 : 2.5),
-      speedY: (0.15 + depth * 0.35) * (kind === 'spark' ? 1.4 : 1),
-      driftX: (Math.random() - 0.5) * 0.3,
+      size: isMoney ? 5 + depth * 10 : (kind === 'spark' ? 1 : 1.5) + depth * (kind === 'spark' ? 1.5 : 2.5),
+      speedY: (isMoney ? 0.08 + depth * 0.18 : 0.15 + depth * 0.35) * (kind === 'spark' ? 1.4 : 1),
+      driftX: (Math.random() - 0.5) * (isMoney ? 0.5 : 0.3),
       driftPhase: Math.random() * Math.PI * 2,
       kind,
       twinklePhase: Math.random() * Math.PI * 2,
+      rotation: Math.random() * Math.PI * 2,
+      rotationSpeed: (Math.random() - 0.5) * (isMoney ? 0.01 : 0),
     });
   }
   return particles;
@@ -104,20 +122,64 @@ export default function AnimatedBackground() {
       }
     }
 
+    function drawMoneyParticle(p: Particle, opacity: number) {
+      ctx!.save();
+      ctx!.translate(p.x, p.y);
+      ctx!.rotate(p.rotation);
+      if (p.kind === 'coin') {
+        ctx!.beginPath();
+        ctx!.fillStyle = `rgba(${GOLD_RGB}, ${opacity})`;
+        ctx!.arc(0, 0, p.size, 0, Math.PI * 2);
+        ctx!.fill();
+        ctx!.strokeStyle = `rgba(${GOLD_RGB}, ${opacity * 1.3})`;
+        ctx!.lineWidth = Math.max(0.5, p.size * 0.12);
+        ctx!.beginPath();
+        ctx!.arc(0, 0, p.size * 0.6, 0, Math.PI * 2);
+        ctx!.stroke();
+      } else if (p.kind === 'bill') {
+        const w = p.size * 2;
+        const h = p.size * 1.1;
+        ctx!.fillStyle = `rgba(20, 30, 26, ${opacity})`;
+        ctx!.fillRect(-w / 2, -h / 2, w, h);
+        ctx!.strokeStyle = `rgba(${GOLD_RGB}, ${opacity * 1.2})`;
+        ctx!.lineWidth = Math.max(0.4, p.size * 0.06);
+        ctx!.strokeRect(-w / 2, -h / 2, w, h);
+      } else {
+        // card
+        const w = p.size * 1.3;
+        const h = p.size * 1.8;
+        ctx!.fillStyle = `rgba(15, 22, 19, ${opacity})`;
+        ctx!.beginPath();
+        ctx!.roundRect(-w / 2, -h / 2, w, h, Math.max(1, p.size * 0.18));
+        ctx!.fill();
+        ctx!.strokeStyle = `rgba(${ACCENT_RGB}, ${opacity})`;
+        ctx!.lineWidth = Math.max(0.4, p.size * 0.06);
+        ctx!.stroke();
+      }
+      ctx!.restore();
+    }
+
     function drawParticles(time: number) {
       for (const p of particles) {
         p.y -= p.speedY;
         p.x += Math.sin(time * 0.0006 + p.driftPhase) * p.driftX;
-        if (p.y < -10) {
-          p.y = height + 10;
+        p.rotation += p.rotationSpeed;
+        if (p.y < -20) {
+          p.y = height + 20;
           p.x = Math.random() * width;
         }
-        if (p.x < -10) p.x = width + 10;
-        if (p.x > width + 10) p.x = -10;
+        if (p.x < -20) p.x = width + 20;
+        if (p.x > width + 20) p.x = -20;
 
         const twinkle = 0.55 + 0.45 * Math.sin(time * 0.002 + p.twinklePhase);
-        const baseOpacity = (p.kind === 'spark' ? 0.5 : 0.22) * (0.4 + p.depth * 0.6);
+        const isMoney = p.kind === 'bill' || p.kind === 'coin' || p.kind === 'card';
+        const baseOpacity = (isMoney ? 0.16 : p.kind === 'spark' ? 0.5 : 0.22) * (0.4 + p.depth * 0.6);
         const opacity = baseOpacity * twinkle;
+
+        if (isMoney) {
+          drawMoneyParticle(p, opacity);
+          continue;
+        }
 
         ctx!.beginPath();
         ctx!.fillStyle =
