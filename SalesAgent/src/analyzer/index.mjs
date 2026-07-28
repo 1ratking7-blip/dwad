@@ -95,10 +95,15 @@ export async function analyzeCompany(url) {
   const $ = cheerio.load(html);
   const origin = new URL(res.url).origin;
 
+  // Found 2026-07-28 via the Vietnam batch: several sites had no og:site_name and an empty/
+  // unusable <title>, so the hostname fallback fired and stored things like "www.banvien.com"
+  // as the company name — grammatically awkward inline in a sentence ("cách www.banvien.com
+  // thu hút khách hàng"). Stripping the "www." prefix isn't inventing anything (still the same
+  // real host), just the more natural way to refer to a domain in prose.
   const name =
     $('meta[property="og:site_name"]').attr('content') ||
     $('title').first().text().trim().split(/[|\-–]/)[0].trim() ||
-    new URL(url).hostname;
+    new URL(url).hostname.replace(/^www\./, '');
 
   // Defense in depth: isBotChallengePage() only inspects <title>, but og:site_name could
   // carry the same denial-page IP+timestamp string. No real company name is a bare IP.

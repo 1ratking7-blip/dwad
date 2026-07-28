@@ -15,8 +15,16 @@ export const SCORING_CONFIG = {
     industry_match: 15,
     country_match: 10,
   },
-  target_industries: [], // e.g. ['iGaming', 'crypto', 'affiliate marketing'] — empty = no filter
-  target_countries: [],  // e.g. ['US', 'GB', 'CA'] — empty = no filter
+  // Set 2026-07-28 per Plan 1 Month/plan.md "День 2": first 30 days = ONE category, not all of
+  // marketing agencies / SaaS / affiliate / creator-economy / education at once. Starting with
+  // agencies + online services running cold outreach themselves — they have budget, an
+  // understood need, and a short decision cycle. Widen this list only after the first pilot,
+  // not before (plan explicitly forbids "менять направление каждую неделю").
+  target_industries: ['marketing agency', 'digital agency', 'SaaS', 'online service'],
+  target_countries: [],  // e.g. ['US', 'GB', 'CA'] — empty = no filter. Kept unfiltered even
+                          // though outreach is currently split RU/CIS + Vietnam (two locales,
+                          // see src/messages/locale.mjs) — country drives WHICH template
+                          // language a lead gets, not whether it's scored lower
   thresholds: {
     hot: 70,
     warm: 40, // below this = 'cold'

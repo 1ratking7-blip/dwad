@@ -1,0 +1,59 @@
+name: SalesAgent Reply Watch
+
+# Notify-only by design (2026-07-28) — checks the outreach mailbox on a schedule, independent of
+# any Claude Code session, and emails Данил a heads-up when something reply-shaped shows up. It
+# never replies to anyone itself: classifying a real human reply vs. helpdesk-ticket automation
+# needs judgment (and, per this project's honesty standard, verified facts before drafting
+# anything), which this workflow can't do on its own. See SalesAgent/bin/notify-replies.mjs and
+# Память/sessions/2026-07-28_002.md for the full reasoning behind this scope.
+on:
+  schedule:
+    # Offset from :00/:30 on purpose — see CronCreate guidance this project already follows for
+    # the daily Telegram post workflow (avoid every scheduled job on Earth landing on the exact
+    # half hour). GitHub schedule triggers can still be delayed or skipped under platform load —
+    # known, accepted limitation, not something this workflow can fix.
+    - cron: '13,43 * * * *'
+  workflow_dispatch: {}
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    defaults:
+      run:
+        working-directory: SalesAgent
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check mailbox and notify on new replies
+        env:
+          SMTP_HOST: ${{ secrets.SALESAGENT_SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SALESAGENT_SMTP_PORT }}
+          SMTP_SECURE: ${{ secrets.SALESAGENT_SMTP_SECURE }}
+          SMTP_USER: ${{ secrets.SALESAGENT_SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SALESAGENT_SMTP_PASS }}
+        run: node bin/notify-replies.mjs
+
+      - name: Commit updated notified-replies state if it changed
+        # if: always() — same lesson as telegram-daily-post.yml: don't let this step get skipped
+        # just because something upstream had a hiccup. It only ever touches one small,
+        # PII-free JSON file (Message-IDs only), safe to always attempt.
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add state/notified_replies.json
+          if ! git diff --cached --quiet; then
+            git commit -m "SalesAgent reply-watch: update notified message IDs [skip ci]"
+            git push
+          else
+            echo "No changes to commit"
+          fi
