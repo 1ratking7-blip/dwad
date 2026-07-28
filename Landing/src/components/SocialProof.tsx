@@ -46,8 +46,13 @@ export default function SocialProof() {
 
   if (shouldHide) return null;
 
+  // bottom-24 (not bottom-6) in the md-lg range — MobileStickyCta.tsx is
+  // `lg:hidden` (visible up to 1023px) while this toast is `hidden md:block`
+  // (visible from 768px), so there's a 768-1023px window where both are on
+  // screen at once; without the offset the sticky CTA bar hides most of this
+  // toast behind it (found via audit screenshot at 900px width).
   return (
-    <div className="fixed bottom-6 left-6 z-40 hidden md:block" aria-hidden="true">
+    <div className="fixed bottom-24 lg:bottom-6 left-6 z-40 hidden md:block" aria-hidden="true">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentWin}

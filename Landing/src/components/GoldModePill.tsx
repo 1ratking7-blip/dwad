@@ -24,8 +24,15 @@ export default function GoldModePill() {
     });
   }, []);
 
+  // Three tiers, matching SocialProof.tsx's own responsive offset:
+  // - <md: SocialProof is hidden, just clear the mobile sticky CTA bar (bottom-24).
+  // - md-lg: SocialProof is ALSO pushed up to bottom-24 there (same sticky-bar
+  //   reason), so this needs enough clearance above THAT, not its resting bottom-6
+  //   (first attempt used md:bottom-36, verified via screenshot at 900px width
+  //   that it still clipped SocialProof's card — bumped to md:bottom-56).
+  // - lg+: sticky bar is gone, SocialProof rests at its normal bottom-6.
   return (
-    <div className="fixed bottom-6 left-6 z-[70] pointer-events-none" aria-live="polite">
+    <div className="fixed bottom-24 md:bottom-56 lg:bottom-36 left-6 z-[70] pointer-events-none" aria-live="polite">
       <AnimatePresence>
         {active && (
           <motion.div

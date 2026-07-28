@@ -33,8 +33,14 @@ export default function AchievementToast() {
     return () => window.clearTimeout(timer);
   }, [current]);
 
+  // bottom-40 clears both the mobile sticky CTA bar (MobileStickyCta.tsx)
+  // and BackToTop's mobile position (bottom-24 + its own height); lg:bottom-24
+  // clears BackToTop's desktop position (bottom-6 + its own height) — found
+  // via audit that this and BackToTop both used bottom-6 right-6, stacking
+  // directly on top of each other whenever an achievement fired after the
+  // user had scrolled past 600px (BackToTop's show threshold).
   return (
-    <div className="fixed bottom-6 right-6 z-[70] pointer-events-none" aria-live="polite" role="status">
+    <div className="fixed bottom-40 lg:bottom-24 right-6 z-[70] pointer-events-none" aria-live="polite" role="status">
       <AnimatePresence mode="wait">
         {current && (
           <motion.div
