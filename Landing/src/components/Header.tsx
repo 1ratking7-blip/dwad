@@ -19,6 +19,7 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [logoGold, setLogoGold] = useState(false);
+  const [logoSpark, setLogoSpark] = useState(false);
   const { locale, t } = useLocale();
   const desktopRefLink = refLinkForLocation(locale, 'header_desktop');
   const mobileRefLink = refLinkForLocation(locale, 'header_mobile');
@@ -95,6 +96,22 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // The logo's continuous "breathing" glow (CSS-only, see .logo-bolt-icon in index.css)
+  // already reads as animated; this adds an occasional brighter "spark" on top so it feels
+  // genuinely electric rather than a fixed pulse. Randomized (not every tick) so it doesn't
+  // read as a metronome. Skips entirely under prefers-reduced-motion — the CSS side already
+  // disables the continuous animation too, this just avoids running a pointless timer.
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const interval = window.setInterval(() => {
+      if (Math.random() < 0.5) {
+        setLogoSpark(true);
+        window.setTimeout(() => setLogoSpark(false), 700);
+      }
+    }, 4500);
+    return () => window.clearInterval(interval);
+  }, []);
+
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 border-b transition-[background-color,backdrop-filter,border-color] duration-300 ${
@@ -113,21 +130,23 @@ export default function Header() {
             className="flex items-center space-x-3"
             data-cursor-glow
           >
-            <img
-              src="/logo-icon.png"
-              alt=""
-              width={40}
-              height={40}
-              className={`w-9 h-9 sm:w-10 sm:h-10 transition-[filter] duration-500 ${
-                logoGold ? 'drop-shadow-[0_0_12px_var(--color-gold-light)] brightness-125 saturate-150' : 'drop-shadow-[0_0_6px_rgba(211,180,90,0.35)]'
-              }`}
-            />
             <span
-              className={`text-lg sm:text-xl font-bold tracking-[0.15em] bg-clip-text text-transparent transition-[background-image] duration-500 ${
+              className={`logo-bolt-icon ${logoGold ? 'logo-bolt-gold' : ''} ${logoSpark ? 'logo-bolt-spark' : ''}`}
+            >
+              <img
+                src="/logo-icon.png"
+                alt=""
+                width={40}
+                height={40}
+                className="w-9 h-9 sm:w-10 sm:h-10"
+              />
+            </span>
+            <span
+              className={`logo-wordmark text-lg sm:text-xl font-bold tracking-[0.15em] bg-clip-text text-transparent transition-[background-image] duration-500 ${
                 logoGold
-                  ? 'bg-gradient-to-r from-[var(--color-gold-light)] to-[var(--color-gold)]'
+                  ? 'logo-wordmark-gold bg-gradient-to-r from-[var(--color-gold-light)] to-[var(--color-gold)]'
                   : 'bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-2)]'
-              }`}
+              } ${logoSpark ? 'logo-wordmark-spark' : ''}`}
             >
               ZHELEZO
             </span>

@@ -231,6 +231,74 @@
   }
 }
 
+/* Header logo (football + lightning-bolt mark, 2026-07-29) — a slow "breathing" glow on both
+   the icon and the wordmark, plus an occasional brief brighter "spark" (triggered from
+   Header.tsx on a randomized interval) so the mark reads as genuinely electric rather than a
+   static image with a fixed glow. Gold variants reuse the same keyframe rhythm so the
+   5-click gold-mode easter egg still gives clear visual feedback without changing pacing. */
+.logo-bolt-icon {
+  display: inline-flex;
+  animation: logo-bolt-breathe 4s ease-in-out infinite;
+}
+.logo-bolt-icon.logo-bolt-gold {
+  animation: logo-bolt-breathe-gold 4s ease-in-out infinite;
+}
+.logo-bolt-icon.logo-bolt-spark {
+  animation: logo-bolt-spark-kf 700ms ease-out;
+}
+@keyframes logo-bolt-breathe {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(0, 232, 157, 0.35)) brightness(1); }
+  50% { filter: drop-shadow(0 0 9px rgba(0, 232, 157, 0.65)) brightness(1.08); }
+}
+@keyframes logo-bolt-breathe-gold {
+  0%, 100% { filter: drop-shadow(0 0 5px var(--color-gold-light)) brightness(1); }
+  50% { filter: drop-shadow(0 0 11px var(--color-gold-light)) brightness(1.12); }
+}
+@keyframes logo-bolt-spark-kf {
+  0% { filter: drop-shadow(0 0 4px rgba(0, 232, 157, 0.4)) brightness(1); transform: scale(1); }
+  30% { filter: drop-shadow(0 0 16px rgba(0, 232, 157, 0.95)) brightness(1.3); transform: scale(1.05); }
+  100% { filter: drop-shadow(0 0 4px rgba(0, 232, 157, 0.4)) brightness(1); transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-bolt-icon,
+  .logo-bolt-icon.logo-bolt-gold,
+  .logo-bolt-icon.logo-bolt-spark {
+    animation: none;
+    filter: drop-shadow(0 0 4px rgba(0, 232, 157, 0.35));
+  }
+}
+
+.logo-wordmark {
+  animation: logo-word-glow 4s ease-in-out infinite;
+}
+.logo-wordmark.logo-wordmark-gold {
+  animation: logo-word-glow-gold 4s ease-in-out infinite;
+}
+.logo-wordmark.logo-wordmark-spark {
+  animation: logo-word-spark-kf 700ms ease-out;
+}
+@keyframes logo-word-glow {
+  0%, 100% { text-shadow: 0 0 6px rgba(0, 232, 157, 0.2); }
+  50% { text-shadow: 0 0 14px rgba(0, 232, 157, 0.55); }
+}
+@keyframes logo-word-glow-gold {
+  0%, 100% { text-shadow: 0 0 6px rgba(211, 180, 90, 0.25); }
+  50% { text-shadow: 0 0 16px rgba(211, 180, 90, 0.6); }
+}
+@keyframes logo-word-spark-kf {
+  0% { text-shadow: 0 0 6px rgba(0, 232, 157, 0.25); }
+  30% { text-shadow: 0 0 20px rgba(0, 232, 157, 0.9), 0 0 3px #ffffff; }
+  100% { text-shadow: 0 0 6px rgba(0, 232, 157, 0.25); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-wordmark,
+  .logo-wordmark.logo-wordmark-gold,
+  .logo-wordmark.logo-wordmark-spark {
+    animation: none;
+    text-shadow: 0 0 6px rgba(0, 232, 157, 0.2);
+  }
+}
+
 /* Gentle floating drift for decorative elements (the hero core, badges). */
 @keyframes float-y {
   0%, 100% { transform: translateY(0); }
