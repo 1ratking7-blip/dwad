@@ -113,13 +113,17 @@ export default function Header() {
             className="flex items-center space-x-3"
             data-cursor-glow
           >
-            <div
-              className={`p-2 rounded-lg text-black font-extrabold flex items-center justify-center transition-colors duration-500 ${logoGold ? 'bg-[var(--color-gold)]' : 'bg-[var(--color-accent)]'}`}
-            >
-              <span className="text-xl" aria-hidden="true">⚡</span>
-            </div>
+            <img
+              src="/logo-icon.png"
+              alt=""
+              width={40}
+              height={40}
+              className={`w-9 h-9 sm:w-10 sm:h-10 transition-[filter] duration-500 ${
+                logoGold ? 'drop-shadow-[0_0_12px_var(--color-gold-light)] brightness-125 saturate-150' : 'drop-shadow-[0_0_6px_rgba(211,180,90,0.35)]'
+              }`}
+            />
             <span
-              className={`text-xl sm:text-2xl font-black tracking-widest bg-clip-text text-transparent transition-[background-image] duration-500 ${
+              className={`text-lg sm:text-xl font-bold tracking-[0.15em] bg-clip-text text-transparent transition-[background-image] duration-500 ${
                 logoGold
                   ? 'bg-gradient-to-r from-[var(--color-gold-light)] to-[var(--color-gold)]'
                   : 'bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-2)]'
