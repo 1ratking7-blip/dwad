@@ -1,6 +1,6 @@
-"""Post real news from a rotating set of RSS feeds to @ZHELEz19, every day —
+"""Post real news from a rotating set of Russian-language RSS feeds to @ZHELEz19 —
 runs alongside whatever is (or isn't) queued in Scripts/posts/schedule.json,
-not just as a fallback for empty days. Normally one post/day (today's rotated
+not just as a fallback for empty days. Normally one post per run (today's rotated
 category); if another category's freshest item looks genuinely important
 (matches IMPORTANT_KEYWORDS), it gets posted too, same run.
 
@@ -36,15 +36,28 @@ MAX_POSTS_PER_RUN = 3  # one per category, tops — a safety cap, not a target.
 
 # Each entry: (key, feed_url, emoji, hashtags). Rotated by day-of-year so the
 # channel doesn't lead with the same category two days running.
+#
+# Switched to Russian-language sources 2026-07-29 — the original English feeds
+# (Cointelegraph/Dotesports/BBC) got relayed as-is (title/description straight from
+# the source, by design), which was wrong for this channel: Данил pointed out real
+# English posts going out and asked for Russian. No translation step added (still
+# no LLM/API key available in this script's unattended environment, and machine-
+# translating headlines automatically risks mangling names/numbers) — simplest
+# honest fix is sourcing real Russian-language news instead of translating English
+# ones. Verified each feed actually returns valid RSS before switching, not just
+# guessed at a URL: ForkLog (crypto, ru-RU), Kanobu/Igromania (gaming — no working
+# Russian esports-only RSS found, closest real alternative), Sports.ru (all sports,
+# not football-only — same reason, relabeled hashtag accordingly).
 CATEGORIES = [
-    ("crypto", "https://cointelegraph.com/rss", "📰", "#Крипто #ZHELEZO #Новости"),
-    ("esports", "https://dotesports.com/feed", "🎮", "#Киберспорт #ZHELEZO #Гейминг"),
-    ("football", "https://feeds.bbci.co.uk/sport/football/rss.xml", "⚽", "#Футбол #ZHELEZO #Спорт"),
+    ("crypto", "https://forklog.com/feed", "📰", "#Крипто #ZHELEZO #Новости"),
+    ("gaming", "https://www.igromania.ru/rss/news.xml", "🎮", "#Гейминг #ZHELEZO #Игры"),
+    ("sport", "https://www.sports.ru/rss/all_news.xml", "🏆", "#Спорт #ZHELEZO #Новости"),
 ]
 
-# Deliberately blunt substring match on the (English-language) source title —
-# no model to actually judge importance, so this only catches the obvious
-# cases rather than pretending to real editorial judgment.
+# Deliberately blunt substring match on the source title — no model to actually
+# judge importance, so this only catches the obvious cases rather than pretending
+# to real editorial judgment. Kept English terms alongside since some Russian
+# headlines may still carry English proper nouns.
 IMPORTANT_KEYWORDS = [
     "breaking", "hack", "exploit", "breach", "stolen", "billion", "record",
     "all-time high", "banned", "bankrupt", "collapse", "world cup", "major",
