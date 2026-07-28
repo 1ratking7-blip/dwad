@@ -1,6 +1,6 @@
 {
-  "name": "ZHELEZO Crypto Gaming",
-  "short_name": "ZHELEZO",
+  "name": "ZHELEZO 19 Crypto Gaming",
+  "short_name": "ZHELEZO 19",
   "description": "Эксклюзивные бонусы BC.Game до 360% и ежедневный Lucky Spin.",
   "start_url": "/",
   "id": "/",
@@ -9,8 +9,8 @@
   "theme_color": "#020506",
   "lang": "ru",
   "icons": [
-    { "src": "/icon-192-2.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "/icon-512-2.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "/icon-maskable-512-2.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    { "src": "/icon-192-3.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512-3.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-maskable-512-3.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }
