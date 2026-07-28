@@ -12,6 +12,7 @@ import LuxuryCar from './LuxuryCar';
 import NightSkyline from './NightSkyline';
 import FloatingWealth from './FloatingWealth';
 import CornerBrackets from './CornerBrackets';
+import AnimatedLogo19 from './AnimatedLogo19';
 
 const CTA_PULSE_MS = 550;
 
@@ -125,6 +126,12 @@ export default function Hero() {
           transition={{ duration: 0.7 }}
           className="relative z-20 text-center md:text-left max-w-[620px] mx-auto md:mx-0 pointer-events-auto"
         >
+            {/* "19" monogram — sits above the eyebrow badge. inline-block, no
+                mx-auto: centered purely via this column's own text-center
+                md:text-left, same convention the badge span right below already
+                relies on. */}
+            <AnimatedLogo19 variant="hero" className="mb-6" />
+
             {/* Responsive font-size/tracking, not a fixed text-xs tracking-widest: at
                 narrow phone widths this badge's uppercase Cyrillic text was wide enough
                 to overflow the 390px viewport (found via mobile screenshot QA).

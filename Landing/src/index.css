@@ -299,6 +299,186 @@
   }
 }
 
+/* AnimatedLogo19 (2026-07-29) — the "19" monogram (1 = lightning bolt, 9 = glowing
+   ring), see src/components/AnimatedLogo19.tsx for the SVG structure/rationale.
+   The base bolt/ring are drawn at full opacity always (the reduced-motion static
+   state); .alogo19-pulsing and :hover only add a brighter traveling layer on top,
+   so disabling those animations never leaves the mark blank or mid-fade. */
+.alogo19-wrap {
+  position: relative;
+  display: inline-block;
+  aspect-ratio: 408 / 497;
+  flex-shrink: 0;
+  transition: transform 300ms ease, filter 300ms ease;
+  will-change: transform;
+}
+.alogo19-wrap:hover {
+  transform: scale(1.03);
+}
+.alogo19-header {
+  height: 42px;
+}
+.alogo19-hero {
+  height: 220px;
+}
+@media (max-width: 640px) {
+  .alogo19-header { height: 36px; }
+  .alogo19-hero { height: 140px; }
+}
+@media (min-width: 641px) and (max-width: 1023px) {
+  .alogo19-header { height: 48px; }
+}
+@media (min-width: 1024px) {
+  .alogo19-header { height: 54px; }
+}
+
+.alogo19-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 16px rgba(0, 232, 157, 0.22));
+  transition: filter 300ms ease;
+  pointer-events: none;
+}
+.alogo19-wrap:hover .alogo19-img {
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 24px rgba(0, 232, 157, 0.4));
+}
+@media (max-width: 640px) {
+  .alogo19-img {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 10px rgba(0, 232, 157, 0.16));
+  }
+}
+
+.alogo19-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* Base bolt — always visible, this alone satisfies the reduced-motion
+   "static soft glow" requirement. */
+.alogo19-bolt-base {
+  stroke: #00E89D;
+  stroke-width: 3.5;
+  opacity: 0.55;
+}
+
+/* Bright traveling segment — pathLength=620 (see component) makes the dash
+   math unit-independent of the actual drawn geometry. At rest the dash is
+   parked entirely past the end of the path (dashoffset -620) so nothing
+   shows; the run keyframes slide it from "before the start" to "past the
+   end", i.e. one bright segment travels the full length once. */
+.alogo19-bolt-pulse {
+  stroke: #E9FFEF;
+  stroke-width: 4.5;
+  stroke-dasharray: 90 620;
+  stroke-dashoffset: -620;
+  opacity: 0;
+}
+.alogo19-pulsing .alogo19-bolt-pulse {
+  animation: alogo19-bolt-run 750ms cubic-bezier(.3,.7,.2,1);
+}
+.alogo19-wrap:hover .alogo19-bolt-pulse {
+  animation: alogo19-bolt-run 320ms cubic-bezier(.3,.7,.2,1);
+}
+@keyframes alogo19-bolt-run {
+  0% { stroke-dashoffset: 90; opacity: 0; }
+  8% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { stroke-dashoffset: -710; opacity: 0; }
+}
+
+/* Short secondary flicker right after the main pulse — two quick opacity
+   blips on the base stroke, chained via animation-delay so it only plays
+   once the main run has landed. */
+.alogo19-bolt-flicker {
+  stroke: #B9FFD6;
+  stroke-width: 3.5;
+  opacity: 0;
+}
+.alogo19-pulsing .alogo19-bolt-flicker {
+  animation: alogo19-flicker-kf 260ms ease-out 750ms;
+}
+@keyframes alogo19-flicker-kf {
+  0%, 100% { opacity: 0; }
+  25% { opacity: 0.8; }
+  50% { opacity: 0.15; }
+  75% { opacity: 0.6; }
+}
+
+.alogo19-spark {
+  fill: #E9FFEF;
+  opacity: 0;
+  filter: drop-shadow(0 0 3px #00E89D);
+}
+.alogo19-pulsing .alogo19-spark-1 { animation: alogo19-spark-kf 220ms ease-out 40ms; }
+.alogo19-pulsing .alogo19-spark-2 { animation: alogo19-spark-kf 220ms ease-out 140ms; }
+.alogo19-pulsing .alogo19-spark-3 { animation: alogo19-spark-kf 220ms ease-out 620ms; }
+.alogo19-pulsing .alogo19-spark-4 { animation: alogo19-spark-kf 220ms ease-out 700ms; }
+@keyframes alogo19-spark-kf {
+  0% { opacity: 0; transform: scale(0.4); }
+  40% { opacity: 1; transform: scale(1.15); }
+  100% { opacity: 0; transform: scale(0.6); }
+}
+@media (max-width: 640px) {
+  /* Fewer, dimmer sparks on mobile per the brief. */
+  .alogo19-spark-2, .alogo19-spark-4 { display: none; }
+  .alogo19-pulsing .alogo19-spark-1,
+  .alogo19-pulsing .alogo19-spark-3 {
+    animation-name: alogo19-spark-kf-dim;
+  }
+  @keyframes alogo19-spark-kf-dim {
+    0% { opacity: 0; transform: scale(0.4); }
+    40% { opacity: 0.6; transform: scale(0.9); }
+    100% { opacity: 0; transform: scale(0.5); }
+  }
+}
+
+/* Slow lime sheen circling the 9's ring — a short bright arc endlessly
+   traveling the ellipse (pathLength-free here since ellipses report a
+   real length reliably in every evergreen browser). Independent of the
+   bolt's pulsing state, always slowly running under normal motion. */
+.alogo19-ring-sheen {
+  stroke: #C8FFA0;
+  stroke-width: 2.5;
+  stroke-dasharray: 40 760;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 3px rgba(200, 255, 160, 0.6));
+  animation: alogo19-ring-sweep 6.5s linear infinite;
+}
+@keyframes alogo19-ring-sweep {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -800; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .alogo19-wrap {
+    transition: none;
+  }
+  .alogo19-bolt-pulse,
+  .alogo19-bolt-flicker,
+  .alogo19-spark,
+  .alogo19-pulsing .alogo19-bolt-pulse,
+  .alogo19-pulsing .alogo19-bolt-flicker,
+  .alogo19-pulsing .alogo19-spark-1,
+  .alogo19-pulsing .alogo19-spark-2,
+  .alogo19-pulsing .alogo19-spark-3,
+  .alogo19-pulsing .alogo19-spark-4,
+  .alogo19-wrap:hover .alogo19-bolt-pulse {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+  .alogo19-ring-sheen {
+    animation: none;
+    stroke-dasharray: none;
+    opacity: 0.35;
+  }
+}
+
 /* Gentle floating drift for decorative elements (the hero core, badges). */
 @keyframes float-y {
   0%, 100% { transform: translateY(0); }

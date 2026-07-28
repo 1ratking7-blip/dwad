@@ -8,6 +8,7 @@ import { useActiveSection } from '../lib/useActiveSection';
 import { emitEgg } from '../lib/eggBus';
 import { unlockAchievement } from '../lib/useAchievements';
 import LanguageSwitcher from './LanguageSwitcher';
+import AnimatedLogo19 from './AnimatedLogo19';
 
 const SCROLL_THRESHOLD_PX = 24;
 const NAV_SECTION_IDS = ['hero', 'mission'];
@@ -130,17 +131,7 @@ export default function Header() {
             className="flex items-center space-x-3"
             data-cursor-glow
           >
-            <span
-              className={`logo-bolt-icon ${logoGold ? 'logo-bolt-gold' : ''} ${logoSpark ? 'logo-bolt-spark' : ''}`}
-            >
-              <img
-                src="/logo-icon-2.png"
-                alt=""
-                width={40}
-                height={40}
-                className="w-9 h-9 sm:w-10 sm:h-10"
-              />
-            </span>
+            <AnimatedLogo19 variant="header" />
             <span
               className={`logo-wordmark text-lg sm:text-xl font-bold tracking-[0.15em] bg-clip-text text-transparent transition-[background-image] duration-500 ${
                 logoGold
