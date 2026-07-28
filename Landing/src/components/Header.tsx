@@ -134,7 +134,7 @@ export default function Header() {
               className={`logo-bolt-icon ${logoGold ? 'logo-bolt-gold' : ''} ${logoSpark ? 'logo-bolt-spark' : ''}`}
             >
               <img
-                src="/logo-icon.png"
+                src="/logo-icon-2.png"
                 alt=""
                 width={40}
                 height={40}
