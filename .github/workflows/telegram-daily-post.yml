@@ -19,30 +19,24 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         run: python3 Scripts/post_scheduled.py
 
-      # Runs every day regardless of the evergreen schedule above — Данил
-      # explicitly asked for RSS news on top of the planned calendar, not
-      # just as a fallback for empty days (2026-07-27). Normally one post
-      # (today's rotated category); posts extra ones same run if another
-      # category's freshest item matches IMPORTANT_KEYWORDS. See
-      # Scripts/post_rss_news.py for the exact logic.
-      - name: Post real news from RSS
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-        run: python3 Scripts/post_rss_news.py
+      # RSS news posting moved out to telegram-rss-watch.yml (2026-07-28) — Данил asked
+      # for more-than-daily, near-real-time news posting, which means checking the feeds
+      # every couple hours, not once here. Keeping it here too would mean two workflows
+      # both writing Scripts/posts/rss_seen.json and racing on the git push. This workflow
+      # now only owns the once-a-day curated calendar post.
 
-      - name: Commit updated schedule.json / rss_seen.json if they changed
-        # if: always() — found via audit 2026-07-28: the RSS step failing
-        # (post_rss_news.py) was causing THIS step to be skipped by default,
-        # which meant even a successful Telegram post's `posted: true` update
-        # never got committed back to the repo. Next day's run would then see
-        # posted: false again and could double-post. This step only ever
-        # touches schedule.json/rss_seen.json — safe to always attempt it
-        # regardless of whether the RSS step succeeded.
+      - name: Commit updated schedule.json if it changed
+        # if: always() — found via audit 2026-07-28: a failing step earlier in the job was
+        # causing this commit step to be skipped by default, which meant even a successful
+        # Telegram post's `posted: true` update never got committed back to the repo. Next
+        # day's run would then see posted: false again and could double-post. This step
+        # only ever touches schedule.json — safe to always attempt it regardless of
+        # anything else in the job.
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add Scripts/posts/schedule.json Scripts/posts/rss_seen.json
+          git add Scripts/posts/schedule.json
           if ! git diff --cached --quiet; then
             git commit -m "Auto-post: mark $(date -u +%Y-%m-%d) as posted [skip ci]"
             git push

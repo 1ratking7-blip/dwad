@@ -1,0 +1,44 @@
+name: ZHELEz19 Frequent News Watch
+
+# Данил asked (2026-07-28) for the channel to track real news continuously and post more
+# than once a day, fully automatic, no confirmation. Checking RSS every 2 hours instead of
+# once daily is the honest way to do "more often": Scripts/post_rss_news.py only ever posts a
+# genuinely NEW, unseen item per feed (tracked in Scripts/posts/rss_seen.json) and is capped
+# at MAX_POSTS_PER_RUN=3 — checking more often makes posts land closer to real-time and
+# naturally yields more of them on days with more real news, it does not manufacture content
+# to hit a quota on quiet days (a quiet day can legitimately post 0 times here).
+#
+# Split out from telegram-daily-post.yml on purpose — that workflow's calendar post is tied
+# to one specific evening slot (19:00 ICT); running THAT step on this frequent schedule would
+# post the day's curated content hours early the first time this fires. Also avoids two
+# workflows racing to git-push the same rss_seen.json.
+on:
+  schedule:
+    - cron: '11 */2 * * *'
+  workflow_dispatch: {}
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Post any genuinely new RSS item (real news only, no fabrication)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: python3 Scripts/post_rss_news.py
+
+      - name: Commit updated rss_seen.json if it changed
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Scripts/posts/rss_seen.json
+          if ! git diff --cached --quiet; then
+            git commit -m "RSS watch: mark newly posted articles as seen [skip ci]"
+            git push
+          else
+            echo "No changes to commit"
+          fi
