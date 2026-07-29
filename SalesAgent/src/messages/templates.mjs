@@ -49,8 +49,8 @@ ${ctx.sender.calendly_or_contact}`,
 Вторая — ${fillOrPlaceholder(ctx.opportunity_2, 'ЗАПОЛНИТЬ: конкретная группа потенциальных клиентов/партнёров для них')}.
 Третья — ${fillOrPlaceholder(ctx.opportunity_3, 'ЗАПОЛНИТЬ: как улучшить их первое обращение или follow-up')}.
 
-Я могу собрать и запустить такую систему под ключ: от базы до CRM и аналитики. Предлагаю
-короткий созвон на 20 минут, чтобы понять, имеет ли это смысл для вашего проекта.
+Я могу собрать и запустить такую систему под ключ: от базы до CRM и аналитики. Если
+что-то из этого откликается — дайте знать, с чего было бы удобнее начать.
 
 ${ctx.sender.sender_name}
 ${ctx.sender.calendly_or_contact}`,
@@ -130,8 +130,7 @@ Cơ hội thứ hai — ${fillOrPlaceholder(ctx.opportunity_2, 'ĐIỀN THỦ C�
 Cơ hội thứ ba — ${fillOrPlaceholder(ctx.opportunity_3, 'ĐIỀN THỦ CÔNG: cách cải thiện thư đầu tiên hoặc follow-up của họ')}.
 
 Tôi có thể xây dựng và triển khai một hệ thống trọn gói: từ danh sách khách hàng đến CRM và báo
-cáo phân tích. Anh/chị có thể dành khoảng 20 phút gọi điện để xem giải pháp này có phù hợp với
-dự án của mình không?
+cáo phân tích. Nếu điều này phù hợp — cứ cho tôi biết nên bắt đầu từ đâu sẽ thuận tiện nhất.
 
 ${ctx.sender.sender_name}
 ${ctx.sender.calendly_or_contact}`,
