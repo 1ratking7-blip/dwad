@@ -185,17 +185,28 @@ def build_caption(article: dict) -> str:
 def post_one(article: dict) -> bool:
     caption = build_caption(article)
     print(f"[post_rss_news] posting [{article['key']}]: {article['title']}")
-    try:
-        if article["image"]:
+
+    result = None
+    if article["image"]:
+        try:
             result = telegram_call("sendPhoto", {"chat_id": CHAT_ID, "photo": article["image"], "caption": caption})
             if not result.get("ok"):
-                print(f"[post_rss_news] sendPhoto failed ({result}), retrying as text")
-                result = telegram_call("sendMessage", {"chat_id": CHAT_ID, "text": caption})
-        else:
+                print(f"[post_rss_news] sendPhoto returned failure ({result}), retrying as text")
+                result = None
+        except Exception as exc:
+            # Telegram returns a non-2xx status (e.g. 400 when it can't fetch/decode the image
+            # URL) for a lot of real-world RSS images — urllib raises that as an HTTPError
+            # instead of an ok:false body, so it never reached the fallback below. Caught here
+            # instead, per-call, so a bad image degrades to a text post instead of failing the
+            # whole run (found 2026-07-30 via a real Igromania RSS image triggering exactly this).
+            print(f"[post_rss_news] sendPhoto raised ({exc}), retrying as text")
+
+    if result is None:
+        try:
             result = telegram_call("sendMessage", {"chat_id": CHAT_ID, "text": caption})
-    except Exception as exc:
-        print(f"[post_rss_news] ERROR calling Telegram API: {exc}")
-        return False
+        except Exception as exc:
+            print(f"[post_rss_news] ERROR calling Telegram API: {exc}")
+            return False
 
     if not result.get("ok"):
         print(f"[post_rss_news] ERROR Telegram API returned failure: {json.dumps(result)}")
