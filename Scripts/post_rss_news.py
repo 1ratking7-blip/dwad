@@ -197,7 +197,13 @@ def openai_text(prompt: str):
 
 
 def openai_generate_image_bytes(prompt: str):
-    """Best-effort GPT image generation — returns None (never raises) on any failure."""
+    """Best-effort GPT image generation — returns None (never raises) on any failure.
+
+    quality="low" + a 150s timeout, not the original medium/90s — a real run on
+    2026-07-30 timed out at 90s (generation legitimately took longer than that on the
+    GitHub Actions runner). This is a small illustrative image for a Telegram post, not
+    print-quality output, so trading fidelity for reliability here is the right call.
+    """
     key = os.environ.get("OPENAI_API_KEY")
     if not key:
         return None
@@ -209,11 +215,11 @@ def openai_generate_image_bytes(prompt: str):
                 "prompt": prompt,
                 "n": 1,
                 "size": "1024x1024",
-                "quality": "medium",
+                "quality": "low",
             }).encode("utf-8"),
             headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
         )
-        with urllib.request.urlopen(req, timeout=90) as resp:
+        with urllib.request.urlopen(req, timeout=150) as resp:
             data = json.loads(resp.read().decode("utf-8"))
         b64 = (data.get("data") or [{}])[0].get("b64_json")
         return base64.b64decode(b64) if b64 else None
