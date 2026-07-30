@@ -12,6 +12,11 @@ name: ZHELEz19 Frequent News Watch
 # to one specific evening slot (19:00 ICT); running THAT step on this frequent schedule would
 # post the day's curated content hours early the first time this fires. Also avoids two
 # workflows racing to git-push the same rss_seen.json.
+#
+# OPENAI_API_KEY added 2026-07-30 for GPT rewrite + fallback image generation in
+# post_rss_news.py — both are best-effort there (fall back to the original plain-relay
+# behaviour on any OpenAI failure), so a missing/expired key degrades this workflow, it
+# doesn't break it.
 on:
   schedule:
     - cron: '11 */2 * * *'
@@ -28,6 +33,7 @@ jobs:
       - name: Post any genuinely new RSS item (real news only, no fabrication)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: python3 Scripts/post_rss_news.py
 
       - name: Commit updated rss_seen.json if it changed
