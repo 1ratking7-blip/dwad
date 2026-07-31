@@ -51,7 +51,9 @@
       "theme": "Опрос",
       "caption": "🗳️ Опрос дня\n\nЧто вам интереснее видеть в канале?\n⚽ Футбол\n🎮 CS2/Faceit\n🎥 Стримы и закулисье\n🎰 Обзоры игр на ZHELEZO\n\nПишите в комментах — подстроюсь под вас 👇\n\n#ZHELEZO #Опрос",
       "photo_file_id": null,
-      "posted": false
+      "posted": true,
+      "message_id": 315,
+      "posted_at_utc": "2026-07-31T17:12:08.524658+00:00"
     },
     {
       "date": "2026-08-01",
