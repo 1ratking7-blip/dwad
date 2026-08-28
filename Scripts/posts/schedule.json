@@ -114,7 +114,9 @@
       "theme": "Анонс стрима",
       "caption": "🎥 На этой неделе выхожу в эфир\n\nСледите в соцсетях, чтобы не пропустить — расписание и ссылки скину заранее.\n\n#ZHELEZO #Стрим #Данила",
       "photo_file_id": "AgACAgIAAyEGAASLo3ufAAIBDWpboZVqA0KfZcyrQPfueaXBpyI8AALeGmsbHBfhSl_X2RS9_5dIAQADAgADdwADPQQ",
-      "posted": false
+      "posted": true,
+      "message_id": 547,
+      "posted_at_utc": "2026-08-28T21:42:16.803610+00:00"
     },
     {
       "date": "2026-08-29",
