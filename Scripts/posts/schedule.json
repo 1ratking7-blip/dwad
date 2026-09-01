@@ -150,7 +150,9 @@
       "theme": "Twitch анонс",
       "caption": "📺 Twitch теперь тоже в деле\n\nКто ещё не подписан — ссылка в разделе «Соцсети» на сайте. Го расти вместе.\n\n👉 https://www.zhelezo.space\n\n#ZHELEZO #Twitch #Данила",
       "photo_file_id": "AgACAgIAAyEGAASLo3ufAAIBA2pbngZTHnhfY6PUxjRUGcuRWFmfAALMGmsbHBfhSgTZYkpOVFnYAQADAgADeQADPQQ",
-      "posted": false
+      "posted": true,
+      "message_id": 566,
+      "posted_at_utc": "2026-09-01T16:01:41.946441+00:00"
     },
     {
       "date": "2026-09-02",
